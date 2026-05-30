@@ -17,6 +17,9 @@
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; white-space: nowrap; }
 
+.app-footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 0.8rem; }
+.app-footer .version { color: #bbb; }
+
 @media (min-width: 560px) {
   #app { padding: 2rem 1rem; }
   .headline { font-size: 1.25rem; }
