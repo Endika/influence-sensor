@@ -1,4 +1,5 @@
-import type { Interaction, InteractionKind } from '../schema'
+import type JSZip from 'jszip'
+import type { Interaction, InteractionKind, NormalizedData } from '../schema'
 
 /** Instagram wraps the payload array under an unpredictable top-level key. */
 function firstArray(json: unknown): any[] {
@@ -40,4 +41,53 @@ export function extractFollows(json: unknown): Set<string> {
     if (account) follows.add(account)
   }
   return follows
+}
+
+/** Find the first file whose path ends with `suffix` (handles nested/old layouts). */
+function findFile(zip: JSZip, suffix: string): JSZip.JSZipObject | null {
+  for (const path of Object.keys(zip.files)) {
+    if (path.endsWith(suffix)) return zip.files[path]
+  }
+  return null
+}
+
+async function readJson(file: JSZip.JSZipObject | null): Promise<unknown | null> {
+  if (!file) return null
+  try {
+    return JSON.parse(await file.async('string'))
+  } catch {
+    return null
+  }
+}
+
+export const instagramAdapter = {
+  id: 'instagram',
+  label: 'Instagram',
+
+  detect(zip: JSZip): boolean {
+    return Object.keys(zip.files).some(
+      (p) =>
+        p.endsWith('liked_posts.json') ||
+        p.includes('your_instagram_activity/') ||
+        p.includes('followers_and_following/'),
+    )
+  },
+
+  async parse(zip: JSZip): Promise<NormalizedData> {
+    const interactions: Interaction[] = []
+
+    const likedPosts = await readJson(findFile(zip, 'liked_posts.json'))
+    if (likedPosts) interactions.push(...extractInteractions(likedPosts, 'title', 'like_post'))
+
+    const likedComments = await readJson(findFile(zip, 'liked_comments.json'))
+    if (likedComments) interactions.push(...extractInteractions(likedComments, 'title', 'like_comment'))
+
+    const saved = await readJson(findFile(zip, 'saved_posts.json'))
+    if (saved) interactions.push(...extractInteractions(saved, 'title', 'saved'))
+
+    const followingJson = await readJson(findFile(zip, 'following.json'))
+    const follows = followingJson ? extractFollows(followingJson) : new Set<string>()
+
+    return { interactions, follows }
+  },
 }
