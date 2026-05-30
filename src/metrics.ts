@@ -50,6 +50,24 @@ export function topNShare(counts: number[], n: number): number {
   return top.reduce((a, b) => a + b, 0) / total
 }
 
+export interface FollowVsEngage {
+  followedIgnored: string[] // followed but never engaged — "clean"
+  followedEngaged: string[] // followed and engaged — captures you
+  engagedNotFollowed: string[] // engaged without following — attention leak
+}
+
+export function followVsEngage(data: NormalizedData): FollowVsEngage {
+  const engaged = new Set(data.interactions.map((i) => i.account))
+  const followedIgnored: string[] = []
+  const followedEngaged: string[] = []
+  for (const account of data.follows) {
+    if (engaged.has(account)) followedEngaged.push(account)
+    else followedIgnored.push(account)
+  }
+  const engagedNotFollowed = [...engaged].filter((a) => !data.follows.has(a))
+  return { followedIgnored, followedEngaged, engagedNotFollowed }
+}
+
 export type Band = 'Captured' | 'Moderate' | 'Healthy'
 
 export interface HealthResult {
