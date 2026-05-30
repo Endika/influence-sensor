@@ -2,6 +2,9 @@ import type { Report } from '../report-model'
 import { renderLorenz, renderTopBars } from './charts'
 import { renderGraph } from './graph'
 
+// Below this many attributable interactions the verdict is statistically meaningless.
+const MIN_RELIABLE_INTERACTIONS = 10
+
 function section(title: string, caption: string): HTMLElement {
   const wrap = document.createElement('section')
   const h = document.createElement('h2')
@@ -13,25 +16,68 @@ function section(title: string, caption: string): HTMLElement {
   return wrap
 }
 
+function notice(text: string, kind: 'warn' | 'info'): HTMLElement {
+  const p = document.createElement('p')
+  p.className = `notice notice-${kind}`
+  p.textContent = text
+  return p
+}
+
 export function renderReport(root: HTMLElement, report: Report): void {
   root.innerHTML = ''
+
+  // Honest guard: too little attributable data to say anything reliable.
+  if (report.totalInteractions < MIN_RELIABLE_INTERACTIONS) {
+    root.appendChild(
+      notice(
+        `Only ${report.totalInteractions} attributable interactions found — not enough for a reliable verdict. ` +
+          'The numbers below are shown for transparency, but treat the score as indicative only. ' +
+          'Re-export from Instagram in JSON with a wider date range and "Story interactions" included.',
+        'warn',
+      ),
+    )
+  }
+
+  let concentrationCaveat = ''
+  if (report.uniqueAccountsEngaged <= 10) {
+    concentrationCaveat =
+      ' (You have ≤10 engaged accounts, so top-10 concentration is naturally ~100% and the score is rough here.)'
+  }
 
   const verdict = section(
     `Network Health: ${report.health.score}/100 — ${report.health.band}`,
     'A transparent heuristic. Higher = a diverse, balanced diet. Lower = a few voices own your attention. ' +
-      `Diversity ${Math.round(report.health.diversity * 100)}% · Top-10 concentration ${Math.round(report.health.concentration * 100)}%.`,
+      `Diversity ${Math.round(report.health.diversity * 100)}% · Top-10 concentration ${Math.round(report.health.concentration * 100)}%.` +
+      concentrationCaveat,
   )
   root.appendChild(verdict)
+
+  // Instagram's newer export strips the author from liked posts — be explicit about it.
+  if (report.unattributed > 0) {
+    root.appendChild(
+      notice(
+        `${report.unattributed} liked posts couldn't be attributed: Instagram's current export no longer ` +
+          'records who authored a liked post, so those are excluded. Story likes, comments and liked comments ' +
+          'still carry the account and are included.',
+        'info',
+      ),
+    )
+  }
 
   const headline = document.createElement('p')
   headline.className = 'headline'
   const top = report.accounts[0]
   if (top) {
-    headline.textContent = `You follow ${report.totalFollows} accounts, but ${top.account} alone takes ${Math.round(
-      top.share * 100,
-    )}% of your ${report.totalInteractions} logged interactions.`
+    const account = document.createElement('span')
+    account.translate = false // never let the browser translate a username
+    account.textContent = top.account
+    headline.append(
+      `You follow ${report.totalFollows} accounts, but `,
+      account,
+      ` alone takes ${Math.round(top.share * 100)}% of your ${report.totalInteractions} logged interactions.`,
+    )
+    root.appendChild(headline)
   }
-  root.appendChild(headline)
 
   const graphSec = section(
     'Your attention graph',
@@ -78,11 +124,12 @@ export function renderReport(root: HTMLElement, report: Report): void {
       `${Math.round(a.share * 100)}%`,
       a.followed ? 'yes' : 'no',
     ]
-    for (const text of cells) {
+    cells.forEach((text, col) => {
       const td = document.createElement('td')
       td.textContent = text
+      if (col === 1) td.translate = false // the account column is a username
       tr.appendChild(td)
-    }
+    })
     tbody.appendChild(tr)
   })
   table.appendChild(tbody)

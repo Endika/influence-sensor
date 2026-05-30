@@ -1,7 +1,4 @@
-{
-  "likes_media_likes": [
-    { "title": "big_creator", "string_list_data": [{ "href": "https://x", "value": "👍", "timestamp": 1700000000 }] },
-    { "title": "big_creator", "string_list_data": [{ "href": "https://x", "value": "👍", "timestamp": 1700000100 }] },
-    { "title": "small_creator", "string_list_data": [{ "href": "https://x", "value": "👍", "timestamp": 1700000200 }] }
-  ]
-}
+[
+  { "timestamp": 1700000100, "label_values": [{ "label": "URL", "href": "https://www.instagram.com/reel/ABC123/" }] },
+  { "timestamp": 1700000101, "label_values": [{ "label": "URL", "href": "https://www.instagram.com/p/DEF456/" }] }
+]

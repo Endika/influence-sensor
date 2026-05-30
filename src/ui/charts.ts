@@ -36,6 +36,7 @@ export function renderTopBars(
     row.className = 'bar-row'
     const label = document.createElement('span')
     label.className = 'bar-label'
+    label.translate = false // bar labels are usernames; don't let the browser translate them
     label.textContent = a.account
     const track = document.createElement('div')
     track.className = 'bar-track'
