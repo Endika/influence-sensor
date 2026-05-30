@@ -49,3 +49,25 @@ export function topNShare(counts: number[], n: number): number {
   const top = [...counts].sort((a, b) => b - a).slice(0, n)
   return top.reduce((a, b) => a + b, 0) / total
 }
+
+export type Band = 'Captured' | 'Moderate' | 'Healthy'
+
+export interface HealthResult {
+  score: number // 0..100
+  band: Band
+  diversity: number // normalized entropy, 0..1
+  concentration: number // top-10 share, 0..1
+}
+
+const WEIGHTS = { diversity: 0.5, concentration: 0.5 }
+
+/** Transparent 0–100 verdict combining diversity (good) and concentration (bad). */
+export function healthScore(counts: number[]): HealthResult {
+  const diversity = normalizedEntropy(counts)
+  const concentration = topNShare(counts, 10)
+  const score = Math.round(
+    100 * (WEIGHTS.diversity * diversity + WEIGHTS.concentration * (1 - concentration)),
+  )
+  const band: Band = score >= 66 ? 'Healthy' : score >= 33 ? 'Moderate' : 'Captured'
+  return { score, band, diversity, concentration }
+}

@@ -4,6 +4,7 @@ import {
   attentionByAccount,
   entropy,
   gini,
+  healthScore,
   hhi,
   normalizedEntropy,
   topNShare,
@@ -68,5 +69,22 @@ describe('topNShare', () => {
   })
   it('caps at the full distribution when n exceeds account count', () => {
     expect(topNShare([2, 2], 10)).toBeCloseTo(1)
+  })
+})
+
+describe('healthScore', () => {
+  it('is high and Healthy for a diverse, unconcentrated diet', () => {
+    const counts = Array.from({ length: 20 }, () => 1) // 20 equally-weighted accounts
+    const result = healthScore(counts)
+    expect(result.diversity).toBeCloseTo(1)
+    expect(result.score).toBeGreaterThanOrEqual(66)
+    expect(result.band).toBe('Healthy')
+  })
+
+  it('is low and Captured when one account dominates', () => {
+    const counts = [100, 1, 1] // one voice owns ~98% of attention
+    const result = healthScore(counts)
+    expect(result.score).toBeLessThan(33)
+    expect(result.band).toBe('Captured')
   })
 })
