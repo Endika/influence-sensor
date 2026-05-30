@@ -69,9 +69,20 @@ export function renderReport(root: HTMLElement, report: Report): void {
   const tbody = document.createElement('tbody')
   report.accounts.forEach((a, i) => {
     const tr = document.createElement('tr')
-    tr.innerHTML = `<td>${i + 1}</td><td>${a.account}</td><td>${a.interactions}</td><td>${Math.round(
-      a.share * 100,
-    )}%</td><td>${a.followed ? 'yes' : 'no'}</td>`
+    // Use textContent: account names come from the user's export and must not be
+    // interpreted as HTML.
+    const cells = [
+      String(i + 1),
+      a.account,
+      String(a.interactions),
+      `${Math.round(a.share * 100)}%`,
+      a.followed ? 'yes' : 'no',
+    ]
+    for (const text of cells) {
+      const td = document.createElement('td')
+      td.textContent = text
+      tr.appendChild(td)
+    }
     tbody.appendChild(tr)
   })
   table.appendChild(tbody)
