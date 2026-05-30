@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Endika/influence-sensor/compare/v1.1.0...v1.1.1) (2026-05-30)
+
+
+### Bug Fixes
+
+* exclude the account owner from their own analysis ([0396df8](https://github.com/Endika/influence-sensor/commit/0396df8490eb11c0a9a9e82d86807cc6491dd859))
+
 ## [1.1.0](https://github.com/Endika/influence-sensor/compare/v1.0.1...v1.1.0) (2026-05-30)
 
 
