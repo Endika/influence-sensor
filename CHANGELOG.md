@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Endika/influence-sensor/compare/v1.0.1...v1.1.0) (2026-05-30)
+
+
+### Features
+
+* support Instagram's current export format ([3919d18](https://github.com/Endika/influence-sensor/commit/3919d183b4e571278ae8de9c8fe6d8a7f0b048c3))
+
 ## [1.0.1](https://github.com/Endika/influence-sensor/compare/v1.0.0...v1.0.1) (2026-05-30)
 
 
