@@ -1,36 +1,90 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { describe, expect, it } from 'vitest'
 import JSZip from 'jszip'
-import { extractFollows, extractInteractions, instagramAdapter } from '../../src/adapters/instagram'
+import { describe, expect, it } from 'vitest'
+import {
+  accountOf,
+  entriesToInteractions,
+  extractFollows,
+  instagramAdapter,
+  usernameFromUrl,
+} from '../../src/adapters/instagram'
 
-const fix = (name: string) =>
-  JSON.parse(readFileSync(join(__dirname, '../fixtures/instagram', name), 'utf8'))
+const fixturesDir = join(__dirname, '../fixtures/instagram')
+const fix = (name: string) => JSON.parse(readFileSync(join(fixturesDir, name), 'utf8'))
 
-describe('extractInteractions', () => {
-  it('reads liked posts as like_post interactions keyed by title', () => {
-    const out = extractInteractions(fix('liked_posts.json'), 'title', 'like_post')
-    expect(out).toHaveLength(3)
-    expect(out[0]).toEqual({ account: 'big_creator', kind: 'like_post', timestamp: 1700000000 })
+describe('usernameFromUrl', () => {
+  it('extracts the author from a story URL', () => {
+    expect(usernameFromUrl('https://www.instagram.com/stories/ruben.mnzr/123')).toBe('ruben.mnzr')
   })
+  it('returns null for a post permalink (no author in the URL)', () => {
+    expect(usernameFromUrl('https://www.instagram.com/reel/ABC123/')).toBeNull()
+    expect(usernameFromUrl('https://www.instagram.com/p/DEF456/')).toBeNull()
+  })
+  it('extracts the username from a plain profile URL', () => {
+    expect(usernameFromUrl('https://www.instagram.com/some_user/')).toBe('some_user')
+  })
+  it('returns null for empty input', () => {
+    expect(usernameFromUrl('')).toBeNull()
+    expect(usernameFromUrl(null)).toBeNull()
+  })
+})
 
-  it('reads saved posts as saved interactions', () => {
-    const out = extractInteractions(fix('saved_posts.json'), 'title', 'saved')
-    expect(out).toEqual([{ account: 'small_creator', kind: 'saved', timestamp: 1700000300 }])
+describe('accountOf', () => {
+  it('reads the title (old likes / liked comments format)', () => {
+    expect(accountOf({ title: 'wildsoulwolves' })).toBe('wildsoulwolves')
+  })
+  it('reads a story author from label_values', () => {
+    expect(
+      accountOf({ label_values: [{ label: 'URL', href: 'https://www.instagram.com/stories/foo/' }] }),
+    ).toBe('foo')
+  })
+  it('returns null for a liked post whose author the export omits', () => {
+    expect(
+      accountOf({ label_values: [{ label: 'URL', href: 'https://www.instagram.com/reel/X/' }] }),
+    ).toBeNull()
+  })
+  it('reads the media owner of a comment', () => {
+    expect(accountOf({ string_map_data: { 'Media Owner': { value: 'owner_x' } } })).toBe('owner_x')
   })
 })
 
 describe('extractFollows', () => {
-  it('reads the following list from string_list_data value', () => {
-    expect(extractFollows(fix('following.json'))).toEqual(new Set(['big_creator', 'ghost']))
+  it('reads the following list from the new-format title field', () => {
+    expect(extractFollows(fix('following.json'))).toEqual(new Set(['acc_followed', 'acc_unengaged']))
+  })
+  it('falls back to string_list_data value for the old format', () => {
+    const oldFormat = {
+      relationships_following: [
+        { title: '', string_list_data: [{ value: 'legacy_user', timestamp: 1 }] },
+      ],
+    }
+    expect(extractFollows(oldFormat)).toEqual(new Set(['legacy_user']))
+  })
+})
+
+describe('entriesToInteractions', () => {
+  it('attributes story likes and counts nothing as lost', () => {
+    const res = entriesToInteractions(fix('story_likes.json'), 'story_like')
+    expect(res.interactions.map((i) => i.account)).toEqual(['story_user', 'acc_followed'])
+    expect(res.unattributed).toBe(0)
+  })
+  it('counts liked posts as unattributed because the author is missing', () => {
+    const res = entriesToInteractions(fix('liked_posts.json'), 'like_post')
+    expect(res.interactions).toHaveLength(0)
+    expect(res.unattributed).toBe(2)
   })
 })
 
 async function buildZip(): Promise<JSZip> {
   const zip = new JSZip()
-  zip.file('your_instagram_activity/likes/liked_posts.json', readFileSync(join(__dirname, '../fixtures/instagram/liked_posts.json'), 'utf8'))
-  zip.file('connections/followers_and_following/following.json', readFileSync(join(__dirname, '../fixtures/instagram/following.json'), 'utf8'))
-  zip.file('your_instagram_activity/saved/saved_posts.json', readFileSync(join(__dirname, '../fixtures/instagram/saved_posts.json'), 'utf8'))
+  const put = (path: string, file: string) =>
+    zip.file(path, readFileSync(join(fixturesDir, file), 'utf8'))
+  put('your_instagram_activity/likes/liked_posts.json', 'liked_posts.json')
+  put('your_instagram_activity/likes/liked_comments.json', 'liked_comments.json')
+  put('your_instagram_activity/story_interactions/story_likes.json', 'story_likes.json')
+  put('your_instagram_activity/comments/post_comments_1.json', 'post_comments_1.json')
+  put('connections/followers_and_following/following.json', 'following.json')
   return zip
 }
 
@@ -38,7 +92,6 @@ describe('instagramAdapter.detect', () => {
   it('recognizes an Instagram export by its file layout', async () => {
     expect(instagramAdapter.detect(await buildZip())).toBe(true)
   })
-
   it('rejects an unrelated zip', async () => {
     const zip = new JSZip()
     zip.file('random.txt', 'hello')
@@ -47,11 +100,13 @@ describe('instagramAdapter.detect', () => {
 })
 
 describe('instagramAdapter.parse', () => {
-  it('produces normalized data from the export', async () => {
+  it('aggregates attributable interactions across sections and reports the rest', async () => {
     const data = await instagramAdapter.parse(await buildZip())
-    expect(data.interactions).toHaveLength(4) // 3 likes + 1 saved
-    expect(data.follows).toEqual(new Set(['big_creator', 'ghost']))
-    const accounts = data.interactions.map((i) => i.account)
-    expect(accounts.filter((a) => a === 'big_creator')).toHaveLength(2)
+    // 2 story likes + 1 liked comment + 1 comment = 4 attributable; 2 liked posts lost.
+    expect(data.interactions).toHaveLength(4)
+    expect(data.unattributed).toBe(2)
+    expect(data.follows).toEqual(new Set(['acc_followed', 'acc_unengaged']))
+    const accounts = new Set(data.interactions.map((i) => i.account))
+    expect(accounts).toEqual(new Set(['story_user', 'acc_followed', 'comment_liker', 'comment_owner']))
   })
 })

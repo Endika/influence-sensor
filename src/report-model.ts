@@ -29,6 +29,8 @@ export interface Report {
   gini: number
   entropy: number
   topTenShare: number
+  /** Interactions whose target account the export omitted (e.g. attribution-less liked posts). */
+  unattributed: number
   accounts: AccountStat[] // ranked by interactions desc
   followVsEngage: { followedIgnored: number; followedEngaged: number; engagedNotFollowed: number }
 }
@@ -58,6 +60,7 @@ export function analyze(data: NormalizedData): Report {
     gini: gini(counts),
     entropy: entropy(counts),
     topTenShare: topNShare(counts, 10),
+    unattributed: data.unattributed ?? 0,
     accounts,
     followVsEngage: {
       followedIgnored: fve.followedIgnored.length,

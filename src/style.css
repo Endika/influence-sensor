@@ -17,6 +17,9 @@
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; white-space: nowrap; }
 
+.notice { border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.85rem; margin: 0.5rem 0; }
+.notice-warn { background: #fff4e5; border: 1px solid #ffd9a0; color: #8a5a00; }
+.notice-info { background: #f0f4ff; border: 1px solid #c9d6ff; color: #3a4a7a; }
 .app-footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 0.8rem; }
 .app-footer .version { color: #bbb; }
 
