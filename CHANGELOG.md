@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Endika/influence-sensor/compare/v1.0.0...v1.0.1) (2026-05-30)
+
+
+### Chores
+
+* drop one-time release-as now that 1.0.0 is published ([9d5ab92](https://github.com/Endika/influence-sensor/commit/9d5ab92c98e9d3b1cdc6522ae854c5be32588976))
+
 ## [1.0.0](https://github.com/Endika/influence-sensor/compare/v0.1.0...v1.0.0) (2026-05-30)
 
 
