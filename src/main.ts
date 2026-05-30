@@ -1,5 +1,6 @@
 import JSZip from 'jszip'
 import { detectAdapter } from './adapters/registry'
+import { excludeSelf, ownerFromFilename } from './owner'
 import { analyze } from './report-model'
 import { renderReport } from './ui/view'
 import './style.css'
@@ -38,7 +39,9 @@ async function handleFile(file: File, results: HTMLElement): Promise<void> {
       status.textContent = 'Unrecognized export. Is this an Instagram .zip downloaded in JSON format?'
       return
     }
-    const data = await adapter.parse(zip)
+    // Exclude the account owner — you don't influence yourself. The owner is taken
+    // from the export filename (instagram-<username>-<date>-<hash>.zip).
+    const data = excludeSelf(await adapter.parse(zip), ownerFromFilename(file.name))
     if (data.interactions.length === 0) {
       status.textContent = 'No likes/comments found. Did you download in HTML instead of JSON format?'
       return
