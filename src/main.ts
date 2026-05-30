@@ -19,10 +19,18 @@ function dropzone(): HTMLElement {
   return zone
 }
 
-async function handleFile(file: File): Promise<void> {
+function footer(): HTMLElement {
+  const f = document.createElement('footer')
+  f.className = 'app-footer'
+  f.innerHTML = `influence-sensor <span class="version">v${__APP_VERSION__}</span>`
+  return f
+}
+
+async function handleFile(file: File, results: HTMLElement): Promise<void> {
+  results.innerHTML = ''
   const status = document.createElement('p')
   status.textContent = 'Reading…'
-  app.appendChild(status)
+  results.appendChild(status)
   try {
     const zip = await JSZip.loadAsync(file)
     const adapter = detectAdapter(zip)
@@ -36,9 +44,6 @@ async function handleFile(file: File): Promise<void> {
       return
     }
     const report = analyze(data)
-    const results = document.createElement('div')
-    results.id = 'results'
-    app.appendChild(results)
     status.remove()
     renderReport(results, report)
   } catch {
@@ -49,11 +54,14 @@ async function handleFile(file: File): Promise<void> {
 function init(): void {
   app.innerHTML = ''
   const zone = dropzone()
-  app.appendChild(zone)
+  const results = document.createElement('div')
+  results.id = 'results'
+  app.append(zone, results, footer())
+
   const input = zone.querySelector<HTMLInputElement>('#file')!
   input.addEventListener('change', () => {
     const file = input.files?.[0]
-    if (file) void handleFile(file)
+    if (file) void handleFile(file, results)
   })
   const stop = (e: DragEvent) => {
     e.preventDefault()
@@ -62,7 +70,7 @@ function init(): void {
   zone.addEventListener('drop', (e) => {
     stop(e)
     const file = e.dataTransfer?.files?.[0]
-    if (file) void handleFile(file)
+    if (file) void handleFile(file, results)
   })
 }
 
