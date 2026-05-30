@@ -3,6 +3,7 @@ import type { NormalizedData } from '../src/schema'
 import {
   attentionByAccount,
   entropy,
+  followVsEngage,
   gini,
   healthScore,
   hhi,
@@ -86,5 +87,21 @@ describe('healthScore', () => {
     const result = healthScore(counts)
     expect(result.score).toBeLessThan(33)
     expect(result.band).toBe('Captured')
+  })
+})
+
+describe('followVsEngage', () => {
+  it('classifies accounts by follow status and engagement', () => {
+    const d: NormalizedData = {
+      interactions: [
+        { account: 'engaged_followed', kind: 'like_post', timestamp: 0 },
+        { account: 'engaged_not_followed', kind: 'like_post', timestamp: 0 },
+      ],
+      follows: new Set(['engaged_followed', 'followed_ignored']),
+    }
+    const result = followVsEngage(d)
+    expect(result.followedEngaged).toEqual(['engaged_followed'])
+    expect(result.followedIgnored).toEqual(['followed_ignored'])
+    expect(result.engagedNotFollowed).toEqual(['engaged_not_followed'])
   })
 })
