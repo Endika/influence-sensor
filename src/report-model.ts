@@ -19,6 +19,7 @@ export interface AccountStat {
   interactions: number
   share: number
   followed: boolean
+  mutual: boolean // you follow them AND they follow you
 }
 
 export interface Report {
@@ -48,6 +49,7 @@ export function analyze(data: NormalizedData): Report {
       interactions,
       share: total === 0 ? 0 : interactions / total,
       followed: data.follows.has(account),
+      mutual: data.follows.has(account) && (data.followers?.has(account) ?? false),
     }))
     .sort((a, b) => b.interactions - a.interactions)
 

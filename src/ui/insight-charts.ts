@@ -81,6 +81,128 @@ export function renderShareBar(
   container.appendChild(row)
 }
 
+/** Area + line of activity per calendar year. */
+export function renderYearArea(
+  container: HTMLElement,
+  byYear: Array<{ year: number; count: number }>,
+): void {
+  if (byYear.length === 0) return
+  const W = 320
+  const H = 90
+  const pad = 20
+  const max = Math.max(1, ...byYear.map((d) => d.count))
+  const n = byYear.length
+  const x = (i: number) => pad + (n <= 1 ? (W - 2 * pad) / 2 : (i / (n - 1)) * (W - 2 * pad))
+  const y = (v: number) => H - pad - (v / max) * (H - 2 * pad)
+  const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, class: 'hist' }) as SVGSVGElement
+  const pts = byYear.map((d, i) => `${x(i)},${y(d.count)}`).join(' ')
+  svg.appendChild(
+    svgEl('polygon', {
+      points: `${x(0)},${H - pad} ${pts} ${x(n - 1)},${H - pad}`,
+      fill: '#e0245e',
+      'fill-opacity': 0.15,
+    }),
+  )
+  svg.appendChild(svgEl('polyline', { points: pts, fill: 'none', stroke: '#e0245e', 'stroke-width': 2 }))
+  byYear.forEach((d, i) => svg.appendChild(svgEl('circle', { cx: x(i), cy: y(d.count), r: 2.2, fill: '#e0245e' })))
+  for (const i of [0, n - 1]) {
+    const label = svgEl('text', { x: x(i), y: H - 6, 'font-size': 8, fill: '#999', 'text-anchor': 'middle' })
+    label.textContent = String(byYear[i].year)
+    svg.appendChild(label)
+  }
+  container.appendChild(svg)
+}
+
+/** 7-bar histogram of activity by weekday. `labels` are localized day names, index 0 = Sunday. */
+export function renderWeekday(container: HTMLElement, byWeekday: number[], labels: string[]): void {
+  const W = 320
+  const H = 80
+  const max = Math.max(1, ...byWeekday)
+  const bw = W / 7
+  const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H + 14}`, class: 'hist' }) as SVGSVGElement
+  byWeekday.forEach((v, d) => {
+    const bh = (v / max) * H
+    svg.appendChild(svgEl('rect', { x: d * bw + 4, y: H - bh, width: bw - 8, height: bh, fill: '#e0245e', rx: 2 }))
+    const label = svgEl('text', { x: d * bw + bw / 2, y: H + 11, 'font-size': 8, fill: '#999', 'text-anchor': 'middle' })
+    label.textContent = labels[d] ?? ''
+    svg.appendChild(label)
+  })
+  container.appendChild(svg)
+}
+
+/** Horizontal labelled bars (e.g. interactions by type). */
+export function renderLabeledBars(
+  container: HTMLElement,
+  items: Array<{ label: string; value: number }>,
+): void {
+  const list = document.createElement('div')
+  list.className = 'bars'
+  const max = items.reduce((m, it) => Math.max(m, it.value), 0) || 1
+  for (const it of items) {
+    const row = document.createElement('div')
+    row.className = 'bar-row'
+    const label = document.createElement('span')
+    label.className = 'bar-label'
+    label.textContent = it.label
+    const track = document.createElement('div')
+    track.className = 'bar-track'
+    const fill = document.createElement('div')
+    fill.className = 'bar-fill'
+    fill.style.width = `${(it.value / max) * 100}%`
+    fill.textContent = String(it.value)
+    track.appendChild(fill)
+    row.append(label, track)
+    list.appendChild(row)
+  }
+  container.appendChild(list)
+}
+
+/** Two proportional, overlapping circles for following vs followers, overlap = mutual. */
+export function renderVenn(
+  container: HTMLElement,
+  following: number,
+  followers: number,
+  mutual: number,
+  labels: { following: string; followers: string; mutual: string },
+): void {
+  const W = 320
+  const H = 150
+  const scale = 46 / Math.sqrt(Math.max(following, followers, 1))
+  const rA = Math.max(20, Math.sqrt(following) * scale)
+  const rB = Math.max(20, Math.sqrt(followers) * scale)
+  const cy = 70
+  const cxA = 120
+  const cxB = 200
+  const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, class: 'venn' }) as SVGSVGElement
+  svg.appendChild(svgEl('circle', { cx: cxA, cy, r: rA, fill: '#f4a259', 'fill-opacity': 0.55 }))
+  svg.appendChild(svgEl('circle', { cx: cxB, cy, r: rB, fill: '#4a90d9', 'fill-opacity': 0.45 }))
+  const txt = (x: number, y: number, s: string, weight = '400', size = 9) => {
+    const t = svgEl('text', { x, y, 'font-size': size, 'font-weight': weight, fill: '#222', 'text-anchor': 'middle' })
+    t.textContent = s
+    svg.appendChild(t)
+  }
+  txt(cxA - rA / 2, cy - 4, `${following}`, '700', 11)
+  txt(cxA - rA / 2, cy + 8, labels.following)
+  txt(cxB + rB / 2, cy - 4, `${followers}`, '700', 11)
+  txt(cxB + rB / 2, cy + 8, labels.followers)
+  txt((cxA + cxB) / 2, cy - 2, `${mutual}`, '700', 11)
+  txt((cxA + cxB) / 2, cy + 9, labels.mutual)
+  container.appendChild(svg)
+}
+
+/** Small color legend for the ego graph categories. */
+export function renderLegend(container: HTMLElement, items: Array<{ color: string; label: string }>): void {
+  const wrap = document.createElement('div')
+  wrap.className = 'legend'
+  for (const it of items) {
+    const span = document.createElement('span')
+    span.className = 'legend-item'
+    span.innerHTML = `<i style="background:${it.color}"></i>${it.label}`
+    wrap.appendChild(span)
+  }
+  container.appendChild(wrap)
+}
+
 /** 24-bar histogram of activity by hour of day. */
 export function renderHourHistogram(container: HTMLElement, byHour: number[]): void {
   const W = 300

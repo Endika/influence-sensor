@@ -4,10 +4,11 @@ import { select } from 'd3-selection'
 import type { Report } from '../report-model'
 import { toGraphData, YOU_ID, type GraphLink, type GraphNode } from './graph-data'
 
-const COLORS: Record<string, string> = {
+export const GRAPH_COLORS: Record<string, string> = {
   you: '#222',
-  captures: '#e0245e', // followed & engaged — captures you
-  leak: '#f4a259', // engaged but not followed — attention leak
+  mutual: '#e0245e', // you follow them and they follow you — your inner circle
+  followed: '#f4a259', // you follow them, one-way
+  leak: '#4a90d9', // you engage but don't follow — parasocial leak
 }
 
 const SVG = 'http://www.w3.org/2000/svg'
@@ -36,12 +37,25 @@ export function renderGraph(container: HTMLElement, report: Report, topN = 25): 
   const nodeEls = nodes.map((n) => {
     const circle = document.createElementNS(SVG, 'circle')
     circle.setAttribute('r', String(n.radius))
-    circle.setAttribute('fill', COLORS[n.category])
+    circle.setAttribute('fill', GRAPH_COLORS[n.category])
     const title = document.createElementNS(SVG, 'title')
     title.textContent = n.label
     circle.appendChild(title)
     svg.appendChild(circle)
     return circle
+  })
+
+  // Username labels so you can see who each node is (not just on hover).
+  const labelEls = nodes.map((n) => {
+    if (n.center) return null
+    const text = document.createElementNS(SVG, 'text')
+    text.setAttribute('font-size', '9')
+    text.setAttribute('text-anchor', 'middle')
+    text.setAttribute('fill', '#333')
+    text.setAttribute('translate', 'no')
+    text.textContent = n.label
+    svg.appendChild(text)
+    return text
   })
 
   type SimNode = GraphNode & { x?: number; y?: number; fx?: number | null; fy?: number | null }
@@ -66,6 +80,11 @@ export function renderGraph(container: HTMLElement, report: Report, topN = 25): 
       simNodes.forEach((n, i) => {
         nodeEls[i].setAttribute('cx', String(n.x))
         nodeEls[i].setAttribute('cy', String(n.y))
+        const label = labelEls[i]
+        if (label) {
+          label.setAttribute('x', String(n.x))
+          label.setAttribute('y', String((n.y ?? 0) + n.radius + 9))
+        }
       })
     })
 
