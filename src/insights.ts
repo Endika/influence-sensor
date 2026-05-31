@@ -20,7 +20,14 @@ export interface Insights {
   /** Bias toward your own circle: share of attention spent on mutuals / on accounts you follow. */
   bubble: { mutualAttentionShare: number; followedAttentionShare: number }
   closeFriends: { total: number; engaged: number }
-  temporal: { byHour: number[]; busiestHour: number; spanDays: number; dated: number }
+  temporal: {
+    byHour: number[]
+    busiestHour: number
+    spanDays: number
+    dated: number
+    firstTs: number // unix seconds of the earliest dated interaction
+    lastTs: number // unix seconds of the latest dated interaction
+  }
 }
 
 const intersectSize = (a: Set<string>, b: Set<string>): number => {
@@ -70,8 +77,9 @@ export function computeInsights(data: NormalizedData): Insights {
     byHour[new Date(i.timestamp * 1000).getUTCHours()]++
   }
   const busiestHour = byHour.indexOf(Math.max(...byHour))
-  const spanDays =
-    stamps.length > 1 ? Math.round((Math.max(...stamps) - Math.min(...stamps)) / 86400) : 0
+  const firstTs = stamps.length ? Math.min(...stamps) : 0
+  const lastTs = stamps.length ? Math.max(...stamps) : 0
+  const spanDays = stamps.length > 1 ? Math.round((lastTs - firstTs) / 86400) : 0
 
   return {
     hasFollowerData,
@@ -95,6 +103,13 @@ export function computeInsights(data: NormalizedData): Insights {
       total: close.size,
       engaged: [...close].filter((a) => engaged.has(a)).length,
     },
-    temporal: { byHour, busiestHour: busiestHour < 0 ? 0 : busiestHour, spanDays, dated: stamps.length },
+    temporal: {
+      byHour,
+      busiestHour: busiestHour < 0 ? 0 : busiestHour,
+      spanDays,
+      dated: stamps.length,
+      firstTs,
+      lastTs,
+    },
   }
 }

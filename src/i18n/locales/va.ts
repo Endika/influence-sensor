@@ -1,5 +1,6 @@
 // Valencià
 export const va: Record<string, string> = {
+  'coverage': 'Basat en la teua activitat de {from} a {to} (~{years} anys).',
   'drop.prompt':
     'Tria o arrossega el teu export d\'Instagram (.zip en format JSON). Mai ix del teu navegador.',
   'drop.helpSummary': 'Com descarregar l\'export correcte',
