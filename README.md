@@ -23,6 +23,10 @@ Content-Security-Policy (`connect-src 'none'`) makes that enforceable, not just 
 3. Open the app and drop — or pick — the `.zip` you received. Read your report. Nothing leaves
    your machine.
 
+**TikTok (limited):** Profile → ☰ → **Settings and privacy → Account → Download your data**,
+request your **Activity** data in **JSON** format, then drop that `.zip`. TikTok hides the creator
+of liked/watched videos, so only your relationships and activity volume can be shown.
+
 ## How the health score works
 
 The verdict is a **0–100 score** (banded **Captured** / **Moderate** / **Healthy**), combining two

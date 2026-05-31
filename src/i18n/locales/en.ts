@@ -32,6 +32,9 @@ export const en: Record<string, string> = {
   'trend.rising': 'Your attention is concentrating MORE over time — increasingly captured.',
   'trend.falling': 'Your attention is spreading out over time — less captured.',
   'trend.flat': 'Your concentration has stayed roughly stable over time.',
+  'drop.tkHelpSummary': 'Using TikTok instead?',
+  'drop.tkHelpSteps':
+    'In TikTok: Profile → ☰ menu → Settings and privacy → Account → Download your data. Under “Request data”, pick your Activity data, set Format: JSON (not TXT), and request it. When it’s ready, download the .zip from the “Download data” tab. Heads-up: TikTok hides the creator of liked/watched videos, so only your relationships and activity volume can be analysed.',
   'tk.notice':
     'TikTok’s export hides who you engage with — every like, comment and watched video carries only an anonymous video ID. So this shows your relationships and how much you use TikTok, but NOT who captures your attention (no graph, health or infection).',
   'tk.hidden':

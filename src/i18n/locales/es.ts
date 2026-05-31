@@ -31,6 +31,9 @@ export const es: Record<string, string> = {
   'trend.rising': 'Tu atención se concentra MÁS con el tiempo — cada vez más capturado.',
   'trend.falling': 'Tu atención se reparte más con el tiempo — menos capturado.',
   'trend.flat': 'Tu concentración se ha mantenido más o menos estable con el tiempo.',
+  'drop.tkHelpSummary': '¿Usas TikTok?',
+  'drop.tkHelpSteps':
+    'En TikTok: Perfil → menú ☰ → Configuración y privacidad → Cuenta → Descargar tus datos. En “Solicitar datos”, elige tus datos de Actividad, pon Formato: JSON (no TXT) y solicítalo. Cuando esté listo, descarga el .zip en la pestaña “Descargar datos”. Aviso: TikTok oculta el creador de los vídeos que ves o likeas, así que solo se pueden analizar tus relaciones y el volumen de actividad.',
   'tk.notice':
     'El export de TikTok oculta a quién interactúas — cada me gusta, comentario y vídeo visto trae solo un ID de vídeo anónimo. Así que esto muestra tus relaciones y cuánto usas TikTok, pero NO quién te capta (sin grafo, salud ni infección).',
   'tk.hidden':
