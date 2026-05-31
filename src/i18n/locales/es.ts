@@ -1,5 +1,6 @@
 // Español
 export const es: Record<string, string> = {
+  'coverage': 'Basado en tu actividad de {from} a {to} (~{years} años).',
   'drop.prompt':
     'Elige o suelta tu export de Instagram (.zip en formato JSON). Nunca sale de tu navegador.',
   'drop.helpSummary': 'Cómo descargar el export correcto',

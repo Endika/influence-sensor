@@ -1,5 +1,6 @@
 // Català
 export const ca: Record<string, string> = {
+  'coverage': 'Basat en la teva activitat de {from} a {to} (~{years} anys).',
   'drop.prompt':
     'Tria o deixa caure el teu export d’Instagram (.zip en format JSON). No surt mai del teu navegador.',
   'drop.helpSummary': 'Com descarregar l’export correcte',

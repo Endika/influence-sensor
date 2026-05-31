@@ -1,5 +1,6 @@
 // Euskara
 export const eu: Record<string, string> = {
+  'coverage': '{from}etik {to}ra arteko zure jardueran oinarrituta (~{years} urte).',
   'drop.prompt':
     'Aukeratu edo jaregin zure Instagram datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
   'drop.helpSummary': 'Nola deskargatu esportazio egokia',

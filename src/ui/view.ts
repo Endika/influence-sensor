@@ -1,4 +1,4 @@
-import { t } from '../i18n'
+import { getLocale, t } from '../i18n'
 import type { Report } from '../report-model'
 import { renderLorenz, renderTopBars } from './charts'
 import { renderGraph } from './graph'
@@ -130,6 +130,21 @@ function renderInsightSections(root: HTMLElement, report: Report): void {
 
 export function renderReport(root: HTMLElement, report: Report): void {
   root.innerHTML = ''
+
+  // Coverage indicator: the export's date range drives everything below.
+  const tmp = report.insights.temporal
+  if (tmp.dated > 0) {
+    const fmt = (ts: number) =>
+      new Date(ts * 1000).toLocaleDateString(getLocale(), { year: 'numeric', month: 'short' })
+    const banner = document.createElement('p')
+    banner.className = 'coverage'
+    banner.textContent = t('coverage', {
+      from: fmt(tmp.firstTs),
+      to: fmt(tmp.lastTs),
+      years: (tmp.spanDays / 365).toFixed(1),
+    })
+    root.appendChild(banner)
+  }
 
   if (report.totalInteractions < MIN_RELIABLE_INTERACTIONS) {
     root.appendChild(notice(t('notice.lowData', { n: report.totalInteractions }), 'warn'))

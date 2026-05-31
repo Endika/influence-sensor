@@ -1,6 +1,7 @@
 // English — source of truth. Every other locale mirrors these keys.
 // Placeholders use {name}. Usernames are never translated.
 export const en: Record<string, string> = {
+  'coverage': 'Based on your activity from {from} to {to} (~{years} years).',
   'drop.prompt':
     'Pick or drop your Instagram data export (.zip in JSON format). It never leaves your browser.',
   'drop.helpSummary': 'How to download the right export',

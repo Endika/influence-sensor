@@ -1,5 +1,6 @@
 // Galego
 export const gl: Record<string, string> = {
+  'coverage': 'Baseado na túa actividade de {from} a {to} (~{years} anos).',
   'drop.prompt':
     'Escolle ou solta o teu export de Instagram (.zip en formato JSON). Non sae nunca do teu navegador.',
   'drop.helpSummary': 'Como descargar o export correcto',
