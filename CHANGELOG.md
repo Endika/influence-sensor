@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/Endika/influence-sensor/compare/v1.1.1...v1.2.0) (2026-05-31)
+
+
+### Features
+
+* compute relationship, bubble and temporal insights ([d0ecb46](https://github.com/Endika/influence-sensor/commit/d0ecb46a7e59077e7ef23f12bceeab85f8f0b863))
+* enrich Instagram parsing (stories, polls, comments, relationships) ([3496c20](https://github.com/Endika/influence-sensor/commit/3496c20d413d34289d88a634fab53f2c30882560))
+* internationalize the UI (ca, en, es, eu, gl, va) ([c70f9f4](https://github.com/Endika/influence-sensor/commit/c70f9f46c3aa4b1d23ba9548abe3523170cfaebe))
+* visual infographic — health thermometer, icon and insight charts ([9f10c55](https://github.com/Endika/influence-sensor/commit/9f10c551eebbd62478f799daba4c6b3f2c886a03))
+
+
+### Documentation
+
+* spell out which export sections and JSON format to select ([2c69e9f](https://github.com/Endika/influence-sensor/commit/2c69e9f9b8771f9823eac5329e073824dfe9ab83))
+
 ## [1.1.1](https://github.com/Endika/influence-sensor/compare/v1.1.0...v1.1.1) (2026-05-30)
 
 
