@@ -6,18 +6,21 @@ function svgEl(tag: string, attrs: Record<string, string | number>): SVGElement 
   return node
 }
 
-/** Colored "thermometer": red → amber → green gauge with a marker at the score. */
+/** Colored "thermometer": red → amber → green gauge with a marker at the score.
+ *  `bandClass` is the English band (for color), `label` is the translated text. */
 export function renderHealthGauge(
   container: HTMLElement,
   score: number,
-  band: string,
+  bandClass: string,
+  label: string,
 ): void {
   const wrap = document.createElement('div')
   wrap.className = 'gauge'
+  const cls = `band-${bandClass.toLowerCase()}`
 
   const num = document.createElement('div')
   num.className = 'gauge-score'
-  num.innerHTML = `<span class="gauge-num band-${band.toLowerCase()}">${score}</span><span class="gauge-max">/100</span> <span class="gauge-band band-${band.toLowerCase()}">${band}</span>`
+  num.innerHTML = `<span class="gauge-num ${cls}">${score}</span><span class="gauge-max">/100</span> <span class="gauge-band ${cls}">${label}</span>`
   wrap.appendChild(num)
 
   const W = 300
