@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Endika/influence-sensor/compare/v1.3.0...v1.4.0) (2026-05-31)
+
+
+### Features
+
+* more charts and a readable ego graph ([b05366e](https://github.com/Endika/influence-sensor/commit/b05366e03e3456840d773efbbce88467b7541169))
+
 ## [1.3.0](https://github.com/Endika/influence-sensor/compare/v1.2.0...v1.3.0) (2026-05-31)
 
 
