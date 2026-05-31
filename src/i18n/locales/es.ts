@@ -87,7 +87,7 @@ export const es: Record<string, string> = {
 
   'bubble.title': 'Tu burbuja',
   'bubble.caption':
-    'Cuánta de tu atención se queda dentro de tu propio círculo. Alto = cámara de eco de cuentas que ya sigues; bajo = miras hacia fuera.',
+    'Cuánta de tu atención se queda dentro de tu círculo — cuentas que sigues y mutuos que te siguen de vuelta. Un % alto no es necesariamente malo: significa un círculo elegido, no desconocidos que te mete el algoritmo. Bajo = miras más hacia fuera. Es un equilibrio, no una nota.',
   'bubble.followed': 'Atención a cuentas que sigues',
   'bubble.mutual': 'Atención a mutuos (círculo íntimo)',
 

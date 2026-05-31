@@ -86,7 +86,7 @@ export const va: Record<string, string> = {
 
   'bubble.title': 'La teua bombolla',
   'bubble.caption':
-    'Quanta de la teua atenció es queda dins del teu propi cercle. Alt = càmera d\'eco de comptes que ja segueixes; baix = mires cap a fora.',
+    'Quanta de la teua atenció es queda dins del teu cercle — comptes que segueixes i mutus que et seguixen. Un % alt no és necessàriament dolent: vol dir un cercle triat, no desconeguts que et posa l’algoritme. Baix = mires més cap a fora. És un equilibri, no una nota.',
   'bubble.followed': 'Atenció a comptes que segueixes',
   'bubble.mutual': 'Atenció a mutus (cercle íntim)',
 
