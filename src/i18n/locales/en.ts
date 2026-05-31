@@ -20,6 +20,18 @@ export const en: Record<string, string> = {
   'weekday.title': 'Which days you engage',
   'weekday.caption': 'Your activity by day of the week.',
   'venn.caption': 'Following vs followers — the overlap is your mutuals.',
+  'infection.title': 'Infection index',
+  'infection.caption':
+    'How captured you are by a few external accounts — concentration, your top vectors and parasocial pull combined. Higher = more infected.',
+  'infection.low': 'Low',
+  'infection.medium': 'Medium',
+  'infection.high': 'High',
+  'vectors.title': 'Your infection vectors',
+  'vectors.caption': 'Just {n} accounts control {pct}% of your attention.',
+  'trend.title': 'Is it getting worse?',
+  'trend.rising': 'Your attention is concentrating MORE over time — increasingly captured.',
+  'trend.falling': 'Your attention is spreading out over time — less captured.',
+  'trend.flat': 'Your concentration has stayed roughly stable over time.',
   'drop.prompt':
     'Pick or drop your Instagram data export (.zip in JSON format). It never leaves your browser.',
   'drop.helpSummary': 'How to download the right export',
