@@ -32,6 +32,16 @@ export const eu: Record<string, string> = {
     'Zure arreta GEHIAGO kontzentratzen da denborarekin — gero eta gehiago harrapatuta.',
   'trend.falling': 'Zure arreta gehiago banatzen da denborarekin — gutxiago harrapatuta.',
   'trend.flat': 'Zure kontzentrazioa gutxi gorabehera egonkor mantendu da denborarekin.',
+  'tk.notice':
+    'TikTok-eko esportazioak ezkutatzen du norekin elkarrekin aritzen zaren — atsegin dut bakoitzak, iruzkin bakoitzak eta ikusitako bideo bakoitzak bideo ID anonimo bat bakarrik ekartzen du. Beraz, honek zure harremanak eta TikTok zenbat erabiltzen duzun erakusten du, baina EZ nork harrapatzen zaituen (ez graforik, ez osasun-indizerik eta ez infekziorik).',
+  'tk.hidden':
+    '{watched} bideo ikusi, {likes} atsegin dut eta {comments} iruzkin — batek ere ez du sortzailea esportazioan jasotzen.',
+  'tk.relTitle': 'Zure harremanak TikTok-en',
+  'tk.relCaption':
+    '{following} jarraitutako · {followers} jarraitzaile · {mutual} elkarrekiko · {blocked} blokeatutako.',
+  'tk.activityTitle': 'TikTok zenbat erabiltzen duzun',
+  'tk.activityCaption':
+    'Zure jarduera-bolumena denboran zehar (atsegin dut, iruzkinak eta ikusteko historia), TikTok-ek edukiaren jabea ezkutatu arren.',
   'drop.prompt':
     'Aukeratu edo jaregin zure Instagram datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
   'drop.helpSummary': 'Nola deskargatu esportazio egokia',

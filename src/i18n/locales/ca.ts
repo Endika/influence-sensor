@@ -30,6 +30,16 @@ export const ca: Record<string, string> = {
   'trend.rising': 'La teva atenció es concentra MÉS amb el temps — cada vegada més capturat.',
   'trend.falling': 'La teva atenció es reparteix més amb el temps — menys capturat.',
   'trend.flat': 'La teva concentració s’ha mantingut més o menys estable amb el temps.',
+  'tk.notice':
+    'L’export de TikTok amaga amb qui interactues — cada m’agrada, comentari i vídeo vist porta només un ID de vídeo anònim. Així que això mostra les teves relacions i quant uses TikTok, però NO qui et capta (sense graf, salut ni infecció).',
+  'tk.hidden':
+    '{watched} vídeos vistos, {likes} m’agrada i {comments} comentaris — cap d’ells porta el creador en l’export.',
+  'tk.relTitle': 'Les teves relacions a TikTok',
+  'tk.relCaption':
+    '{following} seguits · {followers} seguidors · {mutual} mutus · {blocked} bloquejats.',
+  'tk.activityTitle': 'Quant uses TikTok',
+  'tk.activityCaption':
+    'El teu volum d’activitat en el temps (m’agrada, comentaris i historial de visualització), tot i que TikTok amagui de qui era el contingut.',
   'drop.prompt':
     'Tria o deixa caure el teu export d’Instagram (.zip en format JSON). No surt mai del teu navegador.',
   'drop.helpSummary': 'Com descarregar l’export correcte',
