@@ -31,3 +31,27 @@ describe('renderReport smoke', () => {
     setLocale('en')
   })
 })
+
+import { renderTikTokReport } from '../src/ui/tiktok-view'
+import type { TikTokSummary } from '../src/adapters/tiktok'
+
+describe('renderTikTokReport smoke', () => {
+  it('renders the limited TikTok report in every locale', () => {
+    const s: TikTokSummary = {
+      following: new Set(['a', 'b']),
+      followers: new Set(['a']),
+      mutual: 1,
+      blocked: new Set(['x']),
+      hidden: { watched: 10, likes: 3, comments: 2, favorites: 1 },
+      activity: { total: 5, byYear: [{ year: 2024, count: 2 }, { year: 2025, count: 3 }], byWeekday: new Array(7).fill(1), byHour: new Array(24).fill(1), firstTs: 1700000000, lastTs: 1730000000 },
+    }
+    for (const { code } of LOCALES) {
+      setLocale(code)
+      const root = document.createElement('div')
+      renderTikTokReport(root, s)
+      expect(root.querySelectorAll('section').length).toBeGreaterThanOrEqual(2)
+      expect(root.querySelector('.notice-warn')).not.toBeNull()
+    }
+    setLocale('en')
+  })
+})

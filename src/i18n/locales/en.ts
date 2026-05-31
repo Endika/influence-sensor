@@ -32,6 +32,15 @@ export const en: Record<string, string> = {
   'trend.rising': 'Your attention is concentrating MORE over time — increasingly captured.',
   'trend.falling': 'Your attention is spreading out over time — less captured.',
   'trend.flat': 'Your concentration has stayed roughly stable over time.',
+  'tk.notice':
+    'TikTok’s export hides who you engage with — every like, comment and watched video carries only an anonymous video ID. So this shows your relationships and how much you use TikTok, but NOT who captures your attention (no graph, health or infection).',
+  'tk.hidden':
+    '{watched} videos watched, {likes} likes and {comments} comments — none of them name the creator in the export.',
+  'tk.relTitle': 'Your TikTok relationships',
+  'tk.relCaption': '{following} following · {followers} followers · {mutual} mutual · {blocked} blocked.',
+  'tk.activityTitle': 'How much you use TikTok',
+  'tk.activityCaption':
+    'Your activity volume over time (likes, comments and watch history), even though TikTok hides whose content it was.',
   'drop.prompt':
     'Pick or drop your Instagram data export (.zip in JSON format). It never leaves your browser.',
   'drop.helpSummary': 'How to download the right export',

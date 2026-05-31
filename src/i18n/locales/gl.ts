@@ -31,6 +31,16 @@ export const gl: Record<string, string> = {
   'trend.rising': 'A túa atención concéntrase MÁS co tempo — cada vez máis capturado.',
   'trend.falling': 'A túa atención repártese máis co tempo — menos capturado.',
   'trend.flat': 'A túa concentración mantívose máis ou menos estable co tempo.',
+  'tk.notice':
+    'O export de TikTok oculta con quen interactúas — cada gústame, comentario e vídeo visto trae só un ID de vídeo anónimo. Así que isto mostra as túas relacións e canto usas TikTok, pero NON quen te capta (sen grafo, saúde nin infección).',
+  'tk.hidden':
+    '{watched} vídeos vistos, {likes} gústame e {comments} comentarios — ningún trae o creador no export.',
+  'tk.relTitle': 'As túas relacións en TikTok',
+  'tk.relCaption':
+    '{following} seguidos · {followers} seguidores · {mutual} mutuos · {blocked} bloqueados.',
+  'tk.activityTitle': 'Canto usas TikTok',
+  'tk.activityCaption':
+    'O teu volume de actividade ao longo do tempo (gústame, comentarios e historial de visualización), aínda que TikTok oculte de quen era o contido.',
   'drop.prompt':
     'Escolle ou solta o teu export de Instagram (.zip en formato JSON). Non sae nunca do teu navegador.',
   'drop.helpSummary': 'Como descargar o export correcto',

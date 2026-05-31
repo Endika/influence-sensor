@@ -1,8 +1,11 @@
 # influence-sensor
 
+### ▶ Try it live: **https://endika.github.io/influence-sensor/**
+
 Find out **how captured your social feed is** — which accounts actually own your attention,
 not just who you follow. Drop your Instagram data export and get a health score, an
-interactive graph, and the raw numbers behind it.
+interactive graph, and the raw numbers behind it. (A limited, relationships-only mode also
+supports TikTok exports — TikTok hides who you engage with.)
 
 Everything runs in your browser. Your export is never uploaded or stored — a strict
 Content-Security-Policy (`connect-src 'none'`) makes that enforceable, not just a promise.

@@ -1,13 +1,16 @@
 import JSZip from 'jszip'
 import { detectLocale, getLocale, LOCALES, setLocale, t } from './i18n'
 import { detectAdapter } from './adapters/registry'
+import { detectTikTok, parseTikTok, type TikTokSummary } from './adapters/tiktok'
 import { excludeSelf, ownerFromFilename } from './owner'
 import { analyze, type Report } from './report-model'
 import { renderReport } from './ui/view'
+import { renderTikTokReport } from './ui/tiktok-view'
 import './style.css'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 let lastReport: Report | null = null
+let lastTikTok: TikTokSummary | null = null
 
 function langSelector(): HTMLElement {
   const sel = document.createElement('select')
@@ -57,6 +60,13 @@ async function handleFile(file: File, results: HTMLElement): Promise<void> {
   results.appendChild(status)
   try {
     const zip = await JSZip.loadAsync(file)
+    if (detectTikTok(zip)) {
+      lastTikTok = await parseTikTok(zip)
+      lastReport = null
+      status.remove()
+      renderTikTokReport(results, lastTikTok)
+      return
+    }
     const adapter = detectAdapter(zip)
     if (!adapter) {
       status.textContent = t('status.unrecognized')
@@ -68,6 +78,7 @@ async function handleFile(file: File, results: HTMLElement): Promise<void> {
       return
     }
     lastReport = analyze(data)
+    lastTikTok = null
     status.remove()
     renderReport(results, lastReport)
   } catch {
@@ -100,7 +111,8 @@ function render(): void {
   results.id = 'results'
   app.append(topbar, zone, results, footer())
   wireDropzone(zone, results)
-  if (lastReport) renderReport(results, lastReport)
+  if (lastTikTok) renderTikTokReport(results, lastTikTok)
+  else if (lastReport) renderReport(results, lastReport)
 }
 
 setLocale(detectLocale())
