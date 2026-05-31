@@ -1,3 +1,4 @@
+import { t } from '../i18n'
 import type { Report } from '../report-model'
 import { renderLorenz, renderTopBars } from './charts'
 import { renderGraph } from './graph'
@@ -29,15 +30,22 @@ function notice(text: string, kind: 'warn' | 'info'): HTMLElement {
   return p
 }
 
+function pct(x: number): number {
+  return Math.round(x * 100)
+}
+
 function renderInsightSections(root: HTMLElement, report: Report): void {
   const ins = report.insights
 
   if (ins.hasFollowerData) {
     const rel = ins.relationships
     const sec = section(
-      'You vs your network',
-      `${rel.followYouNotBack} follow you that you don't follow back; ` +
-        `${rel.youFollowNotBack} you follow don't follow you back. Only ${rel.mutual} are mutual.`,
+      t('net.title'),
+      t('net.caption', {
+        followYouNotBack: rel.followYouNotBack,
+        youFollowNotBack: rel.youFollowNotBack,
+        mutual: rel.mutual,
+      }),
     )
     const grid = document.createElement('div')
     grid.className = 'statgrid'
@@ -47,67 +55,60 @@ function renderInsightSections(root: HTMLElement, report: Report): void {
       d.innerHTML = `<span class="stat-n">${n}</span><span class="stat-l">${label}</span>`
       return d
     }
-    grid.append(stat(rel.following, 'following'), stat(rel.followers, 'followers'), stat(rel.mutual, 'mutual'))
+    grid.append(
+      stat(rel.following, t('stat.following')),
+      stat(rel.followers, t('stat.followers')),
+      stat(rel.mutual, t('stat.mutual')),
+    )
     sec.appendChild(grid)
     const ml = document.createElement('p')
     ml.className = 'caption'
-    ml.textContent =
-      `Consumer ↔ Creator — a rough proxy from your follower/following ratio (${ins.influence.followerRatio.toFixed(2)}, ${ins.influence.leaning}). ` +
-      'The export cannot measure your real influence on others.'
+    ml.textContent = t('leaning.caption', {
+      ratio: ins.influence.followerRatio.toFixed(2),
+      leaning: t(`leaning.${ins.influence.leaning}`),
+    })
     sec.appendChild(ml)
     renderLeaningMeter(sec, ins.influence.followerRatio, {
-      consumer: 'Consumer (you absorb)',
-      creator: 'Creator (others absorb you)',
+      consumer: t('leaning.consumerEnd'),
+      creator: t('leaning.creatorEnd'),
     })
     root.appendChild(sec)
   }
 
-  const bubble = section(
-    'Your bubble',
-    'How much of your attention stays inside your own circle. High = an echo chamber of accounts you already follow; low = you look outward.',
-  )
-  renderShareBar(bubble, ins.bubble.followedAttentionShare, 'Attention to accounts you follow', '#e0245e')
-  renderShareBar(bubble, ins.bubble.mutualAttentionShare, 'Attention to mutuals (inner circle)', '#f4a259')
+  const bubble = section(t('bubble.title'), t('bubble.caption'))
+  renderShareBar(bubble, ins.bubble.followedAttentionShare, t('bubble.followed'), '#e0245e')
+  renderShareBar(bubble, ins.bubble.mutualAttentionShare, t('bubble.mutual'), '#f4a259')
   root.appendChild(bubble)
 
   if (report.totalFollows > 0) {
-    const dead = section(
-      'Dead follows',
-      "Accounts you follow but give zero attention to. A high share means your following list is mostly noise you've tuned out.",
-    )
+    const dead = section(t('dead.title'), t('dead.caption'))
     renderShareBar(
       dead,
       ins.deadFollowsPct,
-      `${ins.deadFollowsCount} of ${report.totalFollows} you follow get none of your attention`,
+      t('dead.bar', { n: ins.deadFollowsCount, total: report.totalFollows }),
       '#888',
     )
     root.appendChild(dead)
   }
 
   if (ins.temporal.dated > 0) {
-    const t = section(
-      'When you get hooked',
-      `Your activity by hour (UTC). Busiest around ${ins.temporal.busiestHour}:00, across ${ins.temporal.spanDays} days of history.`,
+    const when = section(
+      t('when.title'),
+      t('when.caption', { hour: ins.temporal.busiestHour, days: ins.temporal.spanDays }),
     )
-    renderHourHistogram(t, ins.temporal.byHour)
-    root.appendChild(t)
+    renderHourHistogram(when, ins.temporal.byHour)
+    root.appendChild(when)
   }
 
   if (ins.hasCloseFriendsData) {
     const cf = ins.closeFriends
-    const sec = section(
-      'Close-friends reality check',
-      `Of your ${cf.total} close friends, you actually engage with ${cf.engaged}.`,
-    )
-    renderShareBar(sec, cf.total ? cf.engaged / cf.total : 0, 'Close friends you actually engage with', '#38a169')
+    const sec = section(t('close.title'), t('close.caption', { total: cf.total, engaged: cf.engaged }))
+    renderShareBar(sec, cf.total ? cf.engaged / cf.total : 0, t('close.bar'), '#38a169')
     root.appendChild(sec)
   }
 
   if (ins.parasocial.length) {
-    const sec = section(
-      'Parasocial leaks',
-      "Accounts you pour attention into but don't even follow.",
-    )
+    const sec = section(t('para.title'), t('para.caption'))
     const list = document.createElement('div')
     list.className = 'bars'
     for (const p of ins.parasocial.slice(0, 8)) {
@@ -130,65 +131,41 @@ function renderInsightSections(root: HTMLElement, report: Report): void {
 export function renderReport(root: HTMLElement, report: Report): void {
   root.innerHTML = ''
 
-  // Honest guard: too little attributable data to say anything reliable.
   if (report.totalInteractions < MIN_RELIABLE_INTERACTIONS) {
-    root.appendChild(
-      notice(
-        `Only ${report.totalInteractions} attributable interactions found — not enough for a reliable verdict. ` +
-          'The numbers below are shown for transparency, but treat the score as indicative only. ' +
-          'Re-export from Instagram in JSON with a wider date range and "Story interactions" included.',
-        'warn',
-      ),
-    )
+    root.appendChild(notice(t('notice.lowData', { n: report.totalInteractions }), 'warn'))
   }
 
-  let concentrationCaveat = ''
-  if (report.uniqueAccountsEngaged <= 10) {
-    concentrationCaveat =
-      ' (You have ≤10 engaged accounts, so top-10 concentration is naturally ~100% and the score is rough here.)'
-  }
-
+  const caveat = report.uniqueAccountsEngaged <= 10 ? t('verdict.fewAccounts') : ''
   const verdict = section(
-    'Network Health',
-    'A transparent heuristic. Higher = a diverse, balanced diet. Lower = a few voices own your attention. ' +
-      `Diversity ${Math.round(report.health.diversity * 100)}% · Top-10 concentration ${Math.round(report.health.concentration * 100)}%.` +
-      concentrationCaveat,
+    t('verdict.title'),
+    t('verdict.caption', {
+      div: pct(report.health.diversity),
+      conc: pct(report.health.concentration),
+    }) + caveat,
   )
-  renderHealthGauge(verdict, report.health.score, report.health.band)
+  renderHealthGauge(verdict, report.health.score, report.health.band, t(`band.${report.health.band}`))
   root.appendChild(verdict)
 
-  // Instagram's newer export strips the author from liked posts — be explicit about it.
   if (report.unattributed > 0) {
-    root.appendChild(
-      notice(
-        `${report.unattributed} liked posts couldn't be attributed: Instagram's current export no longer ` +
-          'records who authored a liked post, so those are excluded. Story likes, comments and liked comments ' +
-          'still carry the account and are included.',
-        'info',
-      ),
-    )
+    root.appendChild(notice(t('notice.unattributed', { n: report.unattributed }), 'info'))
   }
 
-  const headline = document.createElement('p')
-  headline.className = 'headline'
   const top = report.accounts[0]
   if (top) {
+    const headline = document.createElement('p')
+    headline.className = 'headline'
     const account = document.createElement('span')
-    account.translate = false // never let the browser translate a username
+    account.translate = false
     account.textContent = top.account
     headline.append(
-      `You follow ${report.totalFollows} accounts, but `,
+      t('headline.before', { follows: report.totalFollows }),
       account,
-      ` alone takes ${Math.round(top.share * 100)}% of your ${report.totalInteractions} logged interactions.`,
+      t('headline.after', { pct: pct(top.share), total: report.totalInteractions }),
     )
     root.appendChild(headline)
   }
 
-  const graphSec = section(
-    'Your attention graph',
-    'You are at the center. Each node is an account you engage with — bigger = more of your attention. ' +
-      'Pink = accounts you follow and engage with (they capture you). Orange = you engage without following (attention leak). Drag nodes to explore.',
-  )
+  const graphSec = section(t('graph.title'), t('graph.caption'))
   const graphHost = document.createElement('div')
   graphHost.className = 'graph-host'
   graphSec.appendChild(graphHost)
@@ -197,44 +174,39 @@ export function renderReport(root: HTMLElement, report: Report): void {
 
   renderInsightSections(root, report)
 
-  const lorenzSec = section(
-    'How unevenly is your attention spread?',
-    'The further the curve bows below the dotted diagonal, the more your attention concentrates in a few accounts. ' +
-      `Gini ${report.gini.toFixed(2)}.`,
-  )
+  const lorenzSec = section(t('lorenz.title'), t('lorenz.caption', { gini: report.gini.toFixed(2) }))
   renderLorenz(lorenzSec, report.accounts.map((a) => a.interactions))
   root.appendChild(lorenzSec)
 
-  const barsSec = section(
-    'Where your attention goes',
-    'Share of your total interactions held by your top accounts.',
-  )
+  const barsSec = section(t('bars.title'), t('bars.caption'))
   renderTopBars(barsSec, report.accounts.slice(0, 15))
   root.appendChild(barsSec)
 
-  const tableSec = section(
-    'The raw data',
-    'Every account you engaged with, ranked. Nothing here is hidden or modeled away.',
-  )
+  const tableSec = section(t('table.title'), t('table.caption'))
   const table = document.createElement('table')
-  table.innerHTML =
-    '<thead><tr><th>#</th><th>Account</th><th>Interactions</th><th>Share</th><th>Followed?</th></tr></thead>'
+  const head = document.createElement('thead')
+  const hr = document.createElement('tr')
+  for (const key of ['table.colRank', 'table.colAccount', 'table.colInteractions', 'table.colShare', 'table.colFollowed']) {
+    const th = document.createElement('th')
+    th.textContent = t(key)
+    hr.appendChild(th)
+  }
+  head.appendChild(hr)
+  table.appendChild(head)
   const tbody = document.createElement('tbody')
   report.accounts.forEach((a, i) => {
     const tr = document.createElement('tr')
-    // Use textContent: account names come from the user's export and must not be
-    // interpreted as HTML.
     const cells = [
       String(i + 1),
       a.account,
       String(a.interactions),
-      `${Math.round(a.share * 100)}%`,
-      a.followed ? 'yes' : 'no',
+      `${pct(a.share)}%`,
+      a.followed ? t('table.yes') : t('table.no'),
     ]
     cells.forEach((text, col) => {
       const td = document.createElement('td')
       td.textContent = text
-      if (col === 1) td.translate = false // the account column is a username
+      if (col === 1) td.translate = false
       tr.appendChild(td)
     })
     tbody.appendChild(tr)

@@ -1,82 +1,87 @@
 import JSZip from 'jszip'
+import { detectLocale, getLocale, LOCALES, setLocale, t } from './i18n'
 import { detectAdapter } from './adapters/registry'
 import { excludeSelf, ownerFromFilename } from './owner'
-import { analyze } from './report-model'
+import { analyze, type Report } from './report-model'
 import { renderReport } from './ui/view'
 import './style.css'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
+let lastReport: Report | null = null
+
+function langSelector(): HTMLElement {
+  const sel = document.createElement('select')
+  sel.className = 'lang-select'
+  sel.setAttribute('aria-label', 'Language')
+  for (const locale of LOCALES) {
+    const opt = document.createElement('option')
+    opt.value = locale.code
+    opt.textContent = locale.label
+    if (locale.code === getLocale()) opt.selected = true
+    sel.appendChild(opt)
+  }
+  sel.addEventListener('change', () => {
+    setLocale(sel.value)
+    render()
+  })
+  return sel
+}
 
 function dropzone(): HTMLElement {
   const zone = document.createElement('div')
   zone.className = 'dropzone'
   zone.innerHTML =
-    '<h1>influence-sensor</h1>' +
-    '<p>Pick or drop your Instagram data export (<strong>.zip in JSON format</strong>). ' +
-    'It never leaves your browser.</p>' +
+    '<h1 translate="no">influence-sensor</h1>' +
+    `<p>${t('drop.prompt')}</p>` +
     '<input type="file" accept=".zip,application/zip" id="file" />' +
-    '<details class="export-help">' +
-    '<summary>How to download the right export</summary>' +
-    '<p>In Instagram: <em>Settings → Accounts Center → Your information and permissions → ' +
-    'Download your information</em>. Choose <strong>“Some of your information”</strong> and tick:</p>' +
-    '<ul><li>Likes</li><li>Comments</li><li>Saved</li><li>Story interactions</li>' +
-    '<li>Followers and following</li></ul>' +
-    '<p>Set <strong>Format: JSON</strong> (not HTML) and <strong>Date range: All time</strong> ' +
-    'for the fullest picture. Liked posts can’t be analysed (Instagram omits the author), so ' +
-    '“Story interactions” is what gives the richest result.</p>' +
-    '</details>'
+    `<details class="export-help"><summary>${t('drop.helpSummary')}</summary>` +
+    `<p>${t('drop.helpSteps')}</p>` +
+    `<ul><li>${t('drop.itemLikes')}</li><li>${t('drop.itemComments')}</li>` +
+    `<li>${t('drop.itemSaved')}</li><li>${t('drop.itemStories')}</li>` +
+    `<li>${t('drop.itemFollowers')}</li></ul>` +
+    `<p>${t('drop.helpFormat')}</p></details>`
   return zone
 }
 
 function footer(): HTMLElement {
   const f = document.createElement('footer')
   f.className = 'app-footer'
-  f.innerHTML = `influence-sensor <span class="version">v${__APP_VERSION__}</span>`
+  f.innerHTML = `<span translate="no">influence-sensor</span> <span class="version">v${__APP_VERSION__}</span>`
   return f
 }
 
 async function handleFile(file: File, results: HTMLElement): Promise<void> {
   results.innerHTML = ''
   const status = document.createElement('p')
-  status.textContent = 'Reading…'
+  status.textContent = t('status.reading')
   results.appendChild(status)
   try {
     const zip = await JSZip.loadAsync(file)
     const adapter = detectAdapter(zip)
     if (!adapter) {
-      status.textContent = 'Unrecognized export. Is this an Instagram .zip downloaded in JSON format?'
+      status.textContent = t('status.unrecognized')
       return
     }
-    // Exclude the account owner — you don't influence yourself. The owner is taken
-    // from the export filename (instagram-<username>-<date>-<hash>.zip).
     const data = excludeSelf(await adapter.parse(zip), ownerFromFilename(file.name))
     if (data.interactions.length === 0) {
-      status.textContent = 'No likes/comments found. Did you download in HTML instead of JSON format?'
+      status.textContent = t('status.noInteractions')
       return
     }
-    const report = analyze(data)
+    lastReport = analyze(data)
     status.remove()
-    renderReport(results, report)
+    renderReport(results, lastReport)
   } catch {
-    status.textContent = 'Could not read that file as a .zip.'
+    status.textContent = t('status.badZip')
   }
 }
 
-function init(): void {
-  app.innerHTML = ''
-  const zone = dropzone()
-  const results = document.createElement('div')
-  results.id = 'results'
-  app.append(zone, results, footer())
-
+function wireDropzone(zone: HTMLElement, results: HTMLElement): void {
   const input = zone.querySelector<HTMLInputElement>('#file')!
   input.addEventListener('change', () => {
     const file = input.files?.[0]
     if (file) void handleFile(file, results)
   })
-  const stop = (e: DragEvent) => {
-    e.preventDefault()
-  }
+  const stop = (e: DragEvent) => e.preventDefault()
   zone.addEventListener('dragover', stop)
   zone.addEventListener('drop', (e) => {
     stop(e)
@@ -85,4 +90,18 @@ function init(): void {
   })
 }
 
-init()
+function render(): void {
+  app.innerHTML = ''
+  const topbar = document.createElement('div')
+  topbar.className = 'topbar'
+  topbar.appendChild(langSelector())
+  const zone = dropzone()
+  const results = document.createElement('div')
+  results.id = 'results'
+  app.append(topbar, zone, results, footer())
+  wireDropzone(zone, results)
+  if (lastReport) renderReport(results, lastReport)
+}
+
+setLocale(detectLocale())
+render()
