@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/Endika/influence-sensor/compare/v1.4.0...v1.5.0) (2026-05-31)
+
+
+### Features
+
+* infection index, vectors and concentration trend ([1f90631](https://github.com/Endika/influence-sensor/commit/1f9063196405c6233b7eef2791c2f059ddbc9188))
+
 ## [1.4.0](https://github.com/Endika/influence-sensor/compare/v1.3.0...v1.4.0) (2026-05-31)
 
 
