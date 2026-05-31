@@ -49,6 +49,10 @@ th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; whit
 .share-track { height: 10px; background: #f0f0f0; border-radius: 5px; overflow: hidden; }
 .share-fill { height: 100%; border-radius: 5px; }
 .hist { width: 100%; max-width: 360px; height: auto; display: block; }
+.venn { width: 100%; max-width: 340px; height: auto; display: block; margin: 0.3rem auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; font-size: 0.78rem; color: #555; margin-top: 6px; }
+.legend-item { display: inline-flex; align-items: center; gap: 4px; }
+.legend-item i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .leak-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 2px 0; border-bottom: 1px solid #f2f2f2; }
 
 .notice { border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.85rem; margin: 0.5rem 0; }

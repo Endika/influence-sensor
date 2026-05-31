@@ -1,6 +1,6 @@
 import type { Report } from '../report-model'
 
-export type NodeCategory = 'captures' | 'leak'
+export type NodeCategory = 'mutual' | 'followed' | 'leak'
 
 export interface GraphNode {
   id: string
@@ -36,7 +36,7 @@ export function toGraphData(report: Report, topN: number): { nodes: GraphNode[];
       label: a.account,
       center: false,
       radius: MIN_R + (MAX_R - MIN_R) * Math.sqrt(a.share / maxShare),
-      category: a.followed ? 'captures' : 'leak',
+      category: a.mutual ? 'mutual' : a.followed ? 'followed' : 'leak',
     })
     links.push({ source: YOU_ID, target: a.account, weight: a.share })
   }

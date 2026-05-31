@@ -1,5 +1,5 @@
 import { attentionByAccount } from './metrics'
-import type { NormalizedData } from './schema'
+import type { InteractionKind, NormalizedData } from './schema'
 
 export type InfluenceLeaning = 'consumer' | 'balanced' | 'creator'
 
@@ -20,6 +20,9 @@ export interface Insights {
   /** Bias toward your own circle: share of attention spent on mutuals / on accounts you follow. */
   bubble: { mutualAttentionShare: number; followedAttentionShare: number }
   closeFriends: { total: number; engaged: number }
+  byKind: Array<{ kind: InteractionKind; count: number }> // how you engage, ranked
+  byYear: Array<{ year: number; count: number }> // activity per calendar year
+  byWeekday: number[] // length 7, index 0 = Sunday (UTC)
   temporal: {
     byHour: number[]
     busiestHour: number
@@ -70,12 +73,26 @@ export function computeInsights(data: NormalizedData): Insights {
   }
 
   const byHour = new Array(24).fill(0)
+  const byWeekday = new Array(7).fill(0)
+  const yearCounts = new Map<number, number>()
+  const kindCounts = new Map<InteractionKind, number>()
   const stamps: number[] = []
   for (const i of data.interactions) {
+    kindCounts.set(i.kind, (kindCounts.get(i.kind) ?? 0) + 1)
     if (!i.timestamp) continue
     stamps.push(i.timestamp)
-    byHour[new Date(i.timestamp * 1000).getUTCHours()]++
+    const d = new Date(i.timestamp * 1000)
+    byHour[d.getUTCHours()]++
+    byWeekday[d.getUTCDay()]++
+    const y = d.getUTCFullYear()
+    yearCounts.set(y, (yearCounts.get(y) ?? 0) + 1)
   }
+  const byKind = [...kindCounts.entries()]
+    .map(([kind, count]) => ({ kind, count }))
+    .sort((a, b) => b.count - a.count)
+  const byYear = [...yearCounts.entries()]
+    .map(([year, count]) => ({ year, count }))
+    .sort((a, b) => a.year - b.year)
   const busiestHour = byHour.indexOf(Math.max(...byHour))
   const firstTs = stamps.length ? Math.min(...stamps) : 0
   const lastTs = stamps.length ? Math.max(...stamps) : 0
@@ -103,6 +120,9 @@ export function computeInsights(data: NormalizedData): Insights {
       total: close.size,
       engaged: [...close].filter((a) => engaged.has(a)).length,
     },
+    byKind,
+    byYear,
+    byWeekday,
     temporal: {
       byHour,
       busiestHour: busiestHour < 0 ? 0 : busiestHour,

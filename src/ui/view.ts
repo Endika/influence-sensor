@@ -1,13 +1,23 @@
 import { getLocale, t } from '../i18n'
 import type { Report } from '../report-model'
 import { renderLorenz, renderTopBars } from './charts'
-import { renderGraph } from './graph'
+import { GRAPH_COLORS, renderGraph } from './graph'
 import {
   renderHealthGauge,
   renderHourHistogram,
+  renderLabeledBars,
   renderLeaningMeter,
+  renderLegend,
   renderShareBar,
+  renderVenn,
+  renderWeekday,
+  renderYearArea,
 } from './insight-charts'
+
+const WEEKDAY_LABELS = (): string[] =>
+  Array.from({ length: 7 }, (_, d) =>
+    new Date(Date.UTC(2023, 0, 1 + d)).toLocaleDateString(getLocale(), { weekday: 'short' }),
+  )
 
 // Below this many attributable interactions the verdict is statistically meaningless.
 const MIN_RELIABLE_INTERACTIONS = 10
@@ -72,6 +82,36 @@ function renderInsightSections(root: HTMLElement, report: Report): void {
       consumer: t('leaning.consumerEnd'),
       creator: t('leaning.creatorEnd'),
     })
+    const vennCap = document.createElement('p')
+    vennCap.className = 'caption'
+    vennCap.textContent = t('venn.caption')
+    sec.appendChild(vennCap)
+    renderVenn(sec, rel.following, rel.followers, rel.mutual, {
+      following: t('stat.following'),
+      followers: t('stat.followers'),
+      mutual: t('stat.mutual'),
+    })
+    root.appendChild(sec)
+  }
+
+  if (ins.byKind.length) {
+    const sec = section(t('kind.title'), t('kind.caption'))
+    renderLabeledBars(
+      sec,
+      ins.byKind.map((k) => ({ label: t(`kind.${k.kind}`), value: k.count })),
+    )
+    root.appendChild(sec)
+  }
+
+  if (ins.byYear.length > 1) {
+    const sec = section(t('year.title'), t('year.caption'))
+    renderYearArea(sec, ins.byYear)
+    root.appendChild(sec)
+  }
+
+  if (ins.temporal.dated > 0) {
+    const sec = section(t('weekday.title'), t('weekday.caption'))
+    renderWeekday(sec, ins.byWeekday, WEEKDAY_LABELS())
     root.appendChild(sec)
   }
 
@@ -186,6 +226,11 @@ export function renderReport(root: HTMLElement, report: Report): void {
   graphSec.appendChild(graphHost)
   root.appendChild(graphSec)
   renderGraph(graphHost, report)
+  renderLegend(graphSec, [
+    { color: GRAPH_COLORS.mutual, label: t('legend.mutual') },
+    { color: GRAPH_COLORS.followed, label: t('legend.followed') },
+    { color: GRAPH_COLORS.leak, label: t('legend.leak') },
+  ])
 
   renderInsightSections(root, report)
 
