@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/Endika/influence-sensor/compare/v1.2.0...v1.3.0) (2026-05-31)
+
+
+### Features
+
+* show the date range the export covers ([137ea8c](https://github.com/Endika/influence-sensor/commit/137ea8c6c12f287420f4ee66760fe516d72c69a2))
+
 ## [1.2.0](https://github.com/Endika/influence-sensor/compare/v1.1.1...v1.2.0) (2026-05-31)
 
 
