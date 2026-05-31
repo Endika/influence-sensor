@@ -12,11 +12,19 @@ function dropzone(): HTMLElement {
   zone.className = 'dropzone'
   zone.innerHTML =
     '<h1>influence-sensor</h1>' +
-    '<p>Pick or drop your Instagram data export (.zip, <strong>JSON format</strong>). ' +
+    '<p>Pick or drop your Instagram data export (<strong>.zip in JSON format</strong>). ' +
     'It never leaves your browser.</p>' +
     '<input type="file" accept=".zip,application/zip" id="file" />' +
-    '<p class="hint">On mobile? Request your data in JSON and, to keep the file small, ' +
-    'limit it to your activity (likes, following, comments) or a date range.</p>'
+    '<details class="export-help">' +
+    '<summary>How to download the right export</summary>' +
+    '<p>In Instagram: <em>Settings → Accounts Center → Your information and permissions → ' +
+    'Download your information</em>. Choose <strong>“Some of your information”</strong> and tick:</p>' +
+    '<ul><li>Likes</li><li>Comments</li><li>Saved</li><li>Story interactions</li>' +
+    '<li>Followers and following</li></ul>' +
+    '<p>Set <strong>Format: JSON</strong> (not HTML) and <strong>Date range: All time</strong> ' +
+    'for the fullest picture. Liked posts can’t be analysed (Instagram omits the author), so ' +
+    '“Story interactions” is what gives the richest result.</p>' +
+    '</details>'
   return zone
 }
 

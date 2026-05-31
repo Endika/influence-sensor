@@ -11,12 +11,14 @@ Content-Security-Policy (`connect-src 'none'`) makes that enforceable, not just 
 
 ## Use it
 
-1. Request your data from Instagram in **JSON** format (Settings → Your activity →
-   Download your information). **On mobile**, keep the file small: pick JSON, and limit it to
-   your activity (likes, following, comments) and/or a date range, so it loads comfortably in a
-   phone browser.
-2. Open the app and drop — or pick — the `.zip` you received.
-3. Read your report. Nothing leaves your machine.
+1. In Instagram, go to **Settings → Accounts Center → Your information and permissions →
+   Download your information**, choose **"Some of your information"**, and tick:
+   **Likes · Comments · Saved · Story interactions · Followers and following**.
+2. Set **Format: JSON** (not HTML) and **Date range: All time**. (Liked *posts* can't be analysed
+   — Instagram no longer exports the post author — so **Story interactions** is what gives the
+   richest result.)
+3. Open the app and drop — or pick — the `.zip` you received. Read your report. Nothing leaves
+   your machine.
 
 ## How the health score works
 
