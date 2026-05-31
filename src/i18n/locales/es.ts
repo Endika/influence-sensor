@@ -19,6 +19,18 @@ export const es: Record<string, string> = {
   'weekday.title': 'Qué días te enganchas',
   'weekday.caption': 'Tu actividad por día de la semana.',
   'venn.caption': 'Seguidos vs seguidores — la intersección son tus mutuos.',
+  'infection.title': 'Índice de infección',
+  'infection.caption':
+    'Cuánto te capturan unas pocas cuentas externas — concentración, tus vectores principales y tirón parasocial combinados. Más alto = más infectado.',
+  'infection.low': 'Baja',
+  'infection.medium': 'Media',
+  'infection.high': 'Alta',
+  'vectors.title': 'Tus vectores de infección',
+  'vectors.caption': 'Solo {n} cuentas controlan el {pct}% de tu atención.',
+  'trend.title': '¿Va a más?',
+  'trend.rising': 'Tu atención se concentra MÁS con el tiempo — cada vez más capturado.',
+  'trend.falling': 'Tu atención se reparte más con el tiempo — menos capturado.',
+  'trend.flat': 'Tu concentración se ha mantenido más o menos estable con el tiempo.',
   'drop.prompt':
     'Elige o suelta tu export de Instagram (.zip en formato JSON). Nunca sale de tu navegador.',
   'drop.helpSummary': 'Cómo descargar el export correcto',

@@ -19,6 +19,18 @@ export const gl: Record<string, string> = {
   'weekday.title': 'Que días te enganchas',
   'weekday.caption': 'A túa actividade por día da semana.',
   'venn.caption': 'Seguidos vs seguidores — a intersección son os teus mutuos.',
+  'infection.title': 'Índice de infección',
+  'infection.caption':
+    'Canto te capturan unhas poucas contas externas — concentración, os teus vectores principais e tirón parasocial combinados. Máis alto = máis infectado.',
+  'infection.low': 'Baixa',
+  'infection.medium': 'Media',
+  'infection.high': 'Alta',
+  'vectors.title': 'Os teus vectores de infección',
+  'vectors.caption': 'Só {n} contas controlan o {pct}% da túa atención.',
+  'trend.title': '¿Vai a máis?',
+  'trend.rising': 'A túa atención concéntrase MÁS co tempo — cada vez máis capturado.',
+  'trend.falling': 'A túa atención repártese máis co tempo — menos capturado.',
+  'trend.flat': 'A túa concentración mantívose máis ou menos estable co tempo.',
   'drop.prompt':
     'Escolle ou solta o teu export de Instagram (.zip en formato JSON). Non sae nunca do teu navegador.',
   'drop.helpSummary': 'Como descargar o export correcto',

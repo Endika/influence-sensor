@@ -166,6 +166,39 @@ function renderInsightSections(root: HTMLElement, report: Report): void {
     sec.appendChild(list)
     root.appendChild(sec)
   }
+
+  const top3 = report.accounts.slice(0, 3)
+  if (top3.length) {
+    const sec = section(
+      t('vectors.title'),
+      t('vectors.caption', { n: top3.length, pct: Math.round(ins.infection.topThree * 100) }),
+    )
+    const list = document.createElement('div')
+    list.className = 'bars'
+    for (const a of top3) {
+      const row = document.createElement('div')
+      row.className = 'leak-row'
+      const name = document.createElement('span')
+      name.className = 'bar-label'
+      name.translate = false
+      name.textContent = a.account
+      const share = document.createElement('span')
+      share.textContent = `${Math.round(a.share * 100)}%`
+      row.append(name, share)
+      list.appendChild(row)
+    }
+    sec.appendChild(list)
+    root.appendChild(sec)
+  }
+
+  if (ins.concentrationByYear.length >= 2) {
+    const sec = section(t('trend.title'), t(`trend.${ins.trend}`))
+    renderYearArea(
+      sec,
+      ins.concentrationByYear.map((c) => ({ year: c.year, count: Math.round(c.top3Share * 100) })),
+    )
+    root.appendChild(sec)
+  }
 }
 
 export function renderReport(root: HTMLElement, report: Report): void {
@@ -200,6 +233,13 @@ export function renderReport(root: HTMLElement, report: Report): void {
   )
   renderHealthGauge(verdict, report.health.score, report.health.band, t(`band.${report.health.band}`))
   root.appendChild(verdict)
+
+  // Infection index: the visceral capstone — how captured you are by a few others.
+  const inf = report.insights.infection
+  const infClass = inf.band === 'high' ? 'Captured' : inf.band === 'medium' ? 'Moderate' : 'Healthy'
+  const infSec = section(t('infection.title'), t('infection.caption'))
+  renderHealthGauge(infSec, inf.index, infClass, t(`infection.${inf.band}`), true)
+  root.appendChild(infSec)
 
   if (report.unattributed > 0) {
     root.appendChild(notice(t('notice.unattributed', { n: report.unattributed }), 'info'))

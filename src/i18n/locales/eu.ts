@@ -19,6 +19,19 @@ export const eu: Record<string, string> = {
   'weekday.title': 'Zein egunetan engantxatzen zaren',
   'weekday.caption': 'Zure jarduera asteko egunaren arabera.',
   'venn.caption': 'Jarraituak vs jarraitzaileak — intersekzioa zure elkarrekikoak dira.',
+  'infection.title': 'Infekzio-indizea',
+  'infection.caption':
+    'Kanpoko kontu gutxi batzuek zenbaterainoko harrapaketa egiten dizuten — kontzentrazioa, zure bektore nagusiak eta tiroi parasoziala batuta. Altuagoa = gehiago kutsatuta.',
+  'infection.low': 'Baxua',
+  'infection.medium': 'Ertaina',
+  'infection.high': 'Altua',
+  'vectors.title': 'Zure infekzio-bektoreak',
+  'vectors.caption': '{n} kontu bakarrik kontrolatzen du zure arretaren %{pct}.',
+  'trend.title': 'Gora al doa?',
+  'trend.rising':
+    'Zure arreta GEHIAGO kontzentratzen da denborarekin — gero eta gehiago harrapatuta.',
+  'trend.falling': 'Zure arreta gehiago banatzen da denborarekin — gutxiago harrapatuta.',
+  'trend.flat': 'Zure kontzentrazioa gutxi gorabehera egonkor mantendu da denborarekin.',
   'drop.prompt':
     'Aukeratu edo jaregin zure Instagram datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
   'drop.helpSummary': 'Nola deskargatu esportazio egokia',

@@ -1,7 +1,9 @@
-import { attentionByAccount } from './metrics'
+import { attentionByAccount, topNShare } from './metrics'
 import type { InteractionKind, NormalizedData } from './schema'
 
 export type InfluenceLeaning = 'consumer' | 'balanced' | 'creator'
+export type InfectionBand = 'low' | 'medium' | 'high'
+export type Trend = 'rising' | 'falling' | 'flat'
 
 export interface Insights {
   hasFollowerData: boolean
@@ -23,6 +25,17 @@ export interface Insights {
   byKind: Array<{ kind: InteractionKind; count: number }> // how you engage, ranked
   byYear: Array<{ year: number; count: number }> // activity per calendar year
   byWeekday: number[] // length 7, index 0 = Sunday (UTC)
+  /** How captured you are by a few external accounts (0..100, higher = more infected). */
+  infection: {
+    index: number
+    band: InfectionBand
+    concentration: number // top-10 share
+    topThree: number // top-3 share — your main "infection vectors"
+    parasocialShare: number // share of attention to accounts you don't follow
+  }
+  /** Per-year top-3 concentration, to see if capture grows over time. */
+  concentrationByYear: Array<{ year: number; top3Share: number; count: number }>
+  trend: Trend
   temporal: {
     byHour: number[]
     busiestHour: number
@@ -75,6 +88,7 @@ export function computeInsights(data: NormalizedData): Insights {
   const byHour = new Array(24).fill(0)
   const byWeekday = new Array(7).fill(0)
   const yearCounts = new Map<number, number>()
+  const yearAccounts = new Map<number, Map<string, number>>()
   const kindCounts = new Map<InteractionKind, number>()
   const stamps: number[] = []
   for (const i of data.interactions) {
@@ -86,6 +100,12 @@ export function computeInsights(data: NormalizedData): Insights {
     byWeekday[d.getUTCDay()]++
     const y = d.getUTCFullYear()
     yearCounts.set(y, (yearCounts.get(y) ?? 0) + 1)
+    let ya = yearAccounts.get(y)
+    if (!ya) {
+      ya = new Map()
+      yearAccounts.set(y, ya)
+    }
+    ya.set(i.account, (ya.get(i.account) ?? 0) + 1)
   }
   const byKind = [...kindCounts.entries()]
     .map(([kind, count]) => ({ kind, count }))
@@ -93,6 +113,32 @@ export function computeInsights(data: NormalizedData): Insights {
   const byYear = [...yearCounts.entries()]
     .map(([year, count]) => ({ year, count }))
     .sort((a, b) => a.year - b.year)
+
+  // Infection: concentration + parasocial pull (higher = more captured by a few others).
+  const counts = [...byAccount.values()]
+  const concentration = topNShare(counts, 10)
+  const topThree = topNShare(counts, 3)
+  const parasocialShare =
+    total === 0 ? 0 : parasocial.reduce((s, p) => s + p.interactions, 0) / total
+  const infectionIndex = Math.round(
+    100 * (0.45 * concentration + 0.35 * topThree + 0.2 * parasocialShare),
+  )
+  const infectionBand: InfectionBand =
+    infectionIndex >= 66 ? 'high' : infectionIndex >= 33 ? 'medium' : 'low'
+
+  const concentrationByYear = [...yearAccounts.entries()]
+    .map(([year, m]) => {
+      const c = [...m.values()]
+      return { year, count: c.reduce((a, b) => a + b, 0), top3Share: topNShare(c, 3) }
+    })
+    .filter((x) => x.count >= 10)
+    .sort((a, b) => a.year - b.year)
+  let trend: Trend = 'flat'
+  if (concentrationByYear.length >= 2) {
+    const first = concentrationByYear[0].top3Share
+    const last = concentrationByYear[concentrationByYear.length - 1].top3Share
+    trend = last > first + 0.05 ? 'rising' : last < first - 0.05 ? 'falling' : 'flat'
+  }
   const busiestHour = byHour.indexOf(Math.max(...byHour))
   const firstTs = stamps.length ? Math.min(...stamps) : 0
   const lastTs = stamps.length ? Math.max(...stamps) : 0
@@ -123,6 +169,9 @@ export function computeInsights(data: NormalizedData): Insights {
     byKind,
     byYear,
     byWeekday,
+    infection: { index: infectionIndex, band: infectionBand, concentration, topThree, parasocialShare },
+    concentrationByYear,
+    trend,
     temporal: {
       byHour,
       busiestHour: busiestHour < 0 ? 0 : busiestHour,

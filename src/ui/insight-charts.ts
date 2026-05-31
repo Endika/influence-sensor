@@ -13,6 +13,7 @@ export function renderHealthGauge(
   score: number,
   bandClass: string,
   label: string,
+  invert = false,
 ): void {
   const wrap = document.createElement('div')
   wrap.className = 'gauge'
@@ -28,10 +29,12 @@ export function renderHealthGauge(
   const pad = 6
   const inner = W - 2 * pad
   const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H + 14}`, class: 'gauge-bar' }) as SVGSVGElement
+  const green = '#38a169'
+  const red = '#e53e3e'
   const zones: Array<[string, number, number]> = [
-    ['#e53e3e', 0, 33],
+    [invert ? green : red, 0, 33],
     ['#f4a259', 33, 66],
-    ['#38a169', 66, 100],
+    [invert ? red : green, 66, 100],
   ]
   for (const [color, a, b] of zones) {
     svg.appendChild(
