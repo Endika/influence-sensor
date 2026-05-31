@@ -16,9 +16,13 @@ export function ownerFromFilename(filename: string): string | null {
 export function excludeSelf(data: NormalizedData, self: string | null): NormalizedData {
   if (!self) return data
   const key = self.toLowerCase()
+  const without = (set: Set<string> | undefined) =>
+    set ? new Set([...set].filter((a) => a.toLowerCase() !== key)) : undefined
   return {
     interactions: data.interactions.filter((i) => i.account.toLowerCase() !== key),
-    follows: new Set([...data.follows].filter((a) => a.toLowerCase() !== key)),
+    follows: without(data.follows)!,
+    followers: without(data.followers),
+    closeFriends: without(data.closeFriends),
     unattributed: data.unattributed,
   }
 }
