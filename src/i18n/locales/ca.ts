@@ -50,6 +50,9 @@ export const ca: Record<string, string> = {
   'drop.itemSaved': 'Guardat',
   'drop.itemStories': 'Interaccions amb històries',
   'drop.itemFollowers': 'Seguidors i seguits',
+  'drop.tkHelpSummary': 'Fas servir TikTok?',
+  'drop.tkHelpSteps':
+    'A TikTok: Perfil → menú ☰ → Configuració i privacitat → Compte → Descarrega les teves dades. A "Sol·licitar dades", tria les dades d’Activitat, posa Format: JSON (no TXT) i sol·licita-ho. Quan estigui llest, descarrega el .zip a la pestanya "Descarregar dades". Avís: TikTok amaga el creador dels vídeos que veus o t’agraden, així que només es poden analitzar les teves relacions i el volum d’activitat.',
   'drop.helpFormat':
     'Posa Format: JSON (no HTML) i Rang de dates: Des del principi per al resultat més complet. Els "m’agrada" a posts no es poden analitzar (Instagram omet l’autor), de manera que "Interaccions amb històries" dona el resultat més ric.',
 

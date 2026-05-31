@@ -19,6 +19,9 @@ export const va: Record<string, string> = {
   'weekday.title': 'Quins dies t\'enganxes',
   'weekday.caption': 'La teua activitat per dia de la setmana.',
   'venn.caption': 'Seguits vs seguidors — la intersecció són els teus mutus.',
+  'drop.tkHelpSummary': 'Uses TikTok?',
+  'drop.tkHelpSteps':
+    'En TikTok: Perfil → menú ☰ → Configuració i privacitat → Compte → Descarrega les teues dades. En "Sol·licitar dades", tria les teues dades d\'Activitat, posa Format: JSON (no TXT) i sol·licita-les. Quan estiga llest, descarrega el .zip en la pestanya "Descarregar dades". Avís: TikTok amaga el creador dels vídeos que veus o likees, així que només es poden analitzar les teues relacions i el volum d\'activitat.',
   'infection.title': 'Índex d\'infecció',
   'infection.caption': 'Quant et capturen uns pocs comptes externs — concentració, els teus vectors principals i tirament parasocial combinats. Més alt = més infectat.',
   'infection.low': 'Baixa',

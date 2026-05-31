@@ -19,6 +19,9 @@ export const eu: Record<string, string> = {
   'weekday.title': 'Zein egunetan engantxatzen zaren',
   'weekday.caption': 'Zure jarduera asteko egunaren arabera.',
   'venn.caption': 'Jarraituak vs jarraitzaileak — intersekzioa zure elkarrekikoak dira.',
+  'drop.tkHelpSummary': 'TikTok erabiltzen al duzu?',
+  'drop.tkHelpSteps':
+    'TikTok-en: Profila → ☰ menua → Ezarpenak eta pribatutasuna → Kontua → Deskargatu zure datuak. "Datu-eskaera" atalean, hautatu zure Jarduera-datuak, ezarri Formatua: JSON (ez TXT) eta eskatu. Prest dagoenean, deskargatu .zip fitxategia "Datu-deskarga" fitxan. Oharra: TikTok-ek ikusten edo atsegin duzun bideoen sortzailea ezkutatzen du, beraz zure harremanak eta jarduera-bolumena bakarrik azter daitezke.',
   'infection.title': 'Infekzio-indizea',
   'infection.caption':
     'Kanpoko kontu gutxi batzuek zenbaterainoko harrapaketa egiten dizuten — kontzentrazioa, zure bektore nagusiak eta tiroi parasoziala batuta. Altuagoa = gehiago kutsatuta.',

@@ -19,6 +19,9 @@ export const gl: Record<string, string> = {
   'weekday.title': 'Que días te enganchas',
   'weekday.caption': 'A túa actividade por día da semana.',
   'venn.caption': 'Seguidos vs seguidores — a intersección son os teus mutuos.',
+  'drop.tkHelpSummary': 'Usas TikTok?',
+  'drop.tkHelpSteps':
+    'En TikTok: Perfil → menú ☰ → Configuración e privacidade → Conta → Descargar os teus datos. En "Solicitar datos", escolle os teus datos de Actividade, pon Formato: JSON (non TXT) e solicítao. Cando estea listo, descarga o .zip na lapela "Descargar datos". Aviso: TikTok oculta o creador dos vídeos que ves ou aos que das gústame, polo que só se poden analizar as túas relacións e o volume de actividade.',
   'infection.title': 'Índice de infección',
   'infection.caption':
     'Canto te capturan unhas poucas contas externas — concentración, os teus vectores principais e tirón parasocial combinados. Máis alto = máis infectado.',

@@ -42,7 +42,9 @@ function dropzone(): HTMLElement {
     `<ul><li>${t('drop.itemLikes')}</li><li>${t('drop.itemComments')}</li>` +
     `<li>${t('drop.itemSaved')}</li><li>${t('drop.itemStories')}</li>` +
     `<li>${t('drop.itemFollowers')}</li></ul>` +
-    `<p>${t('drop.helpFormat')}</p></details>`
+    `<p>${t('drop.helpFormat')}</p></details>` +
+    `<details class="export-help"><summary>${t('drop.tkHelpSummary')}</summary>` +
+    `<p>${t('drop.tkHelpSteps')}</p></details>`
   return zone
 }
 
