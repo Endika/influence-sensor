@@ -39,19 +39,24 @@ function firstArray(json: unknown): any[] {
   return []
 }
 
+// label_values labels (localized) that hold a username directly.
+const USERNAME_LABELS = new Set(['Nombre de usuario', 'Username'])
+
 /** Resolve the target account of an interaction entry across old and new formats. */
 export function accountOf(entry: any): string | null {
   if (!entry || typeof entry !== 'object') return null
   // Old format: the username sits directly in `title` (likes, liked comments).
   if (typeof entry.title === 'string' && entry.title) return entry.title
-  // New format: the username is only recoverable from a profile/story URL.
-  for (const lv of entry.label_values ?? []) {
-    const account = usernameFromUrl(lv?.value || lv?.href)
-    if (account) return account
-  }
   // Comments: the media owner is the account you engaged with.
   const owner = entry.string_map_data?.['Media Owner']?.value
   if (owner) return owner
+  for (const lv of entry.label_values ?? []) {
+    // Some sections (close friends) carry the username under a labelled field.
+    if (USERNAME_LABELS.has(lv?.label) && lv?.value) return lv.value
+    // Otherwise the username is only recoverable from a profile/story URL.
+    const account = usernameFromUrl(lv?.value || lv?.href)
+    if (account) return account
+  }
   // Very old format: username in string_list_data[].value.
   const legacy = entry.string_list_data?.[0]?.value
   if (legacy) return legacy
@@ -85,15 +90,18 @@ export function entriesToInteractions(
   return { interactions, unattributed }
 }
 
-/** Following list: username is in `title` (new) or string_list_data[].value (old). */
-export function extractFollows(json: unknown): Set<string> {
-  const follows = new Set<string>()
+/** Collect a set of accounts from a relationship section (following, followers, close friends). */
+export function extractAccountSet(json: unknown): Set<string> {
+  const set = new Set<string>()
   for (const entry of firstArray(json)) {
-    const account = entry?.title || entry?.string_list_data?.[0]?.value
-    if (account) follows.add(account)
+    const account = accountOf(entry)
+    if (account) set.add(account)
   }
-  return follows
+  return set
 }
+
+/** Following list. Kept as a named export for clarity; same logic as a generic set. */
+export const extractFollows = extractAccountSet
 
 async function readJson(file: JSZip.JSZipObject | null): Promise<unknown | null> {
   if (!file) return null
@@ -104,14 +112,30 @@ async function readJson(file: JSZip.JSZipObject | null): Promise<unknown | null>
   }
 }
 
-// Which export file (by path) maps to which interaction kind.
+// Which export file (by path) maps to which interaction kind. Sections not listed
+// here (stories_viewed, quizzes, questions) carry no recoverable account and are skipped.
 const SECTION_KINDS: Array<{ match: (path: string) => boolean; kind: InteractionKind }> = [
   { match: (p) => p.endsWith('liked_posts.json'), kind: 'like_post' },
   { match: (p) => p.endsWith('liked_comments.json'), kind: 'like_comment' },
   { match: (p) => p.endsWith('story_likes.json'), kind: 'story_like' },
+  { match: (p) => p.endsWith('polls.json'), kind: 'story_poll' },
+  { match: (p) => p.endsWith('emoji_sliders.json'), kind: 'story_slider' },
+  { match: (p) => p.endsWith('story_reaction_sticker_reactions.json'), kind: 'story_reaction' },
+  { match: (p) => p.endsWith('avatar_story_reactions.json'), kind: 'story_reaction' },
   { match: (p) => p.endsWith('saved_posts.json'), kind: 'saved' },
-  { match: (p) => p.includes('/comments/') && /post_comments.*\.json$/.test(p), kind: 'comment' },
+  { match: (p) => p.includes('/comments/') && /(post_comments|reels_comments).*\.json$/.test(p), kind: 'comment' },
 ]
+
+/** Aggregate the accounts from every file whose path matches `pred` (e.g. followers_1, followers_2). */
+async function readAccountSet(zip: JSZip, pred: (path: string) => boolean): Promise<Set<string>> {
+  const set = new Set<string>()
+  for (const path of Object.keys(zip.files)) {
+    if (!pred(path)) continue
+    const json = await readJson(zip.files[path])
+    if (json) for (const account of extractAccountSet(json)) set.add(account)
+  }
+  return set
+}
 
 export const instagramAdapter = {
   id: 'instagram',
@@ -140,15 +164,10 @@ export const instagramAdapter = {
       unattributed += res.unattributed
     }
 
-    let follows = new Set<string>()
-    for (const path of Object.keys(zip.files)) {
-      if (path.endsWith('following.json')) {
-        const json = await readJson(zip.files[path])
-        if (json) follows = extractFollows(json)
-        break
-      }
-    }
+    const follows = await readAccountSet(zip, (p) => p.endsWith('following.json'))
+    const followers = await readAccountSet(zip, (p) => /(^|\/)followers(_\d+)?\.json$/.test(p))
+    const closeFriends = await readAccountSet(zip, (p) => p.endsWith('close_friends.json'))
 
-    return { interactions, follows, unattributed }
+    return { interactions, follows, followers, closeFriends, unattributed }
   },
 }

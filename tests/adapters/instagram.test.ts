@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import {
   accountOf,
   entriesToInteractions,
+  extractAccountSet,
   extractFollows,
   instagramAdapter,
   usernameFromUrl,
@@ -84,7 +85,10 @@ async function buildZip(): Promise<JSZip> {
   put('your_instagram_activity/likes/liked_comments.json', 'liked_comments.json')
   put('your_instagram_activity/story_interactions/story_likes.json', 'story_likes.json')
   put('your_instagram_activity/comments/post_comments_1.json', 'post_comments_1.json')
+  put('your_instagram_activity/story_interactions/polls.json', 'polls.json')
   put('connections/followers_and_following/following.json', 'following.json')
+  put('connections/followers_and_following/followers_1.json', 'followers_1.json')
+  put('connections/followers_and_following/close_friends.json', 'close_friends.json')
   return zip
 }
 
@@ -102,11 +106,25 @@ describe('instagramAdapter.detect', () => {
 describe('instagramAdapter.parse', () => {
   it('aggregates attributable interactions across sections and reports the rest', async () => {
     const data = await instagramAdapter.parse(await buildZip())
-    // 2 story likes + 1 liked comment + 1 comment = 4 attributable; 2 liked posts lost.
-    expect(data.interactions).toHaveLength(4)
+    // 2 story likes + 1 liked comment + 1 comment + 1 poll = 5 attributable; 2 liked posts lost.
+    expect(data.interactions).toHaveLength(5)
     expect(data.unattributed).toBe(2)
-    expect(data.follows).toEqual(new Set(['acc_followed', 'acc_unengaged']))
     const accounts = new Set(data.interactions.map((i) => i.account))
-    expect(accounts).toEqual(new Set(['story_user', 'acc_followed', 'comment_liker', 'comment_owner']))
+    expect(accounts).toEqual(
+      new Set(['story_user', 'acc_followed', 'comment_liker', 'comment_owner', 'poll_user']),
+    )
+  })
+
+  it('parses relationships: follows, followers and close friends', async () => {
+    const data = await instagramAdapter.parse(await buildZip())
+    expect(data.follows).toEqual(new Set(['acc_followed', 'acc_unengaged']))
+    expect(data.followers).toEqual(new Set(['follower_a', 'acc_followed']))
+    expect(data.closeFriends).toEqual(new Set(['cf_user']))
+  })
+})
+
+describe('extractAccountSet', () => {
+  it('reads close-friends usernames from the "Nombre de usuario" label', () => {
+    expect(extractAccountSet(fix('close_friends.json'))).toEqual(new Set(['cf_user']))
   })
 })
