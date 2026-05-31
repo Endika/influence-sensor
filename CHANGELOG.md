@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/Endika/influence-sensor/compare/v1.6.0...v1.6.1) (2026-05-31)
+
+
+### Documentation
+
+* add in-app TikTok export instructions ([f6fc558](https://github.com/Endika/influence-sensor/commit/f6fc55880324eba557963d3dbc176bab19c8e0b4))
+
 ## [1.6.0](https://github.com/Endika/influence-sensor/compare/v1.5.1...v1.6.0) (2026-05-31)
 
 
