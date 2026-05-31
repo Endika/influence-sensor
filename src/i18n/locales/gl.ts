@@ -87,7 +87,7 @@ export const gl: Record<string, string> = {
 
   'bubble.title': 'A túa burbulla',
   'bubble.caption':
-    'Canta da túa atención fica dentro do teu propio círculo. Alta = cámara de eco de contas que xa segues; baixa = miras cara a fóra.',
+    'Canta da túa atención fica dentro do teu círculo — contas que segues e mutuos que te seguen. Unha % alta non é necesariamente mala: significa un círculo elixido, non descoñecidos que che mete o algoritmo. Baixa = miras máis cara a fóra. É un equilibrio, non unha nota.',
   'bubble.followed': 'Atención a contas que segues',
   'bubble.mutual': 'Atención a mutuos (círculo íntimo)',
 

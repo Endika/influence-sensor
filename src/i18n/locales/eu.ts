@@ -88,7 +88,7 @@ export const eu: Record<string, string> = {
 
   'bubble.title': 'Zure burbuila',
   'bubble.caption':
-    'Zure arretaren zenbat geratzen den zure zirkulu propioan. Altua = jadanik jarraitzen dituzun kontuen oihartzun-gela; baxua = kanpora begiratzen duzu.',
+    'Zure arretaren zenbatekoa geratzen den zure zirkuluan — jarraitzen dituzun kontuak eta itzultzen dizuten mutualak. Ehuneko altua ez da nahitaez txarra: aukeratutako zirkulua esan nahi du, ez algoritmoak ematen dizkizun ezezagunak. Baxua = kanpora gehiago begiratzen duzu. Oreka bat da, ez nota bat.',
   'bubble.followed': 'Arreta jarraitzen dituzun kontuetan',
   'bubble.mutual': 'Arreta elkarrekikoetan (barne-zirkulua)',
 

@@ -88,7 +88,7 @@ export const en: Record<string, string> = {
 
   'bubble.title': 'Your bubble',
   'bubble.caption':
-    'How much of your attention stays inside your own circle. High = an echo chamber of accounts you already follow; low = you look outward.',
+    'How much of your attention stays inside your own circle — accounts you follow, and mutuals who follow you back. A high % isn’t necessarily bad: it means a curated circle, not algorithm-fed strangers. Low means you look outward more. It’s a trade-off, not a score.',
   'bubble.followed': 'Attention to accounts you follow',
   'bubble.mutual': 'Attention to mutuals (inner circle)',
 
