@@ -1,6 +1,12 @@
 import type { Report } from '../report-model'
 import { renderLorenz, renderTopBars } from './charts'
 import { renderGraph } from './graph'
+import {
+  renderHealthGauge,
+  renderHourHistogram,
+  renderLeaningMeter,
+  renderShareBar,
+} from './insight-charts'
 
 // Below this many attributable interactions the verdict is statistically meaningless.
 const MIN_RELIABLE_INTERACTIONS = 10
@@ -21,6 +27,104 @@ function notice(text: string, kind: 'warn' | 'info'): HTMLElement {
   p.className = `notice notice-${kind}`
   p.textContent = text
   return p
+}
+
+function renderInsightSections(root: HTMLElement, report: Report): void {
+  const ins = report.insights
+
+  if (ins.hasFollowerData) {
+    const rel = ins.relationships
+    const sec = section(
+      'You vs your network',
+      `${rel.followYouNotBack} follow you that you don't follow back; ` +
+        `${rel.youFollowNotBack} you follow don't follow you back. Only ${rel.mutual} are mutual.`,
+    )
+    const grid = document.createElement('div')
+    grid.className = 'statgrid'
+    const stat = (n: number, label: string) => {
+      const d = document.createElement('div')
+      d.className = 'stat'
+      d.innerHTML = `<span class="stat-n">${n}</span><span class="stat-l">${label}</span>`
+      return d
+    }
+    grid.append(stat(rel.following, 'following'), stat(rel.followers, 'followers'), stat(rel.mutual, 'mutual'))
+    sec.appendChild(grid)
+    const ml = document.createElement('p')
+    ml.className = 'caption'
+    ml.textContent =
+      `Consumer ↔ Creator — a rough proxy from your follower/following ratio (${ins.influence.followerRatio.toFixed(2)}, ${ins.influence.leaning}). ` +
+      'The export cannot measure your real influence on others.'
+    sec.appendChild(ml)
+    renderLeaningMeter(sec, ins.influence.followerRatio, {
+      consumer: 'Consumer (you absorb)',
+      creator: 'Creator (others absorb you)',
+    })
+    root.appendChild(sec)
+  }
+
+  const bubble = section(
+    'Your bubble',
+    'How much of your attention stays inside your own circle. High = an echo chamber of accounts you already follow; low = you look outward.',
+  )
+  renderShareBar(bubble, ins.bubble.followedAttentionShare, 'Attention to accounts you follow', '#e0245e')
+  renderShareBar(bubble, ins.bubble.mutualAttentionShare, 'Attention to mutuals (inner circle)', '#f4a259')
+  root.appendChild(bubble)
+
+  if (report.totalFollows > 0) {
+    const dead = section(
+      'Dead follows',
+      "Accounts you follow but give zero attention to. A high share means your following list is mostly noise you've tuned out.",
+    )
+    renderShareBar(
+      dead,
+      ins.deadFollowsPct,
+      `${ins.deadFollowsCount} of ${report.totalFollows} you follow get none of your attention`,
+      '#888',
+    )
+    root.appendChild(dead)
+  }
+
+  if (ins.temporal.dated > 0) {
+    const t = section(
+      'When you get hooked',
+      `Your activity by hour (UTC). Busiest around ${ins.temporal.busiestHour}:00, across ${ins.temporal.spanDays} days of history.`,
+    )
+    renderHourHistogram(t, ins.temporal.byHour)
+    root.appendChild(t)
+  }
+
+  if (ins.hasCloseFriendsData) {
+    const cf = ins.closeFriends
+    const sec = section(
+      'Close-friends reality check',
+      `Of your ${cf.total} close friends, you actually engage with ${cf.engaged}.`,
+    )
+    renderShareBar(sec, cf.total ? cf.engaged / cf.total : 0, 'Close friends you actually engage with', '#38a169')
+    root.appendChild(sec)
+  }
+
+  if (ins.parasocial.length) {
+    const sec = section(
+      'Parasocial leaks',
+      "Accounts you pour attention into but don't even follow.",
+    )
+    const list = document.createElement('div')
+    list.className = 'bars'
+    for (const p of ins.parasocial.slice(0, 8)) {
+      const row = document.createElement('div')
+      row.className = 'leak-row'
+      const a = document.createElement('span')
+      a.className = 'bar-label'
+      a.translate = false
+      a.textContent = p.account
+      const n = document.createElement('span')
+      n.textContent = `${p.interactions}×`
+      row.append(a, n)
+      list.appendChild(row)
+    }
+    sec.appendChild(list)
+    root.appendChild(sec)
+  }
 }
 
 export function renderReport(root: HTMLElement, report: Report): void {
@@ -45,11 +149,12 @@ export function renderReport(root: HTMLElement, report: Report): void {
   }
 
   const verdict = section(
-    `Network Health: ${report.health.score}/100 — ${report.health.band}`,
+    'Network Health',
     'A transparent heuristic. Higher = a diverse, balanced diet. Lower = a few voices own your attention. ' +
       `Diversity ${Math.round(report.health.diversity * 100)}% · Top-10 concentration ${Math.round(report.health.concentration * 100)}%.` +
       concentrationCaveat,
   )
+  renderHealthGauge(verdict, report.health.score, report.health.band)
   root.appendChild(verdict)
 
   // Instagram's newer export strips the author from liked posts — be explicit about it.
@@ -89,6 +194,8 @@ export function renderReport(root: HTMLElement, report: Report): void {
   graphSec.appendChild(graphHost)
   root.appendChild(graphSec)
   renderGraph(graphHost, report)
+
+  renderInsightSections(root, report)
 
   const lorenzSec = section(
     'How unevenly is your attention spread?',

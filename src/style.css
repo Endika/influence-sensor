@@ -21,6 +21,33 @@
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; white-space: nowrap; }
 
+.gauge { margin: 0.4rem 0 0.2rem; }
+.gauge-score { font-size: 1rem; }
+.gauge-num { font-size: 2.4rem; font-weight: 800; }
+.gauge-max { color: #999; }
+.gauge-band { font-weight: 700; margin-left: 0.4rem; }
+.gauge-bar { width: 100%; max-width: 360px; height: auto; display: block; }
+.band-healthy { color: #38a169; }
+.band-moderate { color: #d98a1f; }
+.band-captured { color: #e53e3e; }
+
+.statgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0.6rem 0; }
+.stat { background: #f7f7f7; border-radius: 8px; padding: 0.6rem; text-align: center; }
+.stat-n { display: block; font-size: 1.4rem; font-weight: 800; color: #1a1a1a; }
+.stat-l { font-size: 0.75rem; color: #777; }
+
+.meter { margin: 0.4rem 0; }
+.meter-track { position: relative; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #4a90d9, #ccc, #e0245e); }
+.meter-mark { position: absolute; top: -4px; width: 4px; height: 16px; background: #1a1a1a; border-radius: 2px; transform: translateX(-50%); }
+.meter-ends { display: flex; justify-content: space-between; font-size: 0.75rem; color: #777; margin-top: 2px; }
+
+.share { margin: 0.5rem 0; }
+.share-head { display: flex; justify-content: space-between; font-size: 0.85rem; }
+.share-track { height: 10px; background: #f0f0f0; border-radius: 5px; overflow: hidden; }
+.share-fill { height: 100%; border-radius: 5px; }
+.hist { width: 100%; max-width: 360px; height: auto; display: block; }
+.leak-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 2px 0; border-bottom: 1px solid #f2f2f2; }
+
 .notice { border-radius: 8px; padding: 0.6rem 0.8rem; font-size: 0.85rem; margin: 0.5rem 0; }
 .notice-warn { background: #fff4e5; border: 1px solid #ffd9a0; color: #8a5a00; }
 .notice-info { background: #f0f4ff; border: 1px solid #c9d6ff; color: #3a4a7a; }
