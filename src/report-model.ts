@@ -1,3 +1,4 @@
+import { computeInsights, type Insights } from './insights'
 import type { NormalizedData } from './schema'
 import {
   attentionByAccount,
@@ -33,6 +34,7 @@ export interface Report {
   unattributed: number
   accounts: AccountStat[] // ranked by interactions desc
   followVsEngage: { followedIgnored: number; followedEngaged: number; engagedNotFollowed: number }
+  insights: Insights
 }
 
 export function analyze(data: NormalizedData): Report {
@@ -67,5 +69,6 @@ export function analyze(data: NormalizedData): Report {
       followedEngaged: fve.followedEngaged.length,
       engagedNotFollowed: fve.engagedNotFollowed.length,
     },
+    insights: computeInsights(data),
   }
 }
