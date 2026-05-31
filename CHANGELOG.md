@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/Endika/influence-sensor/compare/v1.5.0...v1.5.1) (2026-05-31)
+
+
+### Documentation
+
+* clarify the bubble section is a trade-off, not good/bad ([c082be2](https://github.com/Endika/influence-sensor/commit/c082be2879f27e0862a50d59b2a522fa324b95b0))
+
 ## [1.5.0](https://github.com/Endika/influence-sensor/compare/v1.4.0...v1.5.0) (2026-05-31)
 
 
