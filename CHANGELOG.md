@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/Endika/influence-sensor/compare/v1.5.1...v1.6.0) (2026-05-31)
+
+
+### Features
+
+* limited TikTok export support ([183a415](https://github.com/Endika/influence-sensor/commit/183a4150b73e0404969e5188546b9b0b4109b48d))
+
 ## [1.5.1](https://github.com/Endika/influence-sensor/compare/v1.5.0...v1.5.1) (2026-05-31)
 
 
