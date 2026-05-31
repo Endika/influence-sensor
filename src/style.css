@@ -4,6 +4,10 @@
 .dropzone { border: 2px dashed #e0245e; border-radius: 12px; padding: 2rem 1rem; text-align: center; }
 .dropzone input[type="file"] { max-width: 100%; }
 .hint { color: #777; font-size: 0.8rem; }
+.export-help { margin-top: 1rem; font-size: 0.85rem; text-align: left; color: #555; }
+.export-help summary { cursor: pointer; color: #e0245e; font-weight: 600; text-align: center; }
+.export-help ul { margin: 0.4rem 0; padding-left: 1.2rem; }
+.export-help em { color: #333; }
 .caption { color: #555; font-size: 0.9rem; }
 .headline { font-size: 1.15rem; font-weight: 600; }
 .graph-host { width: 100%; touch-action: none; }
