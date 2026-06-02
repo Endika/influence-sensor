@@ -14,6 +14,7 @@ export const ca: Record<string, string> = {
   'kind.comment': 'Comentaris',
   'kind.like_post': 'M’agrada a posts',
   'kind.saved': 'Guardats',
+  'kind.watch': 'Vídeos vistos',
   'year.title': 'La teva activitat al llarg dels anys',
   'year.caption': 'Interaccions per any — com ha evolucionat el teu ús d’Instagram.',
   'weekday.title': 'Quins dies t’enganxes',
@@ -40,6 +41,9 @@ export const ca: Record<string, string> = {
   'tk.activityTitle': 'Quant uses TikTok',
   'tk.activityCaption':
     'El teu volum d’activitat en el temps (m’agrada, comentaris i historial de visualització), tot i que TikTok amagui de qui era el contingut.',
+  'drop.ytHelpSummary': 'Fas servir YouTube?',
+  'drop.ytHelpSteps':
+    'A Google Takeout (takeout.google.com): Desmarca-ho tot → marca només "YouTube i YouTube Music" → a "Totes les dades de YouTube incloses" mantén Historial i subscripcions → fes clic a "Diversos formats" i posa Historial a JSON (no HTML) → crea l’export i descarrega el .zip. Avís: només el teu historial de visualització identifica el canal, així que els vídeos sense canal (aproximadament 1 de cada 3) i els teus comentaris/m’agrada no es poden atribuir.',
   'drop.prompt':
     'Tria o deixa caure el teu export d’Instagram (.zip en format JSON). No surt mai del teu navegador.',
   'drop.helpSummary': 'Com descarregar l’export correcte',

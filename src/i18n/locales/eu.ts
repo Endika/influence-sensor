@@ -14,6 +14,7 @@ export const eu: Record<string, string> = {
   'kind.comment': 'Iruzkinak',
   'kind.like_post': 'Argitalpenei atsegin dut',
   'kind.saved': 'Gordeta',
+  'kind.watch': 'Ikusitako bideoak',
   'year.title': 'Zure jarduera urteetan zehar',
   'year.caption': 'Elkarrekintzak urteka — nola ebolucionatu duen zure Instagram erabilpenak.',
   'weekday.title': 'Zein egunetan engantxatzen zaren',
@@ -45,6 +46,9 @@ export const eu: Record<string, string> = {
   'tk.activityTitle': 'TikTok zenbat erabiltzen duzun',
   'tk.activityCaption':
     'Zure jarduera-bolumena denboran zehar (atsegin dut, iruzkinak eta ikusteko historia), TikTok-ek edukiaren jabea ezkutatu arren.',
+  'drop.ytHelpSummary': 'YouTube erabiltzen al duzu?',
+  'drop.ytHelpSteps':
+    'Google Takeout-en (takeout.google.com): Desautatu guztia → markatu "YouTube and YouTube Music" bakarrik → "All YouTube data included" atalean mantendu Historia eta harpidetzak → sakatu "Multiple formats" eta ezarri Historia JSON formatuan (ez HTML) → sortu esportazioa eta deskargatu .zip fitxategia. Oharra: zure ikusketa-historiak bakarrik adierazten du kanala, beraz kanalik gabeko bideoak (3tik 1, gutxi gorabehera) eta zure iruzkin/atsegin dutak ezin dira atribuitu.',
   'drop.prompt':
     'Aukeratu edo jaregin zure Instagram datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
   'drop.helpSummary': 'Nola deskargatu esportazio egokia',

@@ -14,6 +14,7 @@ export const es: Record<string, string> = {
   'kind.comment': 'Comentarios',
   'kind.like_post': 'Likes a posts',
   'kind.saved': 'Guardados',
+  'kind.watch': 'Vídeos vistos',
   'year.title': 'Tu actividad a lo largo de los años',
   'year.caption': 'Interacciones por año — cómo ha evolucionado tu uso de Instagram.',
   'weekday.title': 'Qué días te enganchas',
@@ -43,6 +44,9 @@ export const es: Record<string, string> = {
   'tk.activityTitle': 'Cuánto usas TikTok',
   'tk.activityCaption':
     'Tu volumen de actividad en el tiempo (me gusta, comentarios e historial de visualización), aunque TikTok oculte de quién era el contenido.',
+  'drop.ytHelpSummary': '¿Usas YouTube?',
+  'drop.ytHelpSteps':
+    'En Google Takeout (takeout.google.com): Deselecciona todo → marca solo «YouTube y YouTube Music» → en «Se han incluido todos los datos de YouTube» deja Historial y suscripciones → pulsa «Varios formatos» y pon Historial en JSON (no HTML) → crea la exportación y descarga el .zip. Aviso: solo el historial de reproducciones nombra el canal, así que los vídeos sin canal (1 de cada 3) y tus comentarios/likes no se pueden atribuir.',
   'drop.prompt':
     'Elige o suelta tu export de Instagram (.zip en formato JSON). Nunca sale de tu navegador.',
   'drop.helpSummary': 'Cómo descargar el export correcto',

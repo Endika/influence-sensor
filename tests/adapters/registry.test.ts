@@ -9,6 +9,12 @@ describe('detectAdapter', () => {
     expect(detectAdapter(zip)?.id).toBe('instagram')
   })
 
+  it('returns the youtube adapter for a Takeout zip', () => {
+    const zip = new JSZip()
+    zip.file('Takeout/YouTube y YouTube Music/historial/historial-de-reproducciones.json', '[]')
+    expect(detectAdapter(zip)?.id).toBe('youtube')
+  })
+
   it('returns null when no adapter matches', () => {
     const zip = new JSZip()
     zip.file('notes.txt', 'hello')

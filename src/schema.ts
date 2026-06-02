@@ -7,6 +7,7 @@ export type InteractionKind =
   | 'story_poll'
   | 'story_slider'
   | 'story_reaction'
+  | 'watch'
 
 /** A single outbound action by the user toward another account. */
 export interface Interaction {

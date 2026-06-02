@@ -44,7 +44,9 @@ function dropzone(): HTMLElement {
     `<li>${t('drop.itemFollowers')}</li></ul>` +
     `<p>${t('drop.helpFormat')}</p></details>` +
     `<details class="export-help"><summary>${t('drop.tkHelpSummary')}</summary>` +
-    `<p>${t('drop.tkHelpSteps')}</p></details>`
+    `<p>${t('drop.tkHelpSteps')}</p></details>` +
+    `<details class="export-help"><summary>${t('drop.ytHelpSummary')}</summary>` +
+    `<p>${t('drop.ytHelpSteps')}</p></details>`
   return zone
 }
 

@@ -15,6 +15,7 @@ export const en: Record<string, string> = {
   'kind.comment': 'Comments',
   'kind.like_post': 'Post likes',
   'kind.saved': 'Saved',
+  'kind.watch': 'Videos watched',
   'year.title': 'Your activity over the years',
   'year.caption': 'Interactions per calendar year — how your Instagram use has evolved.',
   'weekday.title': 'Which days you engage',
@@ -44,6 +45,9 @@ export const en: Record<string, string> = {
   'tk.activityTitle': 'How much you use TikTok',
   'tk.activityCaption':
     'Your activity volume over time (likes, comments and watch history), even though TikTok hides whose content it was.',
+  'drop.ytHelpSummary': 'Using YouTube instead?',
+  'drop.ytHelpSteps':
+    'In Google Takeout (takeout.google.com): Deselect all → tick only “YouTube and YouTube Music” → under “All YouTube data included” keep History and subscriptions → click “Multiple formats” and set History to JSON (not HTML) → create the export and download the .zip. Heads-up: only your watch history names the channel, so videos without one (about 1 in 3) and your comments/likes can’t be attributed.',
   'drop.prompt':
     'Pick or drop your Instagram data export (.zip in JSON format). It never leaves your browser.',
   'drop.helpSummary': 'How to download the right export',

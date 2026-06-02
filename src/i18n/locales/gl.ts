@@ -14,6 +14,7 @@ export const gl: Record<string, string> = {
   'kind.comment': 'Comentarios',
   'kind.like_post': 'Gústame a publicacións',
   'kind.saved': 'Gardados',
+  'kind.watch': 'Vídeos vistos',
   'year.title': 'A túa actividade ao longo dos anos',
   'year.caption': 'Interaccións por ano — como evolucionou o teu uso de Instagram.',
   'weekday.title': 'Que días te enganchas',
@@ -44,6 +45,9 @@ export const gl: Record<string, string> = {
   'tk.activityTitle': 'Canto usas TikTok',
   'tk.activityCaption':
     'O teu volume de actividade ao longo do tempo (gústame, comentarios e historial de visualización), aínda que TikTok oculte de quen era o contido.',
+  'drop.ytHelpSummary': 'Usas YouTube?',
+  'drop.ytHelpSteps':
+    'En Google Takeout (takeout.google.com): Desmarca todo → marca só "YouTube e YouTube Music" → en "Todos os datos de YouTube incluídos" mantén o Historial e as subscricións → preme "Varios formatos" e pon o Historial en JSON (non HTML) → crea o export e descarga o .zip. Aviso: só o teu historial de visualización nomea a canle, así que os vídeos sen ela (arredor de 1 de cada 3) e os teus comentarios/gústame non se poden atribuír.',
   'drop.prompt':
     'Escolle ou solta o teu export de Instagram (.zip en formato JSON). Non sae nunca do teu navegador.',
   'drop.helpSummary': 'Como descargar o export correcto',
