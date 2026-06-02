@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/Endika/influence-sensor/compare/v1.6.1...v1.7.0) (2026-06-02)
+
+
+### Features
+
+* add YouTube (Google Takeout) adapter ([bfa4ead](https://github.com/Endika/influence-sensor/commit/bfa4ead335309da98d1c5702b79bf5a612bca86b))
+
 ## [1.6.1](https://github.com/Endika/influence-sensor/compare/v1.6.0...v1.6.1) (2026-05-31)
 
 
