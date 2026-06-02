@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/Endika/influence-sensor/compare/v1.7.2...v1.7.3) (2026-06-02)
+
+
+### Chores
+
+* **deps-dev:** bump vite from 5.4.21 to 8.0.16 ([4d6dc3e](https://github.com/Endika/influence-sensor/commit/4d6dc3e6592c162bc8f37e064ae7412dbc2fa4aa))
+
 ## [1.7.2](https://github.com/Endika/influence-sensor/compare/v1.7.1...v1.7.2) (2026-06-02)
 
 
