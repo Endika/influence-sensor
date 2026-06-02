@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.2](https://github.com/Endika/influence-sensor/compare/v1.7.1...v1.7.2) (2026-06-02)
+
+
+### Chores
+
+* **deps-dev:** bump vitest from 1.6.1 to 4.1.8 ([77467e8](https://github.com/Endika/influence-sensor/commit/77467e8b187263442eb92c8e5ba10bfbb4a6af85))
+
 ## [1.7.1](https://github.com/Endika/influence-sensor/compare/v1.7.0...v1.7.1) (2026-06-02)
 
 
