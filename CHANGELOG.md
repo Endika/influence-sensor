@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/Endika/influence-sensor/compare/v1.7.0...v1.7.1) (2026-06-02)
+
+
+### Chores
+
+* **deps-dev:** bump @types/node from 20.19.41 to 25.9.1 ([2158467](https://github.com/Endika/influence-sensor/commit/2158467d1b89108566c43ca2a99576bfc8b2dd14))
+* **deps-dev:** bump typescript from 5.9.3 to 6.0.3 ([d8d2bcd](https://github.com/Endika/influence-sensor/commit/d8d2bcd2052e1021fb199df7e9b0c355a2efa9bc))
+
 ## [1.7.0](https://github.com/Endika/influence-sensor/compare/v1.6.1...v1.7.0) (2026-06-02)
 
 
