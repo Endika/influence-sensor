@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4](https://github.com/Endika/influence-sensor/compare/v1.7.3...v1.7.4) (2026-06-08)
+
+
+### Chores
+
+* **deps-dev:** bump @types/node in the minor-and-patch group ([6b09584](https://github.com/Endika/influence-sensor/commit/6b09584e2ac574215c63f9e0b065f557e0ea6726))
+
 ## [1.7.3](https://github.com/Endika/influence-sensor/compare/v1.7.2...v1.7.3) (2026-06-02)
 
 
