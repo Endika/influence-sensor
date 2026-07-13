@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.7.5](https://github.com/Endika/influence-sensor/compare/v1.7.4...v1.7.5) (2026-07-13)
+
+
+### Chores
+
+* **deps-dev:** bump the minor-and-patch group with 2 updates ([9465ddd](https://github.com/Endika/influence-sensor/commit/9465ddd60cd40d2542ffe800a4a20a60954926f3))
+* **deps-dev:** bump the minor-and-patch group with 2 updates ([4fb06a9](https://github.com/Endika/influence-sensor/commit/4fb06a9e44d1fa9a7bc20fbb864b130d29eb56e5))
+* **deps-dev:** bump the minor-and-patch group with 3 updates ([cf0b922](https://github.com/Endika/influence-sensor/commit/cf0b922094e186d45a71cf42fd617bbed79f21c1))
+* **deps-dev:** bump typescript from 6.0.3 to 7.0.2 ([6fba2c6](https://github.com/Endika/influence-sensor/commit/6fba2c688a8b8d181475be4064f6fcf919a79435))
+
 ## [1.7.4](https://github.com/Endika/influence-sensor/compare/v1.7.3...v1.7.4) (2026-06-22)
 
 
