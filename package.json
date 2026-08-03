@@ -19,10 +19,10 @@
     "@types/d3-drag": "^3.0.7",
     "@types/d3-force": "^3.0.10",
     "@types/d3-selection": "^3.0.11",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "jsdom": "^29.1.1",
     "typescript": "^7.0.2",
-    "vite": "^8.1.5",
+    "vite": "^8.2.0",
     "vitest": "^4.1.10"
   }
 }
