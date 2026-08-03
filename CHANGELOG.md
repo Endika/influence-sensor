@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.7](https://github.com/Endika/influence-sensor/compare/v1.7.6...v1.7.7) (2026-08-03)
+
+
+### Chores
+
+* **deps-dev:** bump jsdom from 29.1.1 to 30.0.1 ([3a4ce1a](https://github.com/Endika/influence-sensor/commit/3a4ce1ad5934cd8e30300e912fa902171137390c))
+
 ## [1.7.6](https://github.com/Endika/influence-sensor/compare/v1.7.5...v1.7.6) (2026-08-03)
 
 
