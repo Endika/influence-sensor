@@ -7,7 +7,13 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:run": "vitest run",
+    "type:check": "tsc --noEmit",
+    "lint": "biome check --error-on-warnings .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format ."
   },
   "dependencies": {
     "d3-drag": "^3.0.0",
@@ -16,6 +22,7 @@
     "jszip": "^3.10.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.6",
     "@types/d3-drag": "^3.0.7",
     "@types/d3-force": "^3.0.10",
     "@types/d3-selection": "^3.0.11",
