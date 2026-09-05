@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import type { NormalizedData } from '../src/schema';
 import {
   attentionByAccount,
   entropy,
@@ -10,6 +9,7 @@ import {
   normalizedEntropy,
   topNShare,
 } from '../src/metrics';
+import type { NormalizedData } from '../src/schema';
 
 function data(interactions: Array<[string, number]>): NormalizedData {
   return {

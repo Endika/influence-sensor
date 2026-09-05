@@ -1,16 +1,16 @@
 import { computeInsights, type Insights } from './insights';
-import type { NormalizedData } from './schema';
 import {
   attentionByAccount,
+  type Band,
   entropy,
   followVsEngage,
   gini,
+  type HealthResult,
   healthScore,
   hhi,
   topNShare,
-  type Band,
-  type HealthResult,
 } from './metrics';
+import type { NormalizedData } from './schema';
 
 export type { Band };
 

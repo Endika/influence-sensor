@@ -2,7 +2,7 @@ import { drag } from 'd3-drag';
 import { forceCenter, forceLink, forceManyBody, forceSimulation, type Simulation } from 'd3-force';
 import { select } from 'd3-selection';
 import type { Report } from '../report-model';
-import { toGraphData, YOU_ID, type GraphLink, type GraphNode } from './graph-data';
+import { type GraphLink, type GraphNode, toGraphData, YOU_ID } from './graph-data';
 
 export const GRAPH_COLORS: Record<string, string> = {
   you: '#222',

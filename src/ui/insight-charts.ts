@@ -114,9 +114,9 @@ export function renderYearArea(
   svg.appendChild(
     svgEl('polyline', { points: pts, fill: 'none', stroke: '#e0245e', 'stroke-width': 2 }),
   );
-  byYear.forEach((d, i) =>
-    svg.appendChild(svgEl('circle', { cx: x(i), cy: y(d.count), r: 2.2, fill: '#e0245e' })),
-  );
+  byYear.forEach((d, i) => {
+    svg.appendChild(svgEl('circle', { cx: x(i), cy: y(d.count), r: 2.2, fill: '#e0245e' }));
+  });
   for (const i of [0, n - 1]) {
     const label = svgEl('text', {
       x: x(i),

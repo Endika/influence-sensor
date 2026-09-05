@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { NormalizedData } from '../src/schema';
 import { excludeSelf, ownerFromFilename } from '../src/owner';
+import type { NormalizedData } from '../src/schema';
 
 describe('ownerFromFilename', () => {
   it('extracts the username from an Instagram export filename', () => {
