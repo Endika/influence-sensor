@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.9](https://github.com/Endika/influence-sensor/compare/v1.7.8...v1.7.9) (2026-09-05)
+
+
+### Chores
+
+* ignore the Biome reformat commit in git blame ([828acd8](https://github.com/Endika/influence-sensor/commit/828acd8f21710ba354954ddfce19a598178bf48b))
+
 ## [1.7.8](https://github.com/Endika/influence-sensor/compare/v1.7.7...v1.7.8) (2026-09-05)
 
 
