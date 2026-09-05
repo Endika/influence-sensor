@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.7.8](https://github.com/Endika/influence-sensor/compare/v1.7.7...v1.7.8) (2026-09-05)
+
+
+### Refactor
+
+* resolve Biome lint findings across adapters, charts and tests ([bcf3605](https://github.com/Endika/influence-sensor/commit/bcf36053015874e84bb8002d31297a033202f337))
+
+
+### Chores
+
+* **deps-dev:** bump @types/node in the minor-and-patch group ([c1c090c](https://github.com/Endika/influence-sensor/commit/c1c090ce354f0e1a742e8dfbc99d0ca45ef82c86))
+* **deps-dev:** bump @types/node in the minor-and-patch group ([380d588](https://github.com/Endika/influence-sensor/commit/380d588eb3a43737511cf84f19c01c9b7b40d45c))
+* **deps-dev:** bump the minor-and-patch group with 2 updates ([ff7f20e](https://github.com/Endika/influence-sensor/commit/ff7f20e15c0a33ba3d6cd4b612c55fe3767da595))
+* **deps-dev:** bump vite in the minor-and-patch group ([feb6f48](https://github.com/Endika/influence-sensor/commit/feb6f4817e8d7dd74b27347d6e013a07a5986e4c))
+* **lint:** add Biome config and gate scripts ([15a5918](https://github.com/Endika/influence-sensor/commit/15a5918a6f2ffc5d71936e3d2d1c8e4e50cd62e6))
+
 ## [1.7.7](https://github.com/Endika/influence-sensor/compare/v1.7.6...v1.7.7) (2026-08-03)
 
 
