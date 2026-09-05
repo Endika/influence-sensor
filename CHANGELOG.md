@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.10](https://github.com/Endika/influence-sensor/compare/v1.7.9...v1.7.10) (2026-09-05)
+
+
+### Chores
+
+* run the four CI gates in pre-commit ([3823926](https://github.com/Endika/influence-sensor/commit/38239267392fd8ad790b669dadaefaf8812b7e2c))
+
 ## [1.7.9](https://github.com/Endika/influence-sensor/compare/v1.7.8...v1.7.9) (2026-09-05)
 
 
