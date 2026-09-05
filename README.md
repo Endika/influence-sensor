@@ -57,9 +57,13 @@ who actually influences you.
 
 ```bash
 npm install
-npm run dev      # local dev server
-npm test         # run the test suite
-npm run build    # production build to dist/
+npm run dev           # local dev server
+npm run format        # apply Biome formatting
+npm run format:check  # verify formatting
+npm run lint          # Biome lint (warnings fail)
+npm run type:check    # tsc --noEmit
+npm run test:run      # run the test suite
+npm run build         # production build to dist/
 ```
 
 ## Tech
