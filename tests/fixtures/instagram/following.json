@@ -1,6 +1,16 @@
 {
   "relationships_following": [
-    { "title": "acc_followed", "string_list_data": [{ "href": "https://www.instagram.com/acc_followed", "timestamp": 1700000000 }] },
-    { "title": "acc_unengaged", "string_list_data": [{ "href": "https://www.instagram.com/acc_unengaged", "timestamp": 1700000001 }] }
+    {
+      "title": "acc_followed",
+      "string_list_data": [
+        { "href": "https://www.instagram.com/acc_followed", "timestamp": 1700000000 }
+      ]
+    },
+    {
+      "title": "acc_unengaged",
+      "string_list_data": [
+        { "href": "https://www.instagram.com/acc_unengaged", "timestamp": 1700000001 }
+      ]
+    }
   ]
 }

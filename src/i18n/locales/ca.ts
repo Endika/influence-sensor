@@ -1,6 +1,6 @@
 // Català
 export const ca: Record<string, string> = {
-  'coverage': 'Basat en la teva activitat de {from} a {to} (~{years} anys).',
+  coverage: 'Basat en la teva activitat de {from} a {to} (~{years} anys).',
   'legend.mutual': 'Mutus (cercle íntim)',
   'legend.followed': 'Segueixes (d’anada)',
   'legend.leak': 'No segueixes (parasocial)',
@@ -21,7 +21,8 @@ export const ca: Record<string, string> = {
   'weekday.caption': 'La teva activitat per dia de la setmana.',
   'venn.caption': 'Seguits vs seguidors — la intersecció són els teus mutus.',
   'infection.title': 'Índex d’infecció',
-  'infection.caption': 'Quant et capturen uns pocs comptes externs — concentració, els teus vectors principals i tiratge parasocial combinats. Més alt = més infectat.',
+  'infection.caption':
+    'Quant et capturen uns pocs comptes externs — concentració, els teus vectors principals i tiratge parasocial combinats. Més alt = més infectat.',
   'infection.low': 'Baixa',
   'infection.medium': 'Mitjana',
   'infection.high': 'Alta',
@@ -128,10 +129,12 @@ export const ca: Record<string, string> = {
     'Com més s’arrodoneix per sota de la diagonal puntejada, més es concentra la teva atenció en uns pocs comptes. Gini {gini}.',
 
   'bars.title': 'Cap on va la teva atenció',
-  'bars.caption': 'Quota de les teves interaccions totals que s’emporten els teus comptes principals.',
+  'bars.caption':
+    'Quota de les teves interaccions totals que s’emporten els teus comptes principals.',
 
   'table.title': 'Les dades en brut',
-  'table.caption': 'Tots els comptes amb els quals has interactuat, classificats. Aquí no hi ha res amagat ni manipulat.',
+  'table.caption':
+    'Tots els comptes amb els quals has interactuat, classificats. Aquí no hi ha res amagat ni manipulat.',
   'table.colRank': '#',
   'table.colAccount': 'Compte',
   'table.colInteractions': 'Interaccions',
@@ -139,4 +142,4 @@ export const ca: Record<string, string> = {
   'table.colFollowed': 'Seguit?',
   'table.yes': 'sí',
   'table.no': 'no',
-}
+};

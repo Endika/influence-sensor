@@ -1,7 +1,7 @@
 // English — source of truth. Every other locale mirrors these keys.
 // Placeholders use {name}. Usernames are never translated.
 export const en: Record<string, string> = {
-  'coverage': 'Based on your activity from {from} to {to} (~{years} years).',
+  coverage: 'Based on your activity from {from} to {to} (~{years} years).',
   'legend.mutual': 'Mutuals (inner circle)',
   'legend.followed': 'You follow (one-way)',
   'legend.leak': 'You don’t follow (parasocial)',
@@ -41,7 +41,8 @@ export const en: Record<string, string> = {
   'tk.hidden':
     '{watched} videos watched, {likes} likes and {comments} comments — none of them name the creator in the export.',
   'tk.relTitle': 'Your TikTok relationships',
-  'tk.relCaption': '{following} following · {followers} followers · {mutual} mutual · {blocked} blocked.',
+  'tk.relCaption':
+    '{following} following · {followers} followers · {mutual} mutual · {blocked} blocked.',
   'tk.activityTitle': 'How much you use TikTok',
   'tk.activityCaption':
     'Your activity volume over time (likes, comments and watch history), even though TikTok hides whose content it was.',
@@ -62,7 +63,8 @@ export const en: Record<string, string> = {
     'Set Format: JSON (not HTML) and Date range: All time for the fullest picture. Liked posts can’t be analysed (Instagram omits the author), so “Story interactions” gives the richest result.',
 
   'status.reading': 'Reading…',
-  'status.unrecognized': 'Unrecognized export. Is this an Instagram .zip downloaded in JSON format?',
+  'status.unrecognized':
+    'Unrecognized export. Is this an Instagram .zip downloaded in JSON format?',
   'status.noInteractions':
     'No likes/comments found. Did you download in HTML instead of JSON format?',
   'status.badZip': 'Could not read that file as a .zip.',
@@ -132,7 +134,8 @@ export const en: Record<string, string> = {
   'bars.caption': 'Share of your total interactions held by your top accounts.',
 
   'table.title': 'The raw data',
-  'table.caption': 'Every account you engaged with, ranked. Nothing here is hidden or modeled away.',
+  'table.caption':
+    'Every account you engaged with, ranked. Nothing here is hidden or modeled away.',
   'table.colRank': '#',
   'table.colAccount': 'Account',
   'table.colInteractions': 'Interactions',
@@ -140,4 +143,4 @@ export const en: Record<string, string> = {
   'table.colFollowed': 'Followed?',
   'table.yes': 'yes',
   'table.no': 'no',
-}
+};

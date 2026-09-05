@@ -1,6 +1,6 @@
 // Euskara
 export const eu: Record<string, string> = {
-  'coverage': '{from}etik {to}ra arteko zure jardueran oinarrituta (~{years} urte).',
+  coverage: '{from}etik {to}ra arteko zure jardueran oinarrituta (~{years} urte).',
   'legend.mutual': 'Elkarrekikoak (zirkulu estua)',
   'legend.followed': 'Jarraitzen dituzunak (norabide bakarrean)',
   'legend.leak': 'Ez dituzu jarraitzen (parasoziala)',
@@ -63,7 +63,8 @@ export const eu: Record<string, string> = {
     'Ezarri Formatua: JSON (ez HTML) eta Data-tartea: Hasiera-hasieratik, emaitzarik osoena lortzeko. Argitalpenetako "atsegin dut"-ak ezin dira aztertu (Instagram-ek autorea ez du jasotzen), beraz "Istorioekin elkarrekintzak" aukerak emaitza aberatsena ematen du.',
 
   'status.reading': 'Irakurtzen…',
-  'status.unrecognized': 'Esportazio ezezaguna. Instagram-eko .zip bat al da JSON formatuan deskargatua?',
+  'status.unrecognized':
+    'Esportazio ezezaguna. Instagram-eko .zip bat al da JSON formatuan deskargatua?',
   'status.noInteractions':
     'Ez dira atsegin dut/iruzkinik aurkitu. HTML formatuan deskargatu al duzu JSON ordez?',
   'status.badZip': 'Ezin izan da fitxategi hori .zip gisa irakurri.',
@@ -133,7 +134,8 @@ export const eu: Record<string, string> = {
   'bars.caption': 'Zure kontu nagusiek hartzen duten zure elkarrekintza guztien zatia.',
 
   'table.title': 'Datu gordinak',
-  'table.caption': 'Elkarrekin aritu zaren kontu guztiak, sailkatuta. Hemen ez dago ezer ezkutatu edo modelatuta.',
+  'table.caption':
+    'Elkarrekin aritu zaren kontu guztiak, sailkatuta. Hemen ez dago ezer ezkutatu edo modelatuta.',
   'table.colRank': '#',
   'table.colAccount': 'Kontua',
   'table.colInteractions': 'Elkarrekintzak',
@@ -141,4 +143,4 @@ export const eu: Record<string, string> = {
   'table.colFollowed': 'Jarraitua?',
   'table.yes': 'bai',
   'table.no': 'ez',
-}
+};
