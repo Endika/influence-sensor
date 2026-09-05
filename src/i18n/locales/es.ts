@@ -1,6 +1,6 @@
 // Español
 export const es: Record<string, string> = {
-  'coverage': 'Basado en tu actividad de {from} a {to} (~{years} años).',
+  coverage: 'Basado en tu actividad de {from} a {to} (~{years} años).',
   'legend.mutual': 'Mutuos (círculo íntimo)',
   'legend.followed': 'Sigues (de ida)',
   'legend.leak': 'No sigues (parasocial)',
@@ -40,7 +40,8 @@ export const es: Record<string, string> = {
   'tk.hidden':
     '{watched} vídeos vistos, {likes} me gusta y {comments} comentarios — ninguno trae el creador en el export.',
   'tk.relTitle': 'Tus relaciones en TikTok',
-  'tk.relCaption': '{following} seguidos · {followers} seguidores · {mutual} mutuos · {blocked} bloqueados.',
+  'tk.relCaption':
+    '{following} seguidos · {followers} seguidores · {mutual} mutuos · {blocked} bloqueados.',
   'tk.activityTitle': 'Cuánto usas TikTok',
   'tk.activityCaption':
     'Tu volumen de actividad en el tiempo (me gusta, comentarios e historial de visualización), aunque TikTok oculte de quién era el contenido.',
@@ -61,7 +62,8 @@ export const es: Record<string, string> = {
     'Pon Formato: JSON (no HTML) y Rango de fechas: Desde el principio para el resultado más completo. Los “me gusta” a posts no se pueden analizar (Instagram omite el autor), así que “Interacciones con historias” da el resultado más rico.',
 
   'status.reading': 'Leyendo…',
-  'status.unrecognized': 'Export no reconocido. ¿Es un .zip de Instagram descargado en formato JSON?',
+  'status.unrecognized':
+    'Export no reconocido. ¿Es un .zip de Instagram descargado en formato JSON?',
   'status.noInteractions':
     'No se encontraron me gusta/comentarios. ¿Lo descargaste en HTML en vez de JSON?',
   'status.badZip': 'No se pudo leer ese archivo como .zip.',
@@ -131,7 +133,8 @@ export const es: Record<string, string> = {
   'bars.caption': 'Cuota de tus interacciones totales que se llevan tus cuentas principales.',
 
   'table.title': 'Los datos crudos',
-  'table.caption': 'Todas las cuentas con las que interactuaste, clasificadas. Aquí no hay nada oculto ni manipulado.',
+  'table.caption':
+    'Todas las cuentas con las que interactuaste, clasificadas. Aquí no hay nada oculto ni manipulado.',
   'table.colRank': '#',
   'table.colAccount': 'Cuenta',
   'table.colInteractions': 'Interacciones',
@@ -139,4 +142,4 @@ export const es: Record<string, string> = {
   'table.colFollowed': '¿Seguida?',
   'table.yes': 'sí',
   'table.no': 'no',
-}
+};

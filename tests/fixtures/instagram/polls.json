@@ -1,3 +1,9 @@
 [
-  { "timestamp": 1700000500, "label_values": [{ "label": "Pregunta", "value": "Q?" }, { "label": "URL", "href": "https://www.instagram.com/stories/poll_user/" }] }
+  {
+    "timestamp": 1700000500,
+    "label_values": [
+      { "label": "Pregunta", "value": "Q?" },
+      { "label": "URL", "href": "https://www.instagram.com/stories/poll_user/" }
+    ]
+  }
 ]

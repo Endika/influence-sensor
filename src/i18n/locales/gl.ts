@@ -1,6 +1,6 @@
 // Galego
 export const gl: Record<string, string> = {
-  'coverage': 'Baseado na túa actividade de {from} a {to} (~{years} anos).',
+  coverage: 'Baseado na túa actividade de {from} a {to} (~{years} anos).',
   'legend.mutual': 'Mutuos (círculo íntimo)',
   'legend.followed': 'Segues (de ida)',
   'legend.leak': 'Non segues (parasocial)',
@@ -62,7 +62,8 @@ export const gl: Record<string, string> = {
     'Pon Formato: JSON (non HTML) e Intervalo de datas: Desde o principio para o resultado máis completo. Os "gústame" a publicacións non se poden analizar (Instagram omite o autor), así que "Interaccións con historias" dá o resultado máis rico.',
 
   'status.reading': 'Lendo…',
-  'status.unrecognized': 'Export non recoñecido. É un .zip de Instagram descargado en formato JSON?',
+  'status.unrecognized':
+    'Export non recoñecido. É un .zip de Instagram descargado en formato JSON?',
   'status.noInteractions':
     'Non se atoparon gústame/comentarios. Descargaches en HTML en vez de JSON?',
   'status.badZip': 'Non se puido ler ese ficheiro como .zip.',
@@ -132,7 +133,8 @@ export const gl: Record<string, string> = {
   'bars.caption': 'Cota das túas interaccións totais que se levan as túas contas principais.',
 
   'table.title': 'Os datos en bruto',
-  'table.caption': 'Todas as contas coas que interactuaches, clasificadas. Aquí non hai nada oculto nin modelado.',
+  'table.caption':
+    'Todas as contas coas que interactuaches, clasificadas. Aquí non hai nada oculto nin modelado.',
   'table.colRank': '#',
   'table.colAccount': 'Conta',
   'table.colInteractions': 'Interaccións',
@@ -140,4 +142,4 @@ export const gl: Record<string, string> = {
   'table.colFollowed': 'Seguida?',
   'table.yes': 'si',
   'table.no': 'non',
-}
+};

@@ -1,3 +1,9 @@
 [
-  { "timestamp": 1700000600, "label_values": [{ "label": "Nombre", "value": "CF Name" }, { "label": "Nombre de usuario", "value": "cf_user" }] }
+  {
+    "timestamp": 1700000600,
+    "label_values": [
+      { "label": "Nombre", "value": "CF Name" },
+      { "label": "Nombre de usuario", "value": "cf_user" }
+    ]
+  }
 ]

@@ -7,25 +7,25 @@ export type InteractionKind =
   | 'story_poll'
   | 'story_slider'
   | 'story_reaction'
-  | 'watch'
+  | 'watch';
 
 /** A single outbound action by the user toward another account. */
 export interface Interaction {
-  account: string
-  kind: InteractionKind
-  timestamp: number // unix seconds, 0 if unknown
+  account: string;
+  kind: InteractionKind;
+  timestamp: number; // unix seconds, 0 if unknown
 }
 
 /** The platform-agnostic shape every adapter must produce. */
 export interface NormalizedData {
-  interactions: Interaction[]
+  interactions: Interaction[];
   /** Accounts the user follows. */
-  follows: Set<string>
+  follows: Set<string>;
   /** Accounts that follow the user (when the export includes it). */
-  followers?: Set<string>
+  followers?: Set<string>;
   /** The user's "close friends" list (when present). */
-  closeFriends?: Set<string>
+  closeFriends?: Set<string>;
   /** Entries that record an interaction but whose target account the export omits
    *  (e.g. Instagram's newer liked_posts no longer names the post author). */
-  unattributed?: number
+  unattributed?: number;
 }

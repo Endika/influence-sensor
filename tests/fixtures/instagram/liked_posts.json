@@ -1,4 +1,10 @@
 [
-  { "timestamp": 1700000100, "label_values": [{ "label": "URL", "href": "https://www.instagram.com/reel/ABC123/" }] },
-  { "timestamp": 1700000101, "label_values": [{ "label": "URL", "href": "https://www.instagram.com/p/DEF456/" }] }
+  {
+    "timestamp": 1700000100,
+    "label_values": [{ "label": "URL", "href": "https://www.instagram.com/reel/ABC123/" }]
+  },
+  {
+    "timestamp": 1700000101,
+    "label_values": [{ "label": "URL", "href": "https://www.instagram.com/p/DEF456/" }]
+  }
 ]
