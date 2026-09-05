@@ -2,9 +2,21 @@ import JSZip from 'jszip';
 import { describe, expect, it } from 'vitest';
 import { youtubeAdapter } from '../../src/adapters/youtube';
 
+interface WatchEntry {
+  header: string;
+  title: string;
+  titleUrl: string;
+  time: string;
+  subtitles?: Array<{ name: string; url: string }>;
+}
+
 // A watched entry: the channel lives in subtitles[0] (name + /channel/ URL).
-function watched(title: string, videoId: string, channel?: { name: string; id: string }) {
-  const e: any = {
+function watched(
+  title: string,
+  videoId: string,
+  channel?: { name: string; id: string },
+): WatchEntry {
+  const e: WatchEntry = {
     header: 'YouTube',
     title: `Has visto ${title}`,
     titleUrl: `https://www.youtube.com/watch?v=${videoId}`,

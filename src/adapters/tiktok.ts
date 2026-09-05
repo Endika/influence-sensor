@@ -35,22 +35,25 @@ export function detectTikTok(zip: JSZip): boolean {
   return findFile(zip) !== null;
 }
 
-function arr(obj: any, ...path: string[]): any[] {
+function arr(obj: unknown, ...path: string[]): unknown[] {
   let cur = obj;
-  for (const p of path) cur = cur?.[p];
+  for (const p of path) cur = (cur as Record<string, unknown> | null | undefined)?.[p];
   return Array.isArray(cur) ? cur : [];
 }
 
 /** Parse "YYYY-MM-DD HH:MM:SS" (UTC) into unix seconds; 0 if unparseable. */
 function parseDate(s: unknown): number {
   if (typeof s !== 'string') return 0;
-  const t = Date.parse(s.replace(' ', 'T') + 'Z');
+  const t = Date.parse(`${s.replace(' ', 'T')}Z`);
   return Number.isNaN(t) ? 0 : Math.floor(t / 1000);
 }
 
-function usernames(entries: any[]): Set<string> {
+function usernames(entries: unknown[]): Set<string> {
   const set = new Set<string>();
-  for (const e of entries) if (e?.UserName) set.add(e.UserName);
+  for (const e of entries) {
+    const name = (e as { UserName?: string } | null | undefined)?.UserName;
+    if (name) set.add(name);
+  }
   return set;
 }
 
@@ -75,9 +78,9 @@ export async function parseTikTok(zip: JSZip): Promise<TikTokSummary> {
   let first = 0;
   let last = 0;
   let total = 0;
-  const ingest = (entries: any[], field: string) => {
+  const ingest = (entries: unknown[], field: string) => {
     for (const e of entries) {
-      const ts = parseDate(e?.[field]);
+      const ts = parseDate((e as Record<string, unknown> | null | undefined)?.[field]);
       if (!ts) continue;
       total++;
       const d = new Date(ts * 1000);

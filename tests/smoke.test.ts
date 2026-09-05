@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import { setLocale, LOCALES } from '../src/i18n';
+import { LOCALES, setLocale } from '../src/i18n';
 import { analyze } from '../src/report-model';
-import { renderReport } from '../src/ui/view';
 import type { Interaction, NormalizedData } from '../src/schema';
+import { renderReport } from '../src/ui/view';
 
 const mk = (a: string, n: number, kind: Interaction['kind'] = 'story_like'): Interaction[] =>
   Array.from({ length: n }, () => ({ account: a, kind, timestamp: 1700000000 }));
@@ -32,8 +32,8 @@ describe('renderReport smoke', () => {
   });
 });
 
-import { renderTikTokReport } from '../src/ui/tiktok-view';
 import type { TikTokSummary } from '../src/adapters/tiktok';
+import { renderTikTokReport } from '../src/ui/tiktok-view';
 
 describe('renderTikTokReport smoke', () => {
   it('renders the limited TikTok report in every locale', () => {

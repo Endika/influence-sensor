@@ -1,11 +1,11 @@
 import JSZip from 'jszip';
-import { detectLocale, getLocale, LOCALES, setLocale, t } from './i18n';
 import { detectAdapter } from './adapters/registry';
 import { detectTikTok, parseTikTok, type TikTokSummary } from './adapters/tiktok';
+import { detectLocale, getLocale, LOCALES, setLocale, t } from './i18n';
 import { excludeSelf, ownerFromFilename } from './owner';
 import { analyze, type Report } from './report-model';
-import { renderReport } from './ui/view';
 import { renderTikTokReport } from './ui/tiktok-view';
+import { renderReport } from './ui/view';
 import './style.css';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;

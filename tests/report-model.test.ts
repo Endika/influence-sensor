@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { NormalizedData } from '../src/schema';
 import { analyze } from '../src/report-model';
+import type { NormalizedData } from '../src/schema';
 
 function build(): NormalizedData {
   return {

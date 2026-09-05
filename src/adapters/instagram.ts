@@ -31,7 +31,7 @@ export function usernameFromUrl(url: string | undefined | null): string | null {
 }
 
 /** Instagram wraps the payload array under an unpredictable top-level key (or none). */
-function firstArray(json: unknown): any[] {
+function firstArray(json: unknown): unknown[] {
   if (Array.isArray(json)) return json;
   for (const value of Object.values((json ?? {}) as Record<string, unknown>)) {
     if (Array.isArray(value)) return value;
@@ -42,33 +42,41 @@ function firstArray(json: unknown): any[] {
 // label_values labels (localized) that hold a username directly.
 const USERNAME_LABELS = new Set(['Nombre de usuario', 'Username']);
 
+/** The union of the loose entry shapes Instagram uses across its export sections. */
+interface ExportEntry {
+  title?: string;
+  timestamp?: number;
+  string_map_data?: Record<string, { value?: string; timestamp?: number } | undefined>;
+  string_list_data?: Array<{ value?: string; timestamp?: number } | undefined>;
+  label_values?: Array<{ label?: string; value?: string; href?: string } | undefined>;
+}
+
 /** Resolve the target account of an interaction entry across old and new formats. */
-export function accountOf(entry: any): string | null {
+export function accountOf(entry: unknown): string | null {
   if (!entry || typeof entry !== 'object') return null;
+  const e = entry as ExportEntry;
   // Old format: the username sits directly in `title` (likes, liked comments).
-  if (typeof entry.title === 'string' && entry.title) return entry.title;
+  if (typeof e.title === 'string' && e.title) return e.title;
   // Comments: the media owner is the account you engaged with.
-  const owner = entry.string_map_data?.['Media Owner']?.value;
+  const owner = e.string_map_data?.['Media Owner']?.value;
   if (owner) return owner;
-  for (const lv of entry.label_values ?? []) {
+  for (const lv of e.label_values ?? []) {
     // Some sections (close friends) carry the username under a labelled field.
-    if (USERNAME_LABELS.has(lv?.label) && lv?.value) return lv.value;
+    if (lv?.value && lv.label && USERNAME_LABELS.has(lv.label)) return lv.value;
     // Otherwise the username is only recoverable from a profile/story URL.
     const account = usernameFromUrl(lv?.value || lv?.href);
     if (account) return account;
   }
   // Very old format: username in string_list_data[].value.
-  const legacy = entry.string_list_data?.[0]?.value;
+  const legacy = e.string_list_data?.[0]?.value;
   if (legacy) return legacy;
   return null;
 }
 
-function timestampOf(entry: any): number {
+function timestampOf(entry: unknown): number {
+  const e = (entry ?? {}) as ExportEntry;
   return (
-    entry?.timestamp ??
-    entry?.string_list_data?.[0]?.timestamp ??
-    entry?.string_map_data?.['Time']?.timestamp ??
-    0
+    e.timestamp ?? e.string_list_data?.[0]?.timestamp ?? e.string_map_data?.Time?.timestamp ?? 0
   );
 }
 
