@@ -1,0 +1,5 @@
+# Revisions to skip in `git blame`. Enable locally with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: format the repo with Biome
+0ad5ca912fe5908845042b0980d0f4892412522f
