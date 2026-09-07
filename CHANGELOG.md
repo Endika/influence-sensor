@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.11](https://github.com/Endika/influence-sensor/compare/v1.7.10...v1.7.11) (2026-09-07)
+
+
+### Chores
+
+* **deps-dev:** bump the minor-and-patch group with 2 updates ([377688d](https://github.com/Endika/influence-sensor/commit/377688d5fa5943c3f347deded532ae2cd1c88509))
+* **deps-dev:** bump vitest from 4.1.11 to 5.0.0 ([bf3633a](https://github.com/Endika/influence-sensor/commit/bf3633a12fe1b653645a353973ee23c32d736c10))
+
 ## [1.7.10](https://github.com/Endika/influence-sensor/compare/v1.7.9...v1.7.10) (2026-09-05)
 
 
