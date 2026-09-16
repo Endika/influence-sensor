@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/Endika/influence-sensor/compare/v1.8.0...v1.9.0) (2026-09-16)
+
+
+### Features
+
+* **ci:** add CodeQL static analysis ([2e45db0](https://github.com/Endika/influence-sensor/commit/2e45db0405de742f8a99482e98e52cc8aaec5d98))
+
 ## [1.8.0](https://github.com/Endika/influence-sensor/compare/v1.7.11...v1.8.0) (2026-09-16)
 
 
