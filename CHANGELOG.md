@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/Endika/influence-sensor/compare/v1.7.11...v1.8.0) (2026-09-16)
+
+
+### Features
+
+* **ci:** block PRs that introduce high-severity dependency advisories ([a43d1b7](https://github.com/Endika/influence-sensor/commit/a43d1b755f8a6c7132a754b6b289afdf951bf923))
+
 ## [1.7.11](https://github.com/Endika/influence-sensor/compare/v1.7.10...v1.7.11) (2026-09-07)
 
 
