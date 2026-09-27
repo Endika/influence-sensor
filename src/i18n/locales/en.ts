@@ -17,7 +17,7 @@ export const en: Record<string, string> = {
   'kind.saved': 'Saved',
   'kind.watch': 'Videos watched',
   'year.title': 'Your activity over the years',
-  'year.caption': 'Interactions per calendar year — how your Instagram use has evolved.',
+  'year.caption': 'Interactions per calendar year — how your use has evolved.',
   'weekday.title': 'Which days you engage',
   'weekday.caption': 'Your activity by day of the week.',
   'venn.caption': 'Following vs followers — the overlap is your mutuals.',
@@ -50,7 +50,7 @@ export const en: Record<string, string> = {
   'drop.ytHelpSteps':
     'In Google Takeout (takeout.google.com): Deselect all → tick only “YouTube and YouTube Music” → under “All YouTube data included” keep History and subscriptions → click “Multiple formats” and set History to JSON (not HTML) → create the export and download the .zip. Heads-up: only your watch history names the channel, so videos without one (about 1 in 3) and your comments/likes can’t be attributed.',
   'drop.prompt':
-    'Pick or drop your Instagram data export (.zip in JSON format). It never leaves your browser.',
+    'Pick or drop your Instagram, YouTube or TikTok data export (.zip in JSON format). It never leaves your browser.',
   'drop.helpSummary': 'How to download the right export',
   'drop.helpSteps':
     'In Instagram: Settings → Accounts Center → Your information and permissions → Download your information. Choose “Some of your information” and tick:',
@@ -64,7 +64,7 @@ export const en: Record<string, string> = {
 
   'status.reading': 'Reading…',
   'status.unrecognized':
-    'Unrecognized export. Is this an Instagram .zip downloaded in JSON format?',
+    'Unrecognized export. Is this an Instagram, YouTube or TikTok .zip downloaded in JSON format?',
   'status.noInteractions':
     'No likes/comments found. Did you download in HTML instead of JSON format?',
   'status.badZip': 'Could not read that file as a .zip.',
@@ -91,7 +91,7 @@ export const en: Record<string, string> = {
 
   'graph.title': 'Your attention graph',
   'graph.caption':
-    'You are at the center. Each node is an account you engage with — bigger = more of your attention. Pink = accounts you follow and engage with (they capture you). Orange = you engage without following (attention leak). Drag nodes to explore.',
+    'You are at the center. Each node is an account you engage with — bigger = more of your attention. Pink = mutuals (your inner circle). Orange = accounts you follow one-way. Blue = you engage without following (attention leak). Drag nodes to explore.',
 
   'net.title': 'You vs your network',
   'net.caption':
@@ -109,7 +109,7 @@ export const en: Record<string, string> = {
 
   'bubble.title': 'Your bubble',
   'bubble.caption':
-    'How much of your attention stays inside your own circle — accounts you follow, and mutuals who follow you back. A high % isn’t necessarily bad: it means a curated circle, not algorithm-fed strangers. Low means you look outward more. It’s a trade-off, not a score.',
+    'How much of your attention stays inside your own circle — accounts you follow, and mutuals who follow you back. A high % isn’t necessarily bad: it means a curated circle, not algorithm-fed strangers. Low means you look outward more.',
   'bubble.followed': 'Attention to accounts you follow',
   'bubble.mutual': 'Attention to mutuals (inner circle)',
 

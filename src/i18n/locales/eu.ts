@@ -16,7 +16,7 @@ export const eu: Record<string, string> = {
   'kind.saved': 'Gordeta',
   'kind.watch': 'Ikusitako bideoak',
   'year.title': 'Zure jarduera urteetan zehar',
-  'year.caption': 'Elkarrekintzak urteka — nola ebolucionatu duen zure Instagram erabilpenak.',
+  'year.caption': 'Elkarrekintzak urteka — nola ebolucionatu duen zure erabilpenak.',
   'weekday.title': 'Zein egunetan engantxatzen zaren',
   'weekday.caption': 'Zure jarduera asteko egunaren arabera.',
   'venn.caption': 'Jarraituak vs jarraitzaileak — intersekzioa zure elkarrekikoak dira.',
@@ -50,7 +50,7 @@ export const eu: Record<string, string> = {
   'drop.ytHelpSteps':
     'Google Takeout-en (takeout.google.com): Desautatu guztia → markatu "YouTube and YouTube Music" bakarrik → "All YouTube data included" atalean mantendu Historia eta harpidetzak → sakatu "Multiple formats" eta ezarri Historia JSON formatuan (ez HTML) → sortu esportazioa eta deskargatu .zip fitxategia. Oharra: zure ikusketa-historiak bakarrik adierazten du kanala, beraz kanalik gabeko bideoak (3tik 1, gutxi gorabehera) eta zure iruzkin/atsegin dutak ezin dira atribuitu.',
   'drop.prompt':
-    'Aukeratu edo jaregin zure Instagram datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
+    'Aukeratu edo jaregin zure Instagram, YouTube edo TikTok datu-esportazioa (.zip JSON formatuan). Ez da inoiz zure nabigatzailetik irteten.',
   'drop.helpSummary': 'Nola deskargatu esportazio egokia',
   'drop.helpSteps':
     'Instagram-en: Ezarpenak → Kontu-zentroa → Zure informazioa eta baimenak → Deskargatu zure informazioa. Hautatu "Zure informazioaren zati bat" eta markatu:',
@@ -64,7 +64,7 @@ export const eu: Record<string, string> = {
 
   'status.reading': 'Irakurtzen…',
   'status.unrecognized':
-    'Esportazio ezezaguna. Instagram-eko .zip bat al da JSON formatuan deskargatua?',
+    'Esportazio ezezaguna. Instagram, YouTube edo TikTok-eko .zip bat al da JSON formatuan deskargatua?',
   'status.noInteractions':
     'Ez dira atsegin dut/iruzkinik aurkitu. HTML formatuan deskargatu al duzu JSON ordez?',
   'status.badZip': 'Ezin izan da fitxategi hori .zip gisa irakurri.',
@@ -91,7 +91,7 @@ export const eu: Record<string, string> = {
 
   'graph.title': 'Zure arreta-grafikoa',
   'graph.caption':
-    'Zu zaude erdian. Nodo bakoitza elkarrekin aritzen zaren kontu bat da — handiagoa = zure arreta gehiago. Arrosa = jarraitzen dituzun eta elkarrekin aritzen zaren kontuak (hauek bereganatzen zaituzte). Laranja = jarraitu gabe elkarrekin aritzen zara (arreta-ihesa). Arrastatu nodoak esploratzeko.',
+    'Zu zaude erdian. Nodo bakoitza elkarrekin aritzen zaren kontu bat da — handiagoa = zure arreta gehiago. Arrosa = elkarrekikoak (zure zirkulu estua). Laranja = jarraitzen dituzun baina zu jarraitzen ez zaituzten kontuak. Urdina = jarraitu gabe elkarrekin aritzen zara (arreta-ihesa). Arrastatu nodoak esploratzeko.',
 
   'net.title': 'Zu eta zure sarea',
   'net.caption':
@@ -109,7 +109,7 @@ export const eu: Record<string, string> = {
 
   'bubble.title': 'Zure burbuila',
   'bubble.caption':
-    'Zure arretaren zenbatekoa geratzen den zure zirkuluan — jarraitzen dituzun kontuak eta itzultzen dizuten mutualak. Ehuneko altua ez da nahitaez txarra: aukeratutako zirkulua esan nahi du, ez algoritmoak ematen dizkizun ezezagunak. Baxua = kanpora gehiago begiratzen duzu. Oreka bat da, ez nota bat.',
+    'Zure arretaren zenbatekoa geratzen den zure zirkuluan — jarraitzen dituzun kontuak eta itzultzen dizuten mutualak. Ehuneko altua ez da nahitaez txarra: aukeratutako zirkulua esan nahi du, ez algoritmoak ematen dizkizun ezezagunak. Baxua = kanpora gehiago begiratzen duzu.',
   'bubble.followed': 'Arreta jarraitzen dituzun kontuetan',
   'bubble.mutual': 'Arreta elkarrekikoetan (barne-zirkulua)',
 

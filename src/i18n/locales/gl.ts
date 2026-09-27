@@ -16,7 +16,7 @@ export const gl: Record<string, string> = {
   'kind.saved': 'Gardados',
   'kind.watch': 'Vídeos vistos',
   'year.title': 'A túa actividade ao longo dos anos',
-  'year.caption': 'Interaccións por ano — como evolucionou o teu uso de Instagram.',
+  'year.caption': 'Interaccións por ano — como evolucionou o teu uso.',
   'weekday.title': 'Que días te enganchas',
   'weekday.caption': 'A túa actividade por día da semana.',
   'venn.caption': 'Seguidos vs seguidores — a intersección son os teus mutuos.',
@@ -49,7 +49,7 @@ export const gl: Record<string, string> = {
   'drop.ytHelpSteps':
     'En Google Takeout (takeout.google.com): Desmarca todo → marca só "YouTube e YouTube Music" → en "Todos os datos de YouTube incluídos" mantén o Historial e as subscricións → preme "Varios formatos" e pon o Historial en JSON (non HTML) → crea o export e descarga o .zip. Aviso: só o teu historial de visualización nomea a canle, así que os vídeos sen ela (arredor de 1 de cada 3) e os teus comentarios/gústame non se poden atribuír.',
   'drop.prompt':
-    'Escolle ou solta o teu export de Instagram (.zip en formato JSON). Non sae nunca do teu navegador.',
+    'Escolle ou solta o teu export de Instagram, YouTube ou TikTok (.zip en formato JSON). Non sae nunca do teu navegador.',
   'drop.helpSummary': 'Como descargar o export correcto',
   'drop.helpSteps':
     'En Instagram: Configuración → Centro de contas → A túa información e permisos → Descargar a túa información. Escolle "Parte da túa información" e marca:',
@@ -63,7 +63,7 @@ export const gl: Record<string, string> = {
 
   'status.reading': 'Lendo…',
   'status.unrecognized':
-    'Export non recoñecido. É un .zip de Instagram descargado en formato JSON?',
+    'Export non recoñecido. É un .zip de Instagram, YouTube ou TikTok descargado en formato JSON?',
   'status.noInteractions':
     'Non se atoparon gústame/comentarios. Descargaches en HTML en vez de JSON?',
   'status.badZip': 'Non se puido ler ese ficheiro como .zip.',
@@ -90,7 +90,7 @@ export const gl: Record<string, string> = {
 
   'graph.title': 'O teu grafo de atención',
   'graph.caption':
-    'Estás no centro. Cada nodo é unha conta coa que interactúas — máis grande = máis atención. Rosa = contas que segues e coas que interactúas (cáptante). Laranxa = interactúas sen seguílas (fuga de atención). Arrastra os nodos para explorar.',
+    'Estás no centro. Cada nodo é unha conta coa que interactúas — máis grande = máis atención. Rosa = mutuos (o teu círculo íntimo). Laranxa = contas que segues e non te seguen. Azul = interactúas sen seguílas (fuga de atención). Arrastra os nodos para explorar.',
 
   'net.title': 'Ti vs a túa rede',
   'net.caption':
@@ -108,7 +108,7 @@ export const gl: Record<string, string> = {
 
   'bubble.title': 'A túa burbulla',
   'bubble.caption':
-    'Canta da túa atención fica dentro do teu círculo — contas que segues e mutuos que te seguen. Unha % alta non é necesariamente mala: significa un círculo elixido, non descoñecidos que che mete o algoritmo. Baixa = miras máis cara a fóra. É un equilibrio, non unha nota.',
+    'Canta da túa atención fica dentro do teu círculo — contas que segues e mutuos que te seguen. Unha % alta non é necesariamente mala: significa un círculo elixido, non descoñecidos que che mete o algoritmo. Baixa = miras máis cara a fóra.',
   'bubble.followed': 'Atención a contas que segues',
   'bubble.mutual': 'Atención a mutuos (círculo íntimo)',
 

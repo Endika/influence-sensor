@@ -16,7 +16,7 @@ export const es: Record<string, string> = {
   'kind.saved': 'Guardados',
   'kind.watch': 'Vídeos vistos',
   'year.title': 'Tu actividad a lo largo de los años',
-  'year.caption': 'Interacciones por año — cómo ha evolucionado tu uso de Instagram.',
+  'year.caption': 'Interacciones por año — cómo ha evolucionado tu uso.',
   'weekday.title': 'Qué días te enganchas',
   'weekday.caption': 'Tu actividad por día de la semana.',
   'venn.caption': 'Seguidos vs seguidores — la intersección son tus mutuos.',
@@ -49,7 +49,7 @@ export const es: Record<string, string> = {
   'drop.ytHelpSteps':
     'En Google Takeout (takeout.google.com): Deselecciona todo → marca solo «YouTube y YouTube Music» → en «Se han incluido todos los datos de YouTube» deja Historial y suscripciones → pulsa «Varios formatos» y pon Historial en JSON (no HTML) → crea la exportación y descarga el .zip. Aviso: solo el historial de reproducciones nombra el canal, así que los vídeos sin canal (1 de cada 3) y tus comentarios/likes no se pueden atribuir.',
   'drop.prompt':
-    'Elige o suelta tu export de Instagram (.zip en formato JSON). Nunca sale de tu navegador.',
+    'Elige o suelta tu export de Instagram, YouTube o TikTok (.zip en formato JSON). Nunca sale de tu navegador.',
   'drop.helpSummary': 'Cómo descargar el export correcto',
   'drop.helpSteps':
     'En Instagram: Configuración → Centro de cuentas → Tu información y permisos → Descargar tu información. Elige “Parte de tu información” y marca:',
@@ -63,7 +63,7 @@ export const es: Record<string, string> = {
 
   'status.reading': 'Leyendo…',
   'status.unrecognized':
-    'Export no reconocido. ¿Es un .zip de Instagram descargado en formato JSON?',
+    'Export no reconocido. ¿Es un .zip de Instagram, YouTube o TikTok descargado en formato JSON?',
   'status.noInteractions':
     'No se encontraron me gusta/comentarios. ¿Lo descargaste en HTML en vez de JSON?',
   'status.badZip': 'No se pudo leer ese archivo como .zip.',
@@ -90,7 +90,7 @@ export const es: Record<string, string> = {
 
   'graph.title': 'Tu grafo de atención',
   'graph.caption':
-    'Estás en el centro. Cada nodo es una cuenta con la que interactúas — más grande = más atención. Rosa = cuentas que sigues e interactúas (te captan). Naranja = interactúas sin seguirlas (fuga de atención). Arrastra los nodos para explorar.',
+    'Estás en el centro. Cada nodo es una cuenta con la que interactúas — más grande = más atención. Rosa = mutuos (tu círculo íntimo). Naranja = cuentas que sigues y no te siguen. Azul = interactúas sin seguirlas (fuga de atención). Arrastra los nodos para explorar.',
 
   'net.title': 'Tú vs tu red',
   'net.caption':
@@ -108,7 +108,7 @@ export const es: Record<string, string> = {
 
   'bubble.title': 'Tu burbuja',
   'bubble.caption':
-    'Cuánta de tu atención se queda dentro de tu círculo — cuentas que sigues y mutuos que te siguen de vuelta. Un % alto no es necesariamente malo: significa un círculo elegido, no desconocidos que te mete el algoritmo. Bajo = miras más hacia fuera. Es un equilibrio, no una nota.',
+    'Cuánta de tu atención se queda dentro de tu círculo — cuentas que sigues y mutuos que te siguen de vuelta. Un % alto no es necesariamente malo: significa un círculo elegido, no desconocidos que te mete el algoritmo. Bajo = miras más hacia fuera.',
   'bubble.followed': 'Atención a cuentas que sigues',
   'bubble.mutual': 'Atención a mutuos (círculo íntimo)',
 
