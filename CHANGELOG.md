@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.2](https://github.com/Endika/influence-sensor/compare/v1.9.1...v1.9.2) (2026-09-27)
+
+
+### Bug Fixes
+
+* correct the graph colour legend and name YouTube and TikTok in the drop copy ([1a9be7f](https://github.com/Endika/influence-sensor/commit/1a9be7fa4984d2b1d4d645491e9393355656e84b))
+
 ## [1.9.1](https://github.com/Endika/influence-sensor/compare/v1.9.0...v1.9.1) (2026-09-27)
 
 
