@@ -3,14 +3,12 @@
 ### ▶ Try it live: **https://endika.github.io/influence-sensor/**
 
 Find out **how captured your social feed is** — which accounts actually own your attention,
-not just who you follow. Drop your Instagram data export and get a health score, an
-interactive graph, and the raw numbers behind it. (A limited, relationships-only mode also
-supports TikTok exports — TikTok hides who you engage with.)
+not just who you follow. Drop your Instagram or YouTube data export and get a health score, an
+interactive graph, and the raw numbers behind it. (A limited mode also supports TikTok
+exports — TikTok hides who you engage with.)
 
 Everything runs in your browser. Your export is never uploaded or stored — a strict
-Content-Security-Policy (`connect-src 'none'`) makes that enforceable, not just a promise.
-
-<!-- ![screenshot](docs/screenshot.png) — add after first run -->
+Content-Security-Policy (`connect-src 'none'`) enforces it.
 
 ## Use it
 
@@ -22,6 +20,11 @@ Content-Security-Policy (`connect-src 'none'`) makes that enforceable, not just 
    richest result.)
 3. Open the app and drop — or pick — the `.zip` you received. Read your report. Nothing leaves
    your machine.
+
+**YouTube:** in [Google Takeout](https://takeout.google.com), deselect all, tick only **YouTube and
+YouTube Music**, keep **History** and **subscriptions**, set History to **JSON** under **Multiple
+formats**, then drop the `.zip`. Only your watch history names the channel, so videos without one
+and your comments and likes can't be attributed.
 
 **TikTok (limited):** Profile → ☰ → **Settings and privacy → Account → Download your data**,
 request your **Activity** data in **JSON** format, then drop that `.zip`. TikTok hides the creator
