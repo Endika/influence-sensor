@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/Endika/influence-sensor/compare/v1.9.0...v1.9.1) (2026-09-27)
+
+
+### Bug Fixes
+
+* name unreadable export sections and stop blaming every failure on the zip ([9317eb3](https://github.com/Endika/influence-sensor/commit/9317eb3ae2e64d3db90d026deef28f5d9f16dfa1))
+
 ## [1.9.0](https://github.com/Endika/influence-sensor/compare/v1.8.0...v1.9.0) (2026-09-16)
 
 
