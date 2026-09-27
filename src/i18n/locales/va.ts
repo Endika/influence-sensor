@@ -16,7 +16,7 @@ export const va: Record<string, string> = {
   'kind.saved': 'Guardats',
   'kind.watch': 'Vídeos vistos',
   'year.title': 'La teua activitat al llarg dels anys',
-  'year.caption': "Interaccions per any — com ha evolucionat el teu ús d'Instagram.",
+  'year.caption': 'Interaccions per any — com ha evolucionat el teu ús.',
   'weekday.title': "Quins dies t'enganxes",
   'weekday.caption': 'La teua activitat per dia de la setmana.',
   'venn.caption': 'Seguits vs seguidors — la intersecció són els teus mutus.',
@@ -49,7 +49,7 @@ export const va: Record<string, string> = {
   'drop.ytHelpSteps':
     'En Google Takeout (takeout.google.com): Desmarca-ho tot → marca només "YouTube i YouTube Music" → davall de "Totes les dades de YouTube incloses" deixa Historial i subscripcions → fes clic en "Diversos formats" i posa Historial en JSON (no HTML) → crea l\'exportació i descarrega el .zip. Avís: només el teu historial de visualització indica el canal, així que els vídeos sense canal (al voltant d\'1 de cada 3) i els teus comentaris/likes no es poden atribuir.',
   'drop.prompt':
-    "Tria o arrossega el teu export d'Instagram (.zip en format JSON). Mai ix del teu navegador.",
+    "Tria o arrossega el teu export d'Instagram, YouTube o TikTok (.zip en format JSON). Mai ix del teu navegador.",
   'drop.helpSummary': "Com descarregar l'export correcte",
   'drop.helpSteps':
     'En Instagram: Configuració → Centre de comptes → La teua informació i permisos → Descarrega la teua informació. Tria "Part de la teua informació" i marca:',
@@ -62,7 +62,8 @@ export const va: Record<string, string> = {
     'Posa Format: JSON (no HTML) i Rang de dates: Des del principi per al resultat més complet. Els "m\'agrada" a posts no es poden analitzar (Instagram omet l\'autor), així que "Interaccions amb històries" dona el resultat més ric.',
 
   'status.reading': 'Llegint…',
-  'status.unrecognized': "Export no reconegut. És un .zip d'Instagram descarregat en format JSON?",
+  'status.unrecognized':
+    "Export no reconegut. És un .zip d'Instagram, YouTube o TikTok descarregat en format JSON?",
   'status.noInteractions':
     "No s'han trobat m'agrada/comentaris. L'has descarregat en HTML en compte de JSON?",
   'status.badZip': "No s'ha pogut llegir este fitxer com a .zip.",
@@ -89,7 +90,7 @@ export const va: Record<string, string> = {
 
   'graph.title': "El teu graf d'atenció",
   'graph.caption':
-    "Estàs al centre. Cada node és un compte amb el qual interactues — més gran = més atenció. Rosa = comptes que segueixes i amb els quals interactues (et capturen). Taronja = interactues sense seguir-los (fuga d'atenció). Arrossega els nodes per a explorar.",
+    "Estàs al centre. Cada node és un compte amb el qual interactues — més gran = més atenció. Rosa = mutus (el teu cercle íntim). Taronja = comptes que segueixes i no et seguixen. Blau = interactues sense seguir-los (fuga d'atenció). Arrossega els nodes per a explorar.",
 
   'net.title': 'Tu vs la teua xarxa',
   'net.caption':
@@ -107,7 +108,7 @@ export const va: Record<string, string> = {
 
   'bubble.title': 'La teua bombolla',
   'bubble.caption':
-    'Quanta de la teua atenció es queda dins del teu cercle — comptes que segueixes i mutus que et seguixen. Un % alt no és necessàriament dolent: vol dir un cercle triat, no desconeguts que et posa l’algoritme. Baix = mires més cap a fora. És un equilibri, no una nota.',
+    'Quanta de la teua atenció es queda dins del teu cercle — comptes que segueixes i mutus que et seguixen. Un % alt no és necessàriament dolent: vol dir un cercle triat, no desconeguts que et posa l’algoritme. Baix = mires més cap a fora.',
   'bubble.followed': 'Atenció a comptes que segueixes',
   'bubble.mutual': 'Atenció a mutus (cercle íntim)',
 
