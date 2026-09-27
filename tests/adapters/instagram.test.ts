@@ -127,6 +127,27 @@ describe('instagramAdapter.parse', () => {
   });
 });
 
+describe('instagramAdapter.parse with corrupt sections', () => {
+  it('names every unreadable section and still parses the rest', async () => {
+    const zip = await buildZip();
+    zip.file('your_instagram_activity/story_interactions/story_likes.json', '[{"title": "cut');
+    zip.file('connections/followers_and_following/followers_1.json', 'not json');
+    const data = await instagramAdapter.parse(zip);
+    expect(data.unreadable).toEqual([
+      'your_instagram_activity/story_interactions/story_likes.json',
+      'connections/followers_and_following/followers_1.json',
+    ]);
+    // The 2 story likes are gone; the other 3 attributable interactions remain.
+    expect(data.interactions).toHaveLength(3);
+    expect(data.follows).toEqual(new Set(['acc_followed', 'acc_unengaged']));
+  });
+
+  it('reports no unreadable sections for a clean export', async () => {
+    const data = await instagramAdapter.parse(await buildZip());
+    expect(data.unreadable).toEqual([]);
+  });
+});
+
 describe('extractAccountSet', () => {
   it('reads close-friends usernames from the "Nombre de usuario" label', () => {
     expect(extractAccountSet(fix('close_friends.json'))).toEqual(new Set(['cf_user']));

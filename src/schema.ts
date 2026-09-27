@@ -28,4 +28,6 @@ export interface NormalizedData {
   /** Entries that record an interaction but whose target account the export omits
    *  (e.g. Instagram's newer liked_posts no longer names the post author). */
   unattributed?: number;
+  /** Zip paths of sections that matched but could not be read, so they are missing from the report. */
+  unreadable?: string[];
 }

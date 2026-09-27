@@ -35,10 +35,23 @@ function channelAttributedCount(json: unknown): number {
   return n;
 }
 
-async function readJsonArray(file: JSZip.JSZipObject): Promise<unknown> {
+/** Read a file's text, recording its path in `unreadable` when it is corrupt. */
+async function readText(zip: JSZip, path: string, unreadable: string[]): Promise<string | null> {
   try {
-    return JSON.parse(await file.async('string'));
+    return await zip.files[path].async('string');
   } catch {
+    unreadable.push(path);
+    return null;
+  }
+}
+
+async function readJson(zip: JSZip, path: string, unreadable: string[]): Promise<unknown> {
+  const text = await readText(zip, path, unreadable);
+  if (text === null) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    unreadable.push(path);
     return null;
   }
 }
@@ -73,12 +86,12 @@ const isYouTubePath = (p: string) => /(^|\/)YouTube[^/]*\//i.test(p) || /\/Takeo
  * Find the watch-history JSON by content, not by its (localized) name: among all
  * YouTube JSON arrays, pick the one with the most channel-attributed entries.
  */
-async function findWatchHistory(zip: JSZip): Promise<WatchEntry[] | null> {
+async function findWatchHistory(zip: JSZip, unreadable: string[]): Promise<WatchEntry[] | null> {
   let best: WatchEntry[] | null = null;
   let bestScore = 0;
   for (const path of Object.keys(zip.files)) {
     if (!path.toLowerCase().endsWith('.json') || !isYouTubePath(path)) continue;
-    const json = await readJsonArray(zip.files[path]);
+    const json = await readJson(zip, path, unreadable);
     const score = channelAttributedCount(json);
     if (score > bestScore) {
       bestScore = score;
@@ -89,10 +102,14 @@ async function findWatchHistory(zip: JSZip): Promise<WatchEntry[] | null> {
 }
 
 /** Find the subscriptions CSV by structure: a row whose 2nd column is a /channel/ URL. */
-async function findSubscriptions(zip: JSZip): Promise<Array<[string, string]>> {
+async function findSubscriptions(
+  zip: JSZip,
+  unreadable: string[],
+): Promise<Array<[string, string]>> {
   for (const path of Object.keys(zip.files)) {
     if (!path.toLowerCase().endsWith('.csv') || !isYouTubePath(path)) continue;
-    const text = await zip.files[path].async('string');
+    const text = await readText(zip, path, unreadable);
+    if (text === null) continue;
     const rows = text
       .split(/\r?\n/)
       .filter((l) => l.trim())
@@ -117,7 +134,8 @@ export const youtubeAdapter = {
   },
 
   async parse(zip: JSZip): Promise<NormalizedData> {
-    const history = (await findWatchHistory(zip)) ?? [];
+    const unreadable: string[] = [];
+    const history = (await findWatchHistory(zip, unreadable)) ?? [];
 
     const interactions: Interaction[] = [];
     let unattributed = 0;
@@ -139,10 +157,10 @@ export const youtubeAdapter = {
     // Subscriptions → follows, reconciled to the watch-history name when the id is known
     // (survives channel renames so follow-vs-engage stays accurate).
     const follows = new Set<string>();
-    for (const [id, title] of await findSubscriptions(zip)) {
+    for (const [id, title] of await findSubscriptions(zip, unreadable)) {
       follows.add(idToName.get(id) ?? title);
     }
 
-    return { interactions, follows, unattributed };
+    return { interactions, follows, unattributed, unreadable };
   },
 };

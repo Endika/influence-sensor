@@ -222,6 +222,12 @@ export function renderReport(root: HTMLElement, report: Report): void {
     root.appendChild(banner);
   }
 
+  if (report.unreadable.length > 0) {
+    root.appendChild(
+      notice(t('notice.unreadable', { files: report.unreadable.join(', ') }), 'warn'),
+    );
+  }
+
   if (report.totalInteractions < MIN_RELIABLE_INTERACTIONS) {
     root.appendChild(notice(t('notice.lowData', { n: report.totalInteractions }), 'warn'));
   }

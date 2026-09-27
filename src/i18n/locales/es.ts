@@ -67,7 +67,10 @@ export const es: Record<string, string> = {
   'status.noInteractions':
     'No se encontraron me gusta/comentarios. ¿Lo descargaste en HTML en vez de JSON?',
   'status.badZip': 'No se pudo leer ese archivo como .zip.',
+  'status.readFailed': 'El .zip se abrió, pero no se pudo leer su contenido.',
 
+  'notice.unreadable':
+    'Algunas secciones del export no se pudieron leer y faltan en este informe: {files}',
   'notice.lowData':
     'Solo se encontraron {n} interacciones atribuibles — insuficiente para un veredicto fiable. Los números de abajo se muestran por transparencia, pero toma el score como orientativo. Vuelve a exportar en JSON con un rango de fechas mayor e incluyendo “Interacciones con historias”.',
   'notice.unattributed':

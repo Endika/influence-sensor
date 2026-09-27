@@ -66,7 +66,10 @@ export const ca: Record<string, string> = {
   'status.noInteractions':
     'No s’han trobat m’agrada/comentaris. L’has descarregat en HTML en lloc de JSON?',
   'status.badZip': 'No s’ha pogut llegir aquest fitxer com a .zip.',
+  'status.readFailed': 'El .zip s’ha obert, però no se n’ha pogut llegir el contingut.',
 
+  'notice.unreadable':
+    'Algunes seccions de l’export no s’han pogut llegir i falten en aquest informe: {files}',
   'notice.lowData':
     'Només s’han trobat {n} interaccions atribuïbles — insuficients per a un veredicte fiable. Les xifres de sota es mostren per transparència, però tracta la puntuació com a orientativa. Torna a exportar en JSON amb un rang de dates més ampli i inclou "Interaccions amb històries".',
   'notice.unattributed':

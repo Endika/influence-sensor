@@ -32,6 +32,27 @@ describe('renderReport smoke', () => {
   });
 });
 
+describe('unreadable sections notice', () => {
+  it('names the unreadable sections in every locale', () => {
+    const report = analyze({ ...data, unreadable: ['a/story_likes.json', 'b/followers_1.json'] });
+    for (const { code } of LOCALES) {
+      setLocale(code);
+      const root = document.createElement('div');
+      renderReport(root, report);
+      const warn = [...root.querySelectorAll('.notice-warn')].map((n) => n.textContent).join();
+      expect(warn).toContain('a/story_likes.json, b/followers_1.json');
+    }
+    setLocale('en');
+  });
+
+  it('shows no such notice when every section was read', () => {
+    const root = document.createElement('div');
+    renderReport(root, analyze(data));
+    expect(root.textContent).not.toContain('{files}');
+    expect(root.querySelectorAll('.notice-warn')).toHaveLength(0);
+  });
+});
+
 import type { TikTokSummary } from '../src/adapters/tiktok';
 import { renderTikTokReport } from '../src/ui/tiktok-view';
 

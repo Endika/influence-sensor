@@ -68,7 +68,10 @@ export const en: Record<string, string> = {
   'status.noInteractions':
     'No likes/comments found. Did you download in HTML instead of JSON format?',
   'status.badZip': 'Could not read that file as a .zip.',
+  'status.readFailed': 'The .zip opened, but its contents could not be read.',
 
+  'notice.unreadable':
+    'Some sections of the export could not be read and are missing from this report: {files}',
   'notice.lowData':
     'Only {n} attributable interactions found — not enough for a reliable verdict. The numbers below are shown for transparency, but treat the score as indicative only. Re-export from Instagram in JSON with a wider date range and “Story interactions” included.',
   'notice.unattributed':
