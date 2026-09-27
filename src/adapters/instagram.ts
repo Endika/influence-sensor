@@ -111,11 +111,12 @@ export function extractAccountSet(json: unknown): Set<string> {
 /** Following list. Kept as a named export for clarity; same logic as a generic set. */
 export const extractFollows = extractAccountSet;
 
-async function readJson(file: JSZip.JSZipObject | null): Promise<unknown | null> {
-  if (!file) return null;
+/** Parse a section, recording its path in `unreadable` when it is corrupt. */
+async function readJson(zip: JSZip, path: string, unreadable: string[]): Promise<unknown | null> {
   try {
-    return JSON.parse(await file.async('string'));
+    return JSON.parse(await zip.files[path].async('string'));
   } catch {
+    unreadable.push(path);
     return null;
   }
 }
@@ -138,11 +139,15 @@ const SECTION_KINDS: Array<{ match: (path: string) => boolean; kind: Interaction
 ];
 
 /** Aggregate the accounts from every file whose path matches `pred` (e.g. followers_1, followers_2). */
-async function readAccountSet(zip: JSZip, pred: (path: string) => boolean): Promise<Set<string>> {
+async function readAccountSet(
+  zip: JSZip,
+  pred: (path: string) => boolean,
+  unreadable: string[],
+): Promise<Set<string>> {
   const set = new Set<string>();
   for (const path of Object.keys(zip.files)) {
     if (!pred(path)) continue;
-    const json = await readJson(zip.files[path]);
+    const json = await readJson(zip, path, unreadable);
     if (json) for (const account of extractAccountSet(json)) set.add(account);
   }
   return set;
@@ -164,21 +169,30 @@ export const instagramAdapter = {
   async parse(zip: JSZip): Promise<NormalizedData> {
     const interactions: Interaction[] = [];
     let unattributed = 0;
+    const unreadable: string[] = [];
 
     for (const path of Object.keys(zip.files)) {
       const section = SECTION_KINDS.find((s) => s.match(path));
       if (!section) continue;
-      const json = await readJson(zip.files[path]);
+      const json = await readJson(zip, path, unreadable);
       if (!json) continue;
       const res = entriesToInteractions(json, section.kind);
       interactions.push(...res.interactions);
       unattributed += res.unattributed;
     }
 
-    const follows = await readAccountSet(zip, (p) => p.endsWith('following.json'));
-    const followers = await readAccountSet(zip, (p) => /(^|\/)followers(_\d+)?\.json$/.test(p));
-    const closeFriends = await readAccountSet(zip, (p) => p.endsWith('close_friends.json'));
+    const follows = await readAccountSet(zip, (p) => p.endsWith('following.json'), unreadable);
+    const followers = await readAccountSet(
+      zip,
+      (p) => /(^|\/)followers(_\d+)?\.json$/.test(p),
+      unreadable,
+    );
+    const closeFriends = await readAccountSet(
+      zip,
+      (p) => p.endsWith('close_friends.json'),
+      unreadable,
+    );
 
-    return { interactions, follows, followers, closeFriends, unattributed };
+    return { interactions, follows, followers, closeFriends, unattributed, unreadable };
   },
 };

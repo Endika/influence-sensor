@@ -33,6 +33,8 @@ export interface Report {
   topTenShare: number;
   /** Interactions whose target account the export omitted (e.g. attribution-less liked posts). */
   unattributed: number;
+  /** Export sections that could not be read, so their interactions are missing. */
+  unreadable: string[];
   accounts: AccountStat[]; // ranked by interactions desc
   followVsEngage: { followedIgnored: number; followedEngaged: number; engagedNotFollowed: number };
   insights: Insights;
@@ -65,6 +67,7 @@ export function analyze(data: NormalizedData): Report {
     entropy: entropy(counts),
     topTenShare: topNShare(counts, 10),
     unattributed: data.unattributed ?? 0,
+    unreadable: data.unreadable ?? [],
     accounts,
     followVsEngage: {
       followedIgnored: fve.followedIgnored.length,

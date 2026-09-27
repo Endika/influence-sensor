@@ -24,5 +24,6 @@ export function excludeSelf(data: NormalizedData, self: string | null): Normaliz
     followers: without(data.followers),
     closeFriends: without(data.closeFriends),
     unattributed: data.unattributed,
+    unreadable: data.unreadable,
   };
 }

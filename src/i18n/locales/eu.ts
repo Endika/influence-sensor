@@ -68,7 +68,10 @@ export const eu: Record<string, string> = {
   'status.noInteractions':
     'Ez dira atsegin dut/iruzkinik aurkitu. HTML formatuan deskargatu al duzu JSON ordez?',
   'status.badZip': 'Ezin izan da fitxategi hori .zip gisa irakurri.',
+  'status.readFailed': '.zip-a ireki da, baina ezin izan da haren edukia irakurri.',
 
+  'notice.unreadable':
+    'Esportazioaren atal batzuk ezin izan dira irakurri, eta txosten honetan falta dira: {files}',
   'notice.lowData':
     '{n} elkarrekintza atribuigarri baino ez dira aurkitu — ez da nahikoa epai fidagarri baterako. Beheko zenbakiak gardentasunagatik erakusten dira, baina puntuazioa orientagarritzat hartu. Berresportatu Instagram-etik JSON formatuan, data-tarte zabalagoarekin eta "Istorioekin elkarrekintzak" sartuta.',
   'notice.unattributed':

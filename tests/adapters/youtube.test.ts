@@ -125,4 +125,18 @@ describe('youtube adapter', () => {
     expect(en.follows).toEqual(es.follows);
     expect(en.unattributed).toBe(es.unattributed);
   });
+
+  it('names a corrupt JSON file instead of silently losing the watch history', async () => {
+    const zip = spanishZip();
+    const path = 'Takeout/YouTube y YouTube Music/historial/historial-de-reproducciones.json';
+    zip.file(path, '[{"header": "YouTube", "subti');
+    const data = await youtubeAdapter.parse(zip);
+    expect(data.unreadable).toEqual([path]);
+    expect(data.interactions).toHaveLength(0);
+  });
+
+  it('reports no unreadable files for a clean Takeout', async () => {
+    const data = await youtubeAdapter.parse(spanishZip());
+    expect(data.unreadable).toEqual([]);
+  });
 });

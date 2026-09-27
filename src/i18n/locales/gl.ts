@@ -67,7 +67,10 @@ export const gl: Record<string, string> = {
   'status.noInteractions':
     'Non se atoparon gústame/comentarios. Descargaches en HTML en vez de JSON?',
   'status.badZip': 'Non se puido ler ese ficheiro como .zip.',
+  'status.readFailed': 'O .zip abriuse, pero non se puido ler o seu contido.',
 
+  'notice.unreadable':
+    'Algunhas seccións do export non se puideron ler e faltan neste informe: {files}',
   'notice.lowData':
     'Só se atoparon {n} interaccións atribuíbles — insuficiente para un veredicto fiable. Os números de abaixo móstranse por transparencia, pero toma o score como orientativo. Vuelve a exportar en JSON cun intervalo de datas maior e incluíndo "Interaccións con historias".',
   'notice.unattributed':

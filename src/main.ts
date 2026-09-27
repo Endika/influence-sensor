@@ -1,9 +1,7 @@
-import JSZip from 'jszip';
-import { detectAdapter } from './adapters/registry';
-import { detectTikTok, parseTikTok, type TikTokSummary } from './adapters/tiktok';
+import type { TikTokSummary } from './adapters/tiktok';
 import { detectLocale, getLocale, LOCALES, setLocale, t } from './i18n';
-import { excludeSelf, ownerFromFilename } from './owner';
-import { analyze, type Report } from './report-model';
+import { loadExport } from './load';
+import type { Report } from './report-model';
 import { renderTikTokReport } from './ui/tiktok-view';
 import { renderReport } from './ui/view';
 import './style.css';
@@ -63,30 +61,33 @@ async function handleFile(file: File, results: HTMLElement): Promise<void> {
   status.textContent = t('status.reading');
   results.appendChild(status);
   try {
-    const zip = await JSZip.loadAsync(file);
-    if (detectTikTok(zip)) {
-      lastTikTok = await parseTikTok(zip);
-      lastReport = null;
-      status.remove();
-      renderTikTokReport(results, lastTikTok);
-      return;
+    const result = await loadExport(file, file.name);
+    switch (result.kind) {
+      case 'badZip':
+      case 'unrecognized':
+        status.textContent = t(`status.${result.kind}`);
+        return;
+      case 'noInteractions':
+        status.textContent = t('status.noInteractions');
+        if (result.unreadable.length > 0) {
+          status.textContent += ` ${t('notice.unreadable', { files: result.unreadable.join(', ') })}`;
+        }
+        return;
+      case 'tiktok':
+        lastTikTok = result.summary;
+        lastReport = null;
+        status.remove();
+        renderTikTokReport(results, lastTikTok);
+        return;
+      case 'report':
+        lastReport = result.report;
+        lastTikTok = null;
+        status.remove();
+        renderReport(results, lastReport);
     }
-    const adapter = detectAdapter(zip);
-    if (!adapter) {
-      status.textContent = t('status.unrecognized');
-      return;
-    }
-    const data = excludeSelf(await adapter.parse(zip), ownerFromFilename(file.name));
-    if (data.interactions.length === 0) {
-      status.textContent = t('status.noInteractions');
-      return;
-    }
-    lastReport = analyze(data);
-    lastTikTok = null;
-    status.remove();
-    renderReport(results, lastReport);
-  } catch {
-    status.textContent = t('status.badZip');
+  } catch (err) {
+    console.error(err);
+    status.textContent = t('status.readFailed');
   }
 }
 
