@@ -180,7 +180,7 @@ export function computeInsights(data: NormalizedData): Insights {
     trend,
     temporal: {
       byHour,
-      busiestHour: busiestHour < 0 ? 0 : busiestHour,
+      busiestHour: Math.max(busiestHour, 0),
       spanDays,
       dated: stamps.length,
       firstTs,

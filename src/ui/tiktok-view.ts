@@ -94,7 +94,7 @@ export function renderTikTokReport(root: HTMLElement, s: TikTokSummary): void {
     const when = section(
       t('when.title'),
       t('when.caption', {
-        hour: busiest < 0 ? 0 : busiest,
+        hour: Math.max(busiest, 0),
         days: Math.round((a.lastTs - a.firstTs) / 86400),
       }),
     );
